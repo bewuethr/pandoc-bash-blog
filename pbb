@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+rm --recursive --force artifacts
+mkdir --parents artifacts
+cp --recursive images artifacts
+
+# Create index
+{
+	printf '%s\n\n' "# Benjamin's blog"
+	for f in ????-??-??-*.md; do
+		read -r _ title < "$f"
+		printf -- '- [%s](%s)\n' "$title" "${f/%.md/.html}"
+	done | tac
+} > index.md
+
+for f in *.md; do
+	pandoc \
+		--from=markdown \
+		--to=html \
+		--output="artifacts/${f/%.md/.html}" \
+		--standalone \
+		"$f"
+done
+
+rm index.md
