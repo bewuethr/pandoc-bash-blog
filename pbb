@@ -25,3 +25,7 @@ for f in *.md; do
 done
 
 rm index.md
+
+# Pull artifacts into master branch to deploy
+git checkout master
+cp --recursive artifacts/* .
