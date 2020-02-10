@@ -14,7 +14,7 @@ Markdown][pandocmd], with filenames formatted like `YYYY-MM-DD-post-title.md`.
 
 The first line of a file has to be a level-one heading:
 
-```md
+```markdown
 # A blog post
 ```
 
