@@ -28,4 +28,9 @@ rm index.md
 
 # Pull artifacts into master branch to deploy
 git checkout master
+rm --recursive --force !(artifacts)
 cp --recursive artifacts/* .
+git add --all
+git commit --message='Publish blog'
+git push
+git checkout -
