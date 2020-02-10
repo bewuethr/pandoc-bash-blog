@@ -8,7 +8,7 @@ on Pandoc and Bash. Progress is chronicled at <https://bewuethr.github.io>.
 `pbb` is currently hardcoded to use the title of my own blog.
 
 It expects to be run in the same directory as blog posts written in [Pandoc
-Markdown][pandocmd], with filenames formmatted like `YYYY-MM-DD-post-title.md`.
+Markdown][pandocmd], with filenames formatted like `YYYY-MM-DD-post-title.md`.
 
 [pandocmd]: https://pandoc.org/MANUAL.html#pandocs-markdown
 
