@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -o errexit
+shopt -s extglob
 
 rm --recursive --force artifacts
 mkdir --parents artifacts
