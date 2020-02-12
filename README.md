@@ -26,3 +26,22 @@ To deploy, the script assumes that it is in a Git repository in a branch other
 than `master`; the generated HTML files are pulled into the `master` branch,
 committed and then pushed to a remote. This works for GitHub pages deploying
 the `master` branch.
+
+## Subcommands
+
+There are two subcommands:
+
+### `pbb build`
+
+- Cleans the `artifacts` directory, then copies the `images` directory in there
+- Generates the index file, `index.md`
+- Converts the markdown files with datestamps in their names and `index.md` to
+  HTML, copies the results into `artifacts`
+
+### `pbb deploy`
+
+- Checks out the `master` branch
+- Deletes everything but the `artifacts` directory
+- Copies the contents of `artifacts` into the repository root directory
+- Adds, commits and pushes everything to the remote
+- Checks out the previous branch
