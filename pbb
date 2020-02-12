@@ -40,7 +40,7 @@ md2html() {
 		--to=html \
 		--output="artifacts/${file/%.md/.html}" \
 		--standalone \
-		--metadata=pagetitle:"$title" \
+		--metadata="pagetitle:$title" \
 		"$file"
 }
 
