@@ -14,9 +14,9 @@ usage() {
 	cat <<- EOF >&2
 		usage: pbb help | build | deploy
 
-		   help      Display this message
-		   build     Generate HTML files and store them in artifacts directory
-		   deploy    Copy artifacts into master branch and push to remote
+		   help    Display this message
+		   build   Generate HTML files and store them in artifacts directory
+		   deploy  Copy artifacts into master branch and push to remote
 	EOF
 }
 
