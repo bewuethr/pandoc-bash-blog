@@ -41,6 +41,7 @@ md2html() {
 		--output="artifacts/${file/%.md/.html}" \
 		--standalone \
 		--metadata="pagetitle:$title" \
+		--metadata="lang:en-CA" \
 		"$file"
 }
 
