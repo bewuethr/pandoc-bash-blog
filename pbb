@@ -3,36 +3,83 @@
 set -o errexit
 shopt -s extglob
 
-rm --recursive --force artifacts
-mkdir --parents artifacts
-cp --recursive images artifacts
+# Print error message and exit
+die() {
+	printf '%s\n' "$*" >&2
+	exit 1
+}
 
-# Create index
-{
-	printf '%s\n\n' "# Benjamin's blog"
-	for f in ????-??-??-*.md; do
-		read -r _ title < "$f"
-		printf -- '- [%s](%s)\n' "$title" "${f/%.md/.html}"
-	done | tac
-} > index.md
+# Print usage hint
+usage() {
+	cat <<- EOF >&2
+		usage: pbb help | build | deploy
 
-# Convert markdown files to HTML
-for f in ????-??-??-*.md index.md; do
+		   help      Display this message
+		   build     Generate HTML files and store them in artifacts directory
+		   deploy    Copy artifacts into master branch and push to remote
+	EOF
+}
+
+# Convert a markdown file to HTML and store it in the artifacts directory
+md2html() {
+	local file=$1
+	[[ $file == *.md ]] || die "not a markdown file: $file"
 	pandoc \
 		--from=markdown \
 		--to=html \
-		--output="artifacts/${f/%.md/.html}" \
+		--output="artifacts/${file/%.md/.html}" \
 		--standalone \
-		"$f"
-done
+		"$file"
+}
 
-rm index.md
+# Empty artifacts and copy images directory
+clean() {
+	rm --recursive --force artifacts
+	mkdir --parents artifacts
+	cp --recursive images artifacts
+}
+
+# Build all pages
+build() {
+	clean
+
+	# Build index file and convert posts
+	{
+		printf '%s\n\n' "# Benjamin's blog"
+		local f title
+		for f in ????-??-??-*.md; do
+			read -r _ title < "$f"
+			printf -- '- [%s](%s)\n' "$title" "${f/%.md/.html}"
+			md2html "$f"
+		done | tac
+	} > index.md
+
+	# Convert index file
+	md2html index.md
+
+	rm index.md
+}
 
 # Pull artifacts into master branch to deploy
-git checkout master
-rm --recursive --force !(artifacts)
-cp --recursive artifacts/* .
-git add --all
-git commit --message='Publish blog'
-git push
-git checkout -
+deploy() {
+	git checkout master
+	rm --recursive --force !(artifacts)
+	cp --recursive artifacts/* .
+	git add --all
+	git commit --message='Publish blog'
+	git push
+	git checkout -
+}
+
+if (($# != 1)); then
+	usage
+	exit 1
+fi
+
+subcmd=$1
+
+case $subcmd in
+	help) usage ;;
+	build) build ;;
+	deploy) deploy ;;
+esac
