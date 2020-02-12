@@ -16,7 +16,8 @@ cp --recursive images artifacts
 	done | tac
 } > index.md
 
-for f in *.md; do
+# Convert markdown files to HTML
+for f in ????-??-??-*.md index.md; do
 	pandoc \
 		--from=markdown \
 		--to=html \
