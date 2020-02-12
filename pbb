@@ -20,6 +20,14 @@ usage() {
 	EOF
 }
 
+# Extract the title from a markdown file
+extracttitle() {
+	local title
+	local file=$1
+	read -r _ title < "$file"
+	printf '%s\n' "$title"
+}
+
 # Convert a markdown file to HTML and store it in the artifacts directory
 md2html() {
 	local file=$1
@@ -48,7 +56,7 @@ build() {
 		printf '%s\n\n' "# Benjamin's blog"
 		local f title
 		for f in ????-??-??-*.md; do
-			read -r _ title < "$f"
+			title=$(extracttitle "$f")
 			printf -- '- [%s](%s)\n' "$title" "${f/%.md/.html}"
 			md2html "$f"
 		done | tac
