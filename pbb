@@ -31,12 +31,16 @@ extracttitle() {
 # Convert a markdown file to HTML and store it in the artifacts directory
 md2html() {
 	local file=$1
+	local title=$2
 	[[ $file == *.md ]] || die "not a markdown file: $file"
+
+	title=$(extracttitle "$file")
 	pandoc \
 		--from=markdown \
 		--to=html \
 		--output="artifacts/${file/%.md/.html}" \
 		--standalone \
+		--metadata=pagetitle:"$title" \
 		"$file"
 }
 
