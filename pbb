@@ -12,11 +12,38 @@ die() {
 # Print usage hint
 usage() {
 	cat <<- EOF >&2
-		usage: pbb help | build | deploy
-
+		usage: pbb help | init | build | deploy
+		
 		   help    Display this message
+		   init    Initialize new blog in empty Git repository
 		   build   Generate HTML files and store them in artifacts directory
 		   deploy  Copy artifacts into master branch and push to remote
+	EOF
+}
+
+# Initialize new blog
+init() {
+	# Source branch
+	git checkout -b source
+
+	# Ignore artifacts directory
+	echo 'artifacts/' > .gitignore
+	git add .gitignore
+	git commit -m "Add artifacts to .gitignore"
+
+	local blogtitle
+	read -rp "Enter blog title: " blogtitle
+
+	# Header
+	mkdir --parents includes images
+	printf '<a href="./">%s</a>\n' "$blogtitle" > includes/header.html
+	git add includes
+	git commit -m "Add header to includes"
+
+	cat <<- EOF > "$(date '+%F')-my-first-post.md"
+		# My first post
+		
+		Hello world!
 	EOF
 }
 
@@ -98,6 +125,7 @@ subcmd=$1
 
 case $subcmd in
 	help) usage ;;
+	init) init ;;
 	build) build ;;
 	deploy) deploy ;;
 	*) usage ;;
