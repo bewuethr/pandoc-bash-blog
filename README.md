@@ -5,9 +5,7 @@ on Pandoc and Bash. Progress is chronicled at <https://bewuethr.github.io>.
 
 ## Usage
 
-`pbb` is currently hardcoded to use the title of my own blog.
-
-It expects to be run in the same directory as blog posts written in [Pandoc
+`pbb` expects to be run in the same directory as blog posts written in [Pandoc
 Markdown][pandocmd], with filenames formatted like `YYYY-MM-DD-post-title.md`.
 
 [pandocmd]: https://pandoc.org/MANUAL.html#pandocs-markdown
@@ -29,7 +27,17 @@ the `master` branch.
 
 ## Subcommands
 
-There are two subcommands:
+There are three subcommands:
+
+### `pbb init`
+
+- Creates new `source` branch and checks it out
+- Add artifacts directory to `.gitignore`
+- Prompts for the blog title
+- Creates the `includes` and `images` directories
+- Creates a header file with the blog title in `includes` which is used on
+  every page
+- Creates an example post
 
 ### `pbb build`
 
