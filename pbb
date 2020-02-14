@@ -43,7 +43,7 @@ md2html() {
 		'--standalone'
 		"--metadata=pagetitle:$title"
 		'--metadata=lang:en-CA'
-		'--include-before-body=header.html'
+		'--include-before-body=includes/header.html'
 	)
 
 	pandoc "${args[@]}" "$file"
