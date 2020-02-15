@@ -82,7 +82,12 @@ md2html() {
 		"--include-before-body=$header"
 	)
 
-	pandoc "${args[@]}" "$file"
+	{
+		if [[ $file = ????-??-??-* ]]; then
+			printf '%s\n\n' "${file:0:10}"
+		fi
+		cat "$file"
+	} | pandoc "${args[@]}"
 }
 
 # Empty artifacts and copy images directory
