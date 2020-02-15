@@ -3,6 +3,8 @@
 set -o errexit
 shopt -s extglob
 
+declare -r header='includes/header.html'
+
 # Print error message and exit
 die() {
 	printf '%s\n' "$*" >&2
@@ -44,7 +46,7 @@ init() {
 
 	# Header
 	mkdir --parents includes images
-	printf '<a href="./">%s</a>\n' "$blogtitle" > includes/header.html
+	printf '[%s](./)\n' "$blogtitle" | pandoc > "$header"
 	git add includes
 	git commit -m "Initialize blog with pbb"
 
@@ -82,7 +84,7 @@ md2html() {
 		'--standalone'
 		"--metadata=pagetitle:$title"
 		'--metadata=lang:en-CA'
-		'--include-before-body=includes/header.html'
+		"--include-before-body=$header"
 	)
 
 	pandoc "${args[@]}" "$file"
