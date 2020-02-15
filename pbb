@@ -70,12 +70,7 @@ md2html() {
 	local file=$1
 	[[ $file == *.md ]] || die "not a markdown file: $file"
 
-	local title
-	if (($# > 1)); then
-		title=$2
-	else
-		title=$(extracttitle "$file")
-	fi
+	local title=$2
 
 	local args=(
 		'--from=markdown'
@@ -119,7 +114,7 @@ build() {
 			title=$(extracttitle "$f")
 			printf -- '- %s &ndash; [%s](%s)\n' \
 				"${f:0:10}" "$title" "${f/%.md/.html}"
-			md2html "$f"
+			md2html "$f" "$title"
 		done | tac
 	} > index.md
 
