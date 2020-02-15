@@ -115,7 +115,8 @@ build() {
 		local f title
 		for f in ????-??-??-*.md; do
 			title=$(extracttitle "$f")
-			printf -- '- [%s](%s)\n' "$title" "${f/%.md/.html}"
+			printf -- '- %s &ndash; [%s](%s)\n' \
+				"${f:0:10}" "$title" "${f/%.md/.html}"
 			md2html "$f"
 		done | tac
 	} > index.md
