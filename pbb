@@ -26,19 +26,27 @@ init() {
 	# Source branch
 	git checkout -b source
 
+	if [[ -e .pbbconfig ]]; then
+		die "This pbb blog seems to have been initalized already"
+	fi
+
 	# Ignore artifacts directory
 	echo 'artifacts/' > .gitignore
 	git add .gitignore
-	git commit -m "Add artifacts to .gitignore"
 
 	local blogtitle
 	read -rp "Enter blog title: " blogtitle
+
+	# Store title to config file, single quoted with inner single quotes
+	# escaped
+	printf '%s\n' "blogtitle='${blogtitle//"'"/"'\''"}'" > .pbbconfig
+	git add .pbbconfig
 
 	# Header
 	mkdir --parents includes images
 	printf '<a href="./">%s</a>\n' "$blogtitle" > includes/header.html
 	git add includes
-	git commit -m "Add header to includes"
+	git commit -m "Initialize blog with pbb"
 
 	cat <<- EOF > "$(date '+%F')-my-first-post.md"
 		# My first post
@@ -61,7 +69,11 @@ md2html() {
 	[[ $file == *.md ]] || die "not a markdown file: $file"
 
 	local title
-	title=$(extracttitle "$file")
+	if (($# > 1)); then
+		title=$2
+	else
+		title=$(extracttitle "$file")
+	fi
 
 	local args=(
 		'--from=markdown'
@@ -83,6 +95,16 @@ clean() {
 	cp --recursive images artifacts
 }
 
+# Get value from config file
+getconfvalue() {
+	local key=$1
+	(
+		# shellcheck disable=SC1091
+		source .pbbconfig
+		printf '%s' "${!key}"
+	)
+}
+
 # Build all pages
 build() {
 	clean
@@ -99,7 +121,7 @@ build() {
 	} > index.md
 
 	# Convert index file
-	md2html index.md
+	md2html index.md "$(getconfvalue 'blogtitle')"
 
 	rm index.md
 }
