@@ -83,7 +83,7 @@ md2html() {
 	)
 
 	{
-		if [[ $file = ????-??-??-* ]]; then
+		if [[ $file == ????-??-??-* ]]; then
 			printf '%s\n\n' "${file:0:10}"
 		fi
 		cat "$file"
