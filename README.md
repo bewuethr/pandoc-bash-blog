@@ -29,11 +29,10 @@ the `master` branch.
 
 There are three subcommands:
 
-### `pbb init`
+### `pbb init 'Title of the blog'`
 
 - Creates new `source` branch and checks it out
 - Add artifacts directory to `.gitignore`
-- Prompts for the blog title
 - Creates the `includes` and `images` directories
 - Creates a header file with the blog title in `includes` which is used on
   every page
