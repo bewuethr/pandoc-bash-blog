@@ -45,7 +45,7 @@ init() {
 
 	# Header
 	mkdir --parents includes images
-	printf '[%s](./)\n' "$blogtitle" | pandoc > "$header"
+	printf '[%s](./)\n' "$blogtitle" | pandoc --html-q-tags > "$header"
 	git add includes
 	git commit -m "Initialize blog with pbb"
 
@@ -72,13 +72,14 @@ md2html() {
 	local title=$2
 
 	local args=(
-		'--from=markdown'
-		'--to=html'
-		"--output=artifacts/${file/%.md/.html}"
-		'--standalone'
-		"--metadata=pagetitle:$title"
-		'--metadata=lang:en-CA'
+		"--from=markdown"
+		"--html-q-tags"
 		"--include-before-body=$header"
+		"--metadata=lang:en-CA"
+		"--metadata=pagetitle:$title"
+		"--output=artifacts/${file/%.md/.html}"
+		"--standalone"
+		"--to=html"
 	)
 
 	{
