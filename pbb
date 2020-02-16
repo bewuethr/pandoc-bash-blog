@@ -72,6 +72,7 @@ md2html() {
 	local title=$2
 
 	local args=(
+		"--css=/pbb.css"
 		"--from=markdown"
 		"--html-q-tags"
 		"--include-before-body=$header"
@@ -127,6 +128,7 @@ build() {
 	md2html index.md "$(getconfvalue 'blogtitle')"
 
 	rm index.md
+	cp assets/pbb.css artifacts
 }
 
 # Pull artifacts into master branch to deploy
