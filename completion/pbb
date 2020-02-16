@@ -1,0 +1,3 @@
+complete -W 'help init build deploy' pbb
+
+# vim: ft=sh
