@@ -50,7 +50,7 @@ init() {
 	git add includes
 	git commit -m "Initialize blog with pbb"
 
-	cat <<- EOF > "$(date '+%F')-my-first-post.md"
+	cat <<- EOF > "$(printf '%(%F)T' -1)-my-first-post.md"
 		# My first post
 		
 		Hello world!
