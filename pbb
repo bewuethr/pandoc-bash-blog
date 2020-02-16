@@ -14,7 +14,7 @@ die() {
 # Print usage hint
 usage() {
 	cat <<- EOF >&2
-		usage: pbb help | init | build | deploy
+		usage: pbb help | init TITLE | build | deploy
 		
 		   help    Display this message
 		   init    Initialize new blog in empty Git repository
@@ -25,6 +25,8 @@ usage() {
 
 # Initialize new blog
 init() {
+	local blogtitle=$1
+
 	# Source branch
 	git checkout -b source
 
@@ -35,9 +37,6 @@ init() {
 	# Ignore artifacts directory
 	echo 'artifacts/' > .gitignore
 	git add .gitignore
-
-	local blogtitle
-	read -rp "Enter blog title: " blogtitle
 
 	# Store title to config file, single quoted with inner single quotes
 	# escaped
@@ -141,7 +140,7 @@ deploy() {
 	git checkout -
 }
 
-if (($# != 1)); then
+if (($# < 1)); then
 	usage
 	exit 1
 fi
@@ -150,7 +149,12 @@ subcmd=$1
 
 case $subcmd in
 	help) usage ;;
-	init) init ;;
+	init)
+		if (($# < 2)); then
+			die "usage: pbb init 'My blog title'"
+		fi
+		init "${*:2}"
+		;;
 	build) build ;;
 	deploy) deploy ;;
 	*) usage ;;
