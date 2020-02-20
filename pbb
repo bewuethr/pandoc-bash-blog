@@ -23,6 +23,21 @@ usage() {
 	EOF
 }
 
+# Get the language setting from the environment
+getlang() {
+	local lang=${LANGUAGE:-${LC_ALL:-${LC_MESSAGES:-$LANG}}}
+
+	# Shorten and replace underscore with hyphen to get IETF tag
+	lang=${lang%%[.:@]*}
+	lang=${lang/_/-}
+
+	if [[ -z $lang ]] || [[ $lang == @(C|POSIX) ]]; then
+		lang='en-US'
+	fi
+
+	printf '%s' "$lang"
+}
+
 # Initialize new blog
 init() {
 	local blogtitle=$1
@@ -76,7 +91,7 @@ md2html() {
 		"--from=markdown"
 		"--html-q-tags"
 		"--include-before-body=$header"
-		"--metadata=lang:en-CA"
+		"--metadata=lang:$(getlang)"
 		"--metadata=pagetitle:$title"
 		"--output=artifacts/${file/%.md/.html}"
 		"--standalone"
