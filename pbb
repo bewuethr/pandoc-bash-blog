@@ -14,11 +14,12 @@ die() {
 # Print usage hint
 usage() {
 	cat <<- EOF >&2
-		usage: pbb help | init TITLE | build | deploy
+		usage: pbb help | init TITLE | build | serve | deploy
 		
 		   help    Display this message
 		   init    Initialize new blog in empty Git repository
 		   build   Generate HTML files and store them in artifacts directory
+		   serve   Serve blog on localhost:8000
 		   deploy  Copy artifacts into master branch and push to remote
 	EOF
 }
@@ -146,6 +147,19 @@ build() {
 	cp assets/pbb.css artifacts
 }
 
+# Serve blog from localhost
+serve() {
+	if [[ ! -d artifacts ]]; then
+		die "can't find artifacts directory; try \"pbb build\""
+	fi
+
+	if [[ ! -e artifacts/index.html ]]; then
+		die "can't find index file; try \"pbb build\""
+	fi
+
+	python3 -m http.server --directory artifacts
+}
+
 # Pull artifacts into master branch to deploy
 deploy() {
 	git checkout master
@@ -174,6 +188,7 @@ case $subcmd in
 		init "${*:2}"
 		;;
 	build) build ;;
+	serve) serve ;;
 	deploy) deploy ;;
 	*) usage ;;
 esac
