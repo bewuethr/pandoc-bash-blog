@@ -20,6 +20,8 @@ This is then extracted to generate the index file. The index file links to all
 files following the naming convention above and lists them in reverse
 alphabetical order, with the newest post at the top.
 
+Images must be stored in the `images` directory.
+
 To deploy, the script assumes that it is in a Git repository in a branch other
 than `master`; the generated HTML files are pulled into the `master` branch,
 committed and then pushed to a remote. This works for GitHub pages deploying
@@ -27,7 +29,7 @@ the `master` branch.
 
 ## Subcommands
 
-There are three subcommands:
+There are four subcommands (five, if you count `pbb help`):
 
 ### `pbb init 'Title of the blog'`
 
@@ -44,6 +46,10 @@ There are three subcommands:
 - Generates the index file, `index.md`
 - Converts the markdown files with datestamps in their names and `index.md` to
   HTML, copies the results into `artifacts`
+
+### `pbb serve`
+
+- Serves the blog on <http://localhost:8000> to preview
 
 ### `pbb deploy`
 
