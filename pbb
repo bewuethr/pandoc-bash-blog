@@ -3,7 +3,8 @@
 set -o errexit
 shopt -s extglob
 
-declare -r header='includes/header.html'
+declare -r header='includes/header.html' \
+	favicon='includes/favicon.html'
 
 # Print warning message and continue
 warn() {
@@ -64,12 +65,19 @@ init() {
 	printf '%s\n' "blogtitle='${blogtitle//"'"/"'\''"}'" > .pbbconfig
 	git add .pbbconfig
 
-	# Header
+	# Page header
 	mkdir --parents includes images
 	printf '[%s](./)\n' "$blogtitle" | pandoc --html-q-tags > "$header"
+
+	# Favicon for header
+	printf '%s\n' \
+		'<link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">' \
+		> "$favicon"
+
 	git add includes
 	git commit -m "Initialize blog with pbb"
 
+	# Example post
 	cat <<- EOF > "$(printf '%(%F)T' -1)-my-first-post.md"
 		# My first post
 		
