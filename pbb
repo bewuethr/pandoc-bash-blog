@@ -129,9 +129,29 @@ getconfvalue() {
 	)
 }
 
+# Convert favicon image file to 32x32 PNG
+favicon() {
+	local infile=(assets/favicon.*)
+	if ((${#infile[@]} > 1)); then
+		warn "found more than one favicon image in assets"
+		return 1
+	elif ((${#infile[@]} == 0)); then
+		warn "found no favicon image in assets"
+		return 1
+	fi
+
+	# Make sure to only use first frame if animated GIF
+	convert "${infile[0]}[0]" -resize 32x32^ -gravity center -background none \
+		-extent 32x32 artifacts/favicon.png
+}
+
 # Build all pages
 build() {
 	clean
+
+	if ! favicon; then
+		warn "could not find or convert favicon; skipping"
+	fi
 
 	# Build index file and convert posts
 	{
