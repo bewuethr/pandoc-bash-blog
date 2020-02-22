@@ -112,6 +112,10 @@ md2html() {
 		"--to=html"
 	)
 
+	if [[ -f artifacts/favicon.png ]]; then
+		args+=("--include-in-header=$favicon")
+	fi
+
 	{
 		if [[ $file == ????-??-??-* ]]; then
 			printf '%s\n\n' "${file:0:10}"
