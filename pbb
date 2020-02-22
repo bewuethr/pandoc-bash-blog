@@ -5,9 +5,14 @@ shopt -s extglob
 
 declare -r header='includes/header.html'
 
+# Print warning message and continue
+warn() {
+	printf '%s\n' "$*" >&2
+}
+
 # Print error message and exit
 die() {
-	printf '%s\n' "$*" >&2
+	warn "$*"
 	exit 1
 }
 
