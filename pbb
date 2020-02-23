@@ -4,7 +4,8 @@ set -o errexit
 shopt -s extglob
 
 declare -r header='includes/header.html' \
-	favicon='includes/favicon.html'
+	favicon='includes/favicon.html' \
+	cssfile='assets/pbb.css'
 
 # Print warning message and continue
 warn() {
@@ -66,9 +67,11 @@ init() {
 	git add .pbbconfig
 
 	# Page header
-	mkdir --parents includes images
+	mkdir --parents assets images includes
 	printf '[%s](./)\n' "$blogtitle" | pandoc --html-q-tags > "$header"
 
+	# Symlink style sheet
+	ln -s /usr/local/include/pbb/pbb.css "$cssfile"
 	# Favicon for header
 	printf '%s\n' \
 		'<link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">' \
@@ -181,7 +184,7 @@ build() {
 	md2html index.md "$(getconfvalue 'blogtitle')"
 
 	rm index.md
-	cp assets/pbb.css artifacts
+	cp "$cssfile" artifacts
 }
 
 # Serve blog from localhost
