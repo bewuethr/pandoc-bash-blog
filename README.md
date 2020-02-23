@@ -42,9 +42,9 @@ There are four subcommands (five, if you count `pbb help`):
 
 - Creates new `source` branch and checks it out
 - Add artifacts directory to `.gitignore`
-- Creates the `includes` and `images` directories
-- Creates a header file with the blog title in `includes` which is used on
-  every page
+- Creates the `includes`, `images` and `assets` directories
+- Creates header files in `includes` that are used on every page, for blog
+  title link, favicon Google web font links
 - Creates an example post
 
 ### `pbb build`
