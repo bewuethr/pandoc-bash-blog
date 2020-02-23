@@ -5,6 +5,7 @@ shopt -s extglob
 
 declare -r header='includes/header.html' \
 	favicon='includes/favicon.html' \
+	fontlinks='includes/fontlinks.html' \
 	cssfile='assets/pbb.css'
 
 # Print warning message and continue
@@ -72,6 +73,15 @@ init() {
 
 	# Symlink style sheet
 	ln -s /usr/local/include/pbb/pbb.css "$cssfile"
+
+	# Header links for Google Font style sheet
+	printf '%s\n%s%s%s\n' \
+		'<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>' \
+		'<link href="https://fonts.googleapis.com/css?family=' \
+		'Source+Code+Pro:400,400i,700,700i|Source+Sans+Pro:400,400i,700,700i' \
+		'&display=swap" rel="stylesheet">' \
+		> "$fontlinks"
+
 	# Favicon for header
 	printf '%s\n' \
 		'<link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">' \
@@ -108,6 +118,7 @@ md2html() {
 		"--from=markdown"
 		"--html-q-tags"
 		"--include-before-body=$header"
+		"--include-in-header=$fontlinks"
 		"--metadata=lang:$(getlang)"
 		"--metadata=pagetitle:$title"
 		"--output=artifacts/${file/%.md/.html}"
