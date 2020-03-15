@@ -1,6 +1,11 @@
 name: 'Linting'
 
-on: ['push']
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 
 jobs:
 
@@ -8,25 +13,25 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
 
-    - name: 'Check out code'
-      uses: 'actions/checkout@v2'
+      - name: 'Check out code'
+        uses: 'actions/checkout@v2'
 
-    - name: 'Get mdl style file from dotfiles'
-      env:
-        STYLE_FILE: 'https://raw.githubusercontent.com/bewuethr/dotfiles/master/.config/mdl/style.rb'
-      run: curl "$STYLE_FILE" > .github/workflows/style.rb
+      - name: 'Get mdl style file from dotfiles'
+        env:
+          STYLE_FILE: 'https://raw.githubusercontent.com/bewuethr/dotfiles/master/.config/mdl/style.rb'
+        run: curl "$STYLE_FILE" > .github/workflows/style.rb
 
-    - name: 'Run Markdown linter'
-      uses: 'bewuethr/mdl-action@v1'
-      with:
-        style-file: '.github/workflows/style.rb'
+      - name: 'Run Markdown linter'
+        uses: 'bewuethr/mdl-action@v1'
+        with:
+          style-file: '.github/workflows/style.rb'
 
   shellcheck:
     runs-on: 'ubuntu-latest'
     steps:
 
-    - name: 'Check out code'
-      uses: 'actions/checkout@v2'
+      - name: 'Check out code'
+        uses: 'actions/checkout@v2'
 
-    - name: 'Run shellcheck'
-      uses: 'bewuethr/shellcheck-action@v1'
+      - name: 'Run shellcheck'
+        uses: 'bewuethr/shellcheck-action@v1'
