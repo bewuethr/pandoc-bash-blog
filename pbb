@@ -4,6 +4,7 @@ set -o errexit
 shopt -s extglob nullglob
 
 declare -r \
+	conf='.pbbconfig' \
 	header='includes/header.html' \
 	favicon='includes/favicon.html' \
 	fontlinks='includes/fontlinks.html' \
@@ -55,7 +56,7 @@ init() {
 	# Source branch
 	git checkout -b source
 
-	if [[ -e .pbbconfig ]]; then
+	if [[ -e $conf ]]; then
 		die "This pbb blog seems to have been initalized already"
 	fi
 
@@ -63,10 +64,9 @@ init() {
 	echo 'artifacts/' > .gitignore
 	git add .gitignore
 
-	# Store title to config file, single quoted with inner single quotes
-	# escaped
-	printf '%s\n' "blogtitle='${blogtitle//"'"/"'\''"}'" > .pbbconfig
-	git add .pbbconfig
+	# Store title to config file
+	setconfvalue 'blogtitle' "$blogtitle"
+	git add "$conf"
 
 	# Page header
 	mkdir --parents assets images includes
@@ -150,10 +150,20 @@ clean() {
 getconfvalue() {
 	local key=$1
 	(
-		# shellcheck disable=SC1091
-		source .pbbconfig
+		# shellcheck source=/dev/null
+		source "$conf"
 		printf '%s' "${!key}"
 	)
+}
+
+# Set value in config file
+setconfvalue() {
+	local key=$1
+	local value=$2
+	if [[ -f $conf ]]; then
+		sed -i "/$key=/d" "$conf"
+	fi
+	printf '%s=%q\n' "$key" "$value" >> "$conf"
 }
 
 # Convert favicon image file to 32x32 PNG
