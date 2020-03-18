@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -o errexit
-shopt -s extglob
+shopt -s extglob nullglob
 
 declare -r \
 	header='includes/header.html' \
