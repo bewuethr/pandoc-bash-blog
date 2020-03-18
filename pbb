@@ -3,7 +3,8 @@
 set -o errexit
 shopt -s extglob
 
-declare -r header='includes/header.html' \
+declare -r \
+	header='includes/header.html' \
 	favicon='includes/favicon.html' \
 	fontlinks='includes/fontlinks.html' \
 	cssfile='assets/pbb.css'
@@ -23,7 +24,7 @@ die() {
 usage() {
 	cat <<- EOF >&2
 		usage: pbb help | init TITLE | build | serve | deploy
-		
+
 		   help    Display this message
 		   init    Initialize new blog in empty Git repository
 		   build   Generate HTML files and store them in artifacts directory
@@ -93,7 +94,7 @@ init() {
 	# Example post
 	cat <<- EOF > "$(printf '%(%F)T' -1)-my-first-post.md"
 		# My first post
-		
+
 		Hello world!
 	EOF
 }
