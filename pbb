@@ -24,10 +24,11 @@ die() {
 # Print usage hint
 usage() {
 	cat <<- EOF >&2
-		usage: pbb help | init TITLE | build | serve | deploy
+		usage: pbb help | init TITLE | title TITLE | build | serve | deploy
 
 		   help    Display this message
 		   init    Initialize new blog in empty Git repository
+		   title   Set new blog title
 		   build   Generate HTML files and store them in artifacts directory
 		   serve   Serve blog on localhost:8000
 		   deploy  Copy artifacts into master branch and push to remote
@@ -64,13 +65,11 @@ init() {
 	echo 'artifacts/' > .gitignore
 	git add .gitignore
 
-	# Store title to config file
-	setconfvalue 'blogtitle' "$blogtitle"
-	git add "$conf"
-
-	# Page header
 	mkdir --parents assets images includes
-	printf '[%s](./)\n' "$blogtitle" | pandoc --html-q-tags > "$header"
+
+	# Store title to config file
+	setblogtitle "$blogtitle"
+	git add "$conf"
 
 	# Symlink style sheet
 	ln -s /usr/local/include/pbb/pbb.css "$cssfile"
@@ -97,6 +96,13 @@ init() {
 
 		Hello world!
 	EOF
+}
+
+# Set a new blog title
+setblogtitle() {
+	local blogtitle=$1
+	setconfvalue 'blogtitle' "$blogtitle"
+	printf '[%s](./)\n' "$blogtitle" | pandoc --html-q-tags > "$header"
 }
 
 # Extract the title from a markdown file
@@ -243,14 +249,26 @@ subcmd=$1
 
 case $subcmd in
 	help) usage ;;
+
 	init)
 		if (($# < 2)); then
 			die "usage: pbb init 'My blog title'"
 		fi
 		init "${*:2}"
 		;;
+
+	title)
+		if (($# < 2)); then
+			die "usage: pbb title 'My blog title'"
+		fi
+		setblogtitle "${*:2}"
+		;;
+
 	build) build ;;
+
 	serve) serve ;;
+
 	deploy) deploy ;;
+
 	*) usage ;;
 esac
