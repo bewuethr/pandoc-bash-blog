@@ -270,5 +270,8 @@ case $subcmd in
 
 	deploy) deploy ;;
 
-	*) usage ;;
+	*)
+		usage
+		exit 1
+		;;
 esac
