@@ -1,4 +1,4 @@
-name: 'Linting'
+name: 'Linting and testing'
 
 on:
   push:
@@ -35,3 +35,27 @@ jobs:
 
       - name: 'Run shellcheck'
         uses: 'bewuethr/shellcheck-action@v1'
+
+  test:
+    runs-on: 'ubuntu-latest'
+    steps:
+
+      - name: 'Check out code'
+        uses: 'actions/checkout@v2'
+
+      - name: 'Get bats repository'
+        uses: 'actions/checkout@v2'
+        with:
+          repository: 'bats-core/bats-core'
+          ref: 'v1.1.0'
+          path: 'bats-core'
+
+      - name: 'Install Bats and adjust PATH'
+        run: |
+          cd bats-core
+          ./install.sh "$GITHUB_WORKSPACE"
+          echo "::add-path::$GITHUB_WORKSPACE/bin"
+          echo "::add-path::$GITHUB_WORKSPACE"
+
+      - name: 'Run tests'
+        run: bats --tap  test
