@@ -56,7 +56,7 @@ init() {
 
 	# Source branch
 	git checkout --quiet -b source \
-		|| die "Could create new branch, aborting"
+		|| die "Could not create new branch, aborting"
 
 	if [[ -e $conf ]]; then
 		die "Conf file exists already, aborting"

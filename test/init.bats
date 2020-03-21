@@ -13,6 +13,7 @@ load test_helper
 @test "Run init with simple title" {
 	cd "$BATS_TEST_DIRNAME"/testdata
 	run pbb init 'Testblog'
+
 	echo "$output"
 	((status == 0))
 
@@ -25,7 +26,7 @@ load test_helper
 	[[ -d includes ]]
 
 	# Conf file contains title
-	grep -qx 'blogtitle=Testblog' .pbbconfig
+	grep -Fqx 'blogtitle=Testblog' .pbbconfig
 
 	# Header file contains title
 	[[ $(< includes/header.html) == '<p><a href="./">Testblog</a></p>' ]]
@@ -52,5 +53,34 @@ load test_helper
 	grep -Fq '# My first post' "$fname"
 }
 
-# TODO Run init with title that's complex to quote
-# TODO Run init twice
+@test "Run init with title containing quotes and blank" {
+	cd "$BATS_TEST_DIRNAME"/testdata
+	run pbb init "Bashman's \"Blog\""
+
+	echo "$output"
+	((status == 0))
+
+	# Conf file contains title
+	grep -Fqx "blogtitle=Bashman\'"'s\ \"Blog\"' .pbbconfig
+}
+
+@test "Run init twice" {
+	cd "$BATS_TEST_DIRNAME"/testdata
+	run pbb init "Testblog"
+	run pbb init "Testblog"
+
+	echo "$output"
+	((status == 1))
+	[[ $output == *'Could not create new branch'* ]]
+}
+
+@test "Run init in initalized non-Git directory" {
+	cd "$BATS_TEST_DIRNAME"/testdata
+	run pbb init "Testblog"
+	rm -rf .git
+	run pbb init "Testblog"
+
+	echo "$output"
+	((status == 1))
+	[[ $output == 'Conf file exists already'* ]]
+}
