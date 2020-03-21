@@ -11,7 +11,7 @@ load test_helper
 }
 
 @test "Run init with simple title" {
-	cd "$BATS_TEST_DIRNAME"/testdata
+	cd /tmp/pbb-testdata
 	run pbb init 'Testblog'
 
 	echo "$output"
@@ -54,7 +54,7 @@ load test_helper
 }
 
 @test "Run init with title containing quotes and blank" {
-	cd "$BATS_TEST_DIRNAME"/testdata
+	cd /tmp/pbb-testdata
 	run pbb init "Bashman's \"Blog\""
 
 	echo "$output"
@@ -65,7 +65,7 @@ load test_helper
 }
 
 @test "Run init twice" {
-	cd "$BATS_TEST_DIRNAME"/testdata
+	cd /tmp/pbb-testdata
 	run pbb init "Testblog"
 	run pbb init "Testblog"
 
@@ -75,12 +75,12 @@ load test_helper
 }
 
 @test "Run init in initalized non-Git directory" {
-	cd "$BATS_TEST_DIRNAME"/testdata
-	run pbb init "Testblog"
-	rm -rf .git
+	cd /tmp/pbb-testdata
+	pbb init "Testblog"
+	resetgit
 	run pbb init "Testblog"
 
 	echo "$output"
 	((status == 1))
-	[[ $output == 'Conf file exists already'* ]]
+	[[ $output == *'Conf file exists already'* ]]
 }

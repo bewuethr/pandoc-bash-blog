@@ -1,7 +1,6 @@
 setup() {
-	cd "$BATS_TEST_DIRNAME" || exit
-	mkdir testdata
-	cd testdata || exit
+	mkdir -p /tmp/pbb-testdata
+	cd /tmp/pbb-testdata || exit
 	git init --quiet
 
 	if [[ -z $(git config --get user.name) ]]; then
@@ -14,5 +13,11 @@ setup() {
 }
 
 teardown() {
-	rm -rf "$BATS_TEST_DIRNAME/testdata"
+	rm -rf /tmp/pbb-testdata
+}
+
+resetgit() {
+	cd /tmp/pbb-testdata || exit
+	rm -rf .git
+	setup
 }
