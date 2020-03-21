@@ -55,10 +55,11 @@ init() {
 	local blogtitle=$1
 
 	# Source branch
-	git checkout -b source
+	git checkout --quiet -b source \
+		|| die "Could create new branch, aborting"
 
 	if [[ -e $conf ]]; then
-		die "This pbb blog seems to have been initalized already"
+		die "Conf file exists already, aborting"
 	fi
 
 	# Ignore artifacts directory
