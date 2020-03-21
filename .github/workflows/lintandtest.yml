@@ -43,15 +43,16 @@ jobs:
       - name: 'Check out code'
         uses: 'actions/checkout@v2'
 
-      - name: 'Get bats repository'
+      - name: 'Get Bats repository'
         uses: 'actions/checkout@v2'
         with:
           repository: 'bats-core/bats-core'
           ref: 'v1.1.0'
           path: 'bats-core'
 
-      - name: 'Install Bats and adjust PATH'
+      - name: 'Install Bats and dependencies, adjust PATH'
         run: |
+          sudo apt-get install pandoc
           cd bats-core
           ./install.sh "$GITHUB_WORKSPACE"
           echo "::add-path::$GITHUB_WORKSPACE/bin"
