@@ -8,18 +8,18 @@
 	[[ $output == *$want* ]]
 }
 
-@test "Complain about non-existent subcommand" {
-	run pbb foo
-	((status == 1))
+@test "Help output" {
+	run pbb help
+	((status == 0))
 	want='usage: pbb'
 	printf '%s\n%s\n' "got: $output" "want: $want"
 	[[ $output == *$want* ]]
 }
 
-@test "Complain about init without title" {
-	run pbb init
+@test "Complain about non-existent subcommand" {
+	run pbb foo
 	((status == 1))
-	want="usage: pbb init 'My blog title'"
+	want='usage: pbb'
 	printf '%s\n%s\n' "got: $output" "want: $want"
 	[[ $output == *$want* ]]
 }
