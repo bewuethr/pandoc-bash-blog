@@ -9,7 +9,10 @@ setup() {
 	if [[ -z $(git config --get user.email) ]]; then
 		git config user.email "integration.test@example.com"
 	fi
-	# TODO pbb installer to take care of CSS symlink
+	if [[ ! -e /usr/local/include/pbb/pbb.css ]]; then
+		sudo mkdir -p /usr/local/include/pbb
+		sudo cp "$BATS_TEST_DIRNAME/../pbb.css" /usr/local/include/pbb
+	fi
 }
 
 teardown() {
