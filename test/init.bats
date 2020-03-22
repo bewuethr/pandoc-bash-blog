@@ -62,6 +62,10 @@ load test_helper
 
 	# Conf file contains title
 	grep -Fqx "blogtitle=Bashman\'"'s\ \"Blog\"' .pbbconfig
+
+	# Header file contains title
+	cat includes/header.html
+	grep -q 'Bashman.s.*Blog' includes/header.html
 }
 
 @test "Run init twice" {
