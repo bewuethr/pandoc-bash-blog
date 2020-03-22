@@ -15,9 +15,3 @@ setup() {
 teardown() {
 	rm -rf /tmp/pbb-testdata
 }
-
-resetgit() {
-	cd /tmp/pbb-testdata || exit
-	rm -rf .git
-	setup
-}

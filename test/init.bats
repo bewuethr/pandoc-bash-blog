@@ -81,7 +81,8 @@ load test_helper
 @test "Run init in initalized non-Git directory" {
 	cd /tmp/pbb-testdata
 	pbb init "Testblog"
-	resetgit
+	rm -rf .git
+	setup
 	run pbb init "Testblog"
 
 	echo "$output"
