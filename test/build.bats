@@ -30,7 +30,7 @@ load test_helper
 	[[ ! -f index.md ]]
 }
 
-@test "Build with favicon" {
+@test "Build with favicon from PNG" {
 	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	cp "$BATS_TEST_DIRNAME/testdata/favicon.png" assets
@@ -48,4 +48,55 @@ load test_helper
 		echo "Checking $f"
 		grep -Fq '<link rel="icon" href="/favicon.png"' "$f"
 	done
+}
+
+@test "Build with favicon from JPG" {
+	cd /tmp/pbb-testdata
+	pbb init 'Testblog'
+	cp "$BATS_TEST_DIRNAME/testdata/favicon.jpg" assets
+	run pbb build
+
+	echo "$output"
+	((status == 0))
+
+	# Check favicon file and image format
+	[[ -f artifacts/favicon.png ]]
+	[[ $(identify -format '%m %h %w' artifacts/favicon.png) == 'PNG 32 32' ]]
+}
+
+@test "Build with favicon from GIF with multiple frames" {
+	cd /tmp/pbb-testdata
+	pbb init 'Testblog'
+	cp "$BATS_TEST_DIRNAME/testdata/favicon.gif" assets
+	run pbb build
+
+	echo "$output"
+	((status == 0))
+
+	# Check favicon file and image format
+	[[ -f artifacts/favicon.png ]]
+	[[ $(identify -format '%m %h %w' artifacts/favicon.png) == 'PNG 32 32' ]]
+}
+
+@test "Warn about missing favicon" {
+	cd /tmp/pbb-testdata
+	pbb init 'Testblog'
+	run pbb build
+
+	echo "$output"
+	((status == 0))
+
+	[[ $output == *'found no favicon image'* ]]
+}
+
+@test "Warn about multiple favicon images" {
+	cd /tmp/pbb-testdata
+	pbb init 'Testblog'
+	cp "$BATS_TEST_DIRNAME"/testdata/favicon.* assets
+	run pbb build
+
+	echo "$output"
+	((status == 0))
+
+	[[ $output == *'found more than one favicon image'* ]]
 }
