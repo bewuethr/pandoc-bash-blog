@@ -31,7 +31,8 @@ load test_helper
 	# Header file contains title
 	[[ $(< includes/header.html) == '<p><a href="./">Testblog</a></p>' ]]
 
-	# TODO: check CSS file (requires installer)
+	# CSS file is symlinked
+	[[ -L assets/pbb.css ]]
 
 	# Font links file exists
 	fontlinks='includes/fontlinks.html'
