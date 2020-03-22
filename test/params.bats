@@ -23,11 +23,3 @@
 	printf '%s\n%s\n' "got: $output" "want: $want"
 	[[ $output == *$want* ]]
 }
-
-@test "Complain about title without title" {
-	run pbb title
-	((status == 1))
-	want="usage: pbb title 'My blog title'"
-	printf '%s\n%s\n' "got: $output" "want: $want"
-	[[ $output == *$want* ]]
-}
