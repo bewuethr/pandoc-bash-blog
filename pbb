@@ -229,15 +229,46 @@ serve() {
 	(cd artifacts && python3 -m http.server)
 }
 
+# Return non-zero exit status if branch has no remote set
+checkremote() {
+	local branch=$1
+	local remote
+	remote=$(git for-each-ref --format='%(upstream:remotename)' \
+		"refs/heads/$branch")
+
+	if [[ -z $remote ]]; then
+		return 1
+	fi
+	return 0
+}
+
 # Pull artifacts into master branch to deploy
 deploy() {
+	if [[ ! -d artifacts ]]; then
+		die 'nothing to deploy; try "pbb build"'
+	fi
+
+	if [[ $(git symbolic-ref --quiet --short HEAD) == 'master' ]]; then
+		die "already on master, check your setup"
+	fi
+
+	# Make sure master exists
+	if ! git show-ref --quiet --heads master; then
+		git branch master
+	fi
+
 	git checkout master
 	rm --recursive --force !(artifacts)
 	cp --recursive artifacts/* .
 	rm --recursive --force artifacts
 	git add --all
 	git commit --message='Publish blog'
-	git push
+
+	local args
+	if ! checkremote master; then
+		args=('--set-upstream' 'origin' 'master')
+	fi
+	git push "${args[@]}"
 	git checkout -
 }
 
