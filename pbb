@@ -226,7 +226,7 @@ serve() {
 		die "can't find index file; try \"pbb build\""
 	fi
 
-	python3 -m http.server --directory artifacts
+	(cd artifacts && python3 -m http.server)
 }
 
 # Pull artifacts into master branch to deploy
