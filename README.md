@@ -39,7 +39,7 @@ about this and continues.
 
 ## Subcommands
 
-There are four subcommands (five, if you count `pbb help`):
+There are five subcommands (six, if you count `pbb help`):
 
 ### `pbb init 'Title of the blog'`
 
@@ -49,6 +49,10 @@ There are four subcommands (five, if you count `pbb help`):
 - Creates header files in `includes` that are used on every page, for blog
   title link, favicon Google web font links
 - Creates an example post
+
+### `pbb title 'New title'`
+
+- Set a new blog title for an existing blog
 
 ### `pbb build`
 
