@@ -1,6 +1,7 @@
 # Pandoc Bash Blog
 
-![Linting and testing](https://github.com/bewuethr/pandoc-bash-blog/workflows/Linting%20and%20testing/badge.svg)
+![Markdown linting](https://github.com/bewuethr/pandoc-bash-blog/workflows/Markdown%20linting/badge.svg)
+![Shell linting and testing](https://github.com/bewuethr/pandoc-bash-blog/workflows/Shell%20linting%20and%20testing/badge.svg)
 ![Move release tags](https://github.com/bewuethr/pandoc-bash-blog/workflows/Move%20release%20tags/badge.svg)
 
 Pandoc Bash Blog provides `pbb`, a simple generator for static blog sites based

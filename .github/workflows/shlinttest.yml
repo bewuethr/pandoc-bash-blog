@@ -1,4 +1,4 @@
-name: 'Linting and testing'
+name: 'Shell linting and testing'
 
 on:
   push:
@@ -8,23 +8,6 @@ on:
       - '**'
 
 jobs:
-
-  markdownlint:
-    runs-on: 'ubuntu-latest'
-    steps:
-
-      - name: 'Check out code'
-        uses: 'actions/checkout@v2'
-
-      - name: 'Get mdl style file from dotfiles'
-        env:
-          STYLE_FILE: 'https://raw.githubusercontent.com/bewuethr/dotfiles/master/.config/mdl/style.rb'
-        run: curl "$STYLE_FILE" > .github/workflows/style.rb
-
-      - name: 'Run Markdown linter'
-        uses: 'bewuethr/mdl-action@v1'
-        with:
-          style-file: '.github/workflows/style.rb'
 
   shellcheck:
     runs-on: 'ubuntu-latest'
