@@ -5,7 +5,8 @@
 ![Move release tags](https://github.com/bewuethr/pandoc-bash-blog/workflows/Move%20release%20tags/badge.svg)
 
 Pandoc Bash Blog provides `pbb`, a simple generator for static blog sites based
-on Pandoc and Bash. Progress is chronicled at <https://bewuethr.github.io>.
+on Pandoc and Bash. Progress is chronicled at
+<https://www.benjaminwuethrich.dev>.
 
 ## Usage
 
