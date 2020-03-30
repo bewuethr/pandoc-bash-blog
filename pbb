@@ -8,6 +8,7 @@ declare -r \
 	header='includes/header.html' \
 	favicon='includes/favicon.html' \
 	fontlinks='includes/fontlinks.html' \
+	goatcounter='includes/goatcounter.html' \
 	cssfile='assets/pbb.css'
 
 # Print warning message and continue
@@ -136,6 +137,10 @@ md2html() {
 
 	if [[ -f artifacts/favicon.png ]]; then
 		args+=("--include-in-header=$favicon")
+	fi
+
+	if [[ -f $goatcounter ]]; then
+		args+=("--include-after-body=$goatcounter")
 	fi
 
 	{
