@@ -41,7 +41,7 @@ about this and continues.
 
 ## Subcommands
 
-There are five subcommands (six, if you count `pbb help`):
+There are six subcommands (seven, if you count `pbb help`):
 
 ### `pbb init 'Title of the blog'`
 
@@ -55,6 +55,14 @@ There are five subcommands (six, if you count `pbb help`):
 ### `pbb title 'New title'`
 
 - Set a new blog title for an existing blog
+
+### `pbb gccode 'mycode'`
+
+- Include a snippet with tracking code for [GoatCounter][gc] on each page,
+  where the code for the account is `mycode`
+- To turn tracking off, set code to empty with `pbb gccode ''`
+
+[gc]: https://www.goatcounter.com/
 
 ### `pbb build`
 
