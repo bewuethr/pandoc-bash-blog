@@ -25,11 +25,12 @@ die() {
 # Print usage hint
 usage() {
 	cat <<- EOF >&2
-		usage: pbb help | init TITLE | title TITLE | build | serve | deploy
+		usage: pbb help | init TITLE | title TITLE | gccode CODE | build | serve | deploy
 
 		   help    Display this message
 		   init    Initialize new blog in empty Git repository
 		   title   Set new blog title
+		   gccode  Set GoatCounter code to enable analytics
 		   build   Generate HTML files and store them in artifacts directory
 		   serve   Serve blog on localhost:8000
 		   deploy  Copy artifacts into master branch and push to remote
@@ -89,6 +90,12 @@ init() {
 		'<link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">' \
 		> "$favicon"
 
+	# Template for GoatCounter snippet
+	printf '%s\n' \
+		'<script data-goatcounter="https://{{code}}.goatcounter.com/count"' \
+		'        async src="//gc.zgo.at/count.js"></script>' \
+		> "$goatcounter"
+
 	git add includes
 	git commit -m "Initialize blog with pbb"
 
@@ -139,7 +146,7 @@ md2html() {
 		args+=("--include-in-header=$favicon")
 	fi
 
-	if [[ -f $goatcounter ]]; then
+	if [[ -n $(getconfvalue 'goatcountercode') ]]; then
 		args+=("--include-after-body=$goatcounter")
 	fi
 
@@ -176,6 +183,13 @@ setconfvalue() {
 		sed -i "/$key=/d" "$conf"
 	fi
 	printf '%s=%q\n' "$key" "$value" >> "$conf"
+}
+
+# Set the GoatCounter code
+setgccode() {
+	local code=$1
+	setconfvalue 'goatcountercode' "$code"
+	sed -E -i "s|(https://).*(\.goatcounter)|\1$code\2|" "$goatcounter"
 }
 
 # Convert favicon image file to 32x32 PNG
@@ -299,6 +313,13 @@ case $subcmd in
 			die "usage: pbb title 'My blog title'"
 		fi
 		setblogtitle "${*:2}"
+		;;
+	
+	gccode)
+		if (($# < 2)); then
+			die "usage: pbb gccode 'mycode'"
+		fi
+		setgccode "$2"
 		;;
 
 	build) build ;;
