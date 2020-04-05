@@ -16,9 +16,12 @@ body {
 }
 
 code {
-	background-color: #eee;
 	font-family: 'Source Code Pro', monospace;
 	font-size: 16px;
+}
+
+:not(pre) > code {
+	color: #C7254E;
 }
 
 h1,
