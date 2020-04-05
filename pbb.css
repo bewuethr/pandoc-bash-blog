@@ -36,5 +36,6 @@ img {
 
 pre  {
 	background-color: #eee;
+	overflow-x: auto;
 	padding: 9px;
 }
