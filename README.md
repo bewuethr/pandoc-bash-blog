@@ -96,7 +96,7 @@ Pbb integrates with [GoatCounter], a pretty awesome simple web statistics
 solution. Open an account, add your site and set your code with
 
 ```sh
-`pbb gccode <yourcode>`
+pbb gccode <yourcode>
 ```
 
 Consider paying for a custom domain or making a donation to the author.
