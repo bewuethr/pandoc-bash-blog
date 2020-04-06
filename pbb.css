@@ -30,6 +30,27 @@ h3 {
 	line-height: 1.2;
 }
 
+
+h1.title {
+	font-size: 36px;
+}
+
+h1:not(.title) {
+	font-size: 27px;
+}
+
+h2 {
+	font-size: 21px;
+}
+
+h2#toc-title {
+	font-size: 27px;
+}
+
+h3 {
+	font-size: 18px;
+}
+
 img {
 	max-width: 100%;
 }

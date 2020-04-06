@@ -116,18 +116,14 @@ setblogtitle() {
 
 # Extract the title from a markdown file
 extracttitle() {
-	local title
 	local file=$1
-	read -r _ title < "$file"
-	printf '%s\n' "$title"
+	sed -n '/^# /{s///p;q}' "$file"
 }
 
 # Convert a markdown file to HTML and store it in the artifacts directory
 md2html() {
 	local file=$1
 	[[ $file == *.md ]] || die "not a markdown file: $file"
-
-	local title=$2
 
 	local args=(
 		"--css=/pbb.css"
@@ -136,9 +132,11 @@ md2html() {
 		"--include-before-body=$header"
 		"--include-in-header=$fontlinks"
 		"--metadata=lang:$(getlang)"
-		"--metadata=pagetitle:$title"
+		"--metadata-file=.metadata.yml"
 		"--output=artifacts/${file/%.md/.html}"
+		"--shift-heading-level-by=-1"
 		"--standalone"
+		"--table-of-contents"
 		"--to=html"
 	)
 
@@ -150,12 +148,15 @@ md2html() {
 		args+=("--include-after-body=$goatcounter")
 	fi
 
-	{
-		if [[ $file == ????-??-??-* ]]; then
-			printf '%s\n\n' "${file:0:10}"
-		fi
-		cat "$file"
-	} | pandoc "${args[@]}"
+	if [[ $file == ????-??-??-* ]]; then
+		args+=("--metadata=date:${file:0:10}")
+	fi
+
+	if [[ $file == 'index.md' ]]; then
+		args+=("--metadata=pagetitle:$(getconfvalue 'blogtitle')")
+	fi
+
+	pandoc "${args[@]}" "$file"
 }
 
 # Empty artifacts and copy images directory
@@ -219,17 +220,16 @@ build() {
 	# Build index file and convert posts
 	{
 		printf '%s\n\n' "# All posts"
-		local f title
+		local f
 		for f in ????-??-??-*.md; do
-			title=$(extracttitle "$f")
 			printf -- '- %s &ndash; [%s](%s)\n' \
-				"${f:0:10}" "$title" "${f/%.md/.html}"
-			md2html "$f" "$title"
+				"${f:0:10}" "$(extracttitle "$f")" "${f/%.md/.html}"
+			md2html "$f"
 		done | tac
 	} > index.md
 
 	# Convert index file
-	md2html index.md "$(getconfvalue 'blogtitle')"
+	md2html index.md
 
 	rm index.md
 	cp "$cssfile" artifacts
@@ -314,7 +314,7 @@ case $subcmd in
 		fi
 		setblogtitle "${*:2}"
 		;;
-	
+
 	gccode)
 		if (($# < 2)); then
 			die "usage: pbb gccode 'mycode'"
