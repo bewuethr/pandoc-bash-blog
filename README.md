@@ -88,7 +88,7 @@ git remote add origin https://github.com/<yourname>/<repo-name>.git
 To get a table of contents for a post, start it with a YAML document that sets
 the `toc` variable to `true`:
 
-```yml
+```yaml
 ---
 toc: true
 ...
