@@ -30,6 +30,20 @@ load test_helper
 	[[ ! -f index.md ]]
 }
 
+@test "Build post with TOC" {
+	cd /tmp/pbb-testdata
+	pbb init 'Testblog'
+	sed -i '1i ---\ntoc: true\n...\n' *.md
+	run pbb build
+
+	echo "$output"
+	((status == 0))
+
+	# Generated post has table of contents header
+	grep -Fq 'nav id="TOC" role="doc-toc">' artifacts/*-my-first-post.html
+	grep -q '<h2.*>Table of contents</h2>' artifacts/*-my-first-post.html
+}
+
 @test "Build with favicon from PNG" {
 	cd /tmp/pbb-testdata
 	pbb init 'Testblog'

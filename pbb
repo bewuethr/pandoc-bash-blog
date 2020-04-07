@@ -5,6 +5,7 @@ shopt -s extglob nullglob
 
 declare -r \
 	conf='.pbbconfig' \
+	metadata='.metadata.yml' \
 	header='includes/header.html' \
 	favicon='includes/favicon.html' \
 	fontlinks='includes/fontlinks.html' \
@@ -76,6 +77,7 @@ init() {
 
 	# Symlink style sheet
 	ln -s /usr/local/include/pbb/pbb.css "$cssfile"
+	git add "$cssfile"
 
 	# Header links for Google Font style sheet
 	printf '%s\n%s%s%s\n' \
@@ -97,6 +99,11 @@ init() {
 		> "$goatcounter"
 
 	git add includes
+
+	# Metadata file
+	printf '%s\n' 'toc: false' "toc-title: 'Table of contents'" > "$metadata"
+	git add "$metadata"
+
 	git commit -m "Initialize blog with pbb"
 
 	# Example post
