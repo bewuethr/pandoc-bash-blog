@@ -33,13 +33,17 @@ jobs:
           ref: 'v1.1.0'
           path: 'bats-core'
 
-      - name: 'Install Bats and dependencies, adjust PATH'
+      - name: 'Install Bats and adjust PATH'
         run: |
-          sudo apt-get install pandoc
           cd bats-core
           ./install.sh "$GITHUB_WORKSPACE"
           echo "::add-path::$GITHUB_WORKSPACE/bin"
           echo "::add-path::$GITHUB_WORKSPACE"
+
+      - name: 'Install Pandoc'
+        uses: 'r-lib/actions/setup-pandoc@v1'
+        with:
+          pandoc-version: '2.9.1.1'
 
       - name: 'Run tests'
         run: bats --tap  test
