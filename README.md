@@ -55,7 +55,7 @@ pbb title 'My blog with a new title'
 `pbb init` creates a sample blog post. Blog posts are written in [Pandoc
 Markdown], with filenames formatted like `YYYY-MM-DD-post-title.md`.
 
-The first line of a post has to be a level-one heading:
+The first heading of a post has to be a level-one heading:
 
 ```markdown
 # A blog post
@@ -83,6 +83,17 @@ git remote add origin https://github.com/<yourname>/<repo-name>.git
 
   [Pandoc Markdown]: https://pandoc.org/MANUAL.html#pandocs-markdown
 
+### Table of contents
+
+To get a table of contents for a post, start it with a YAML document that sets
+the `toc` variable to `true`:
+
+```yml
+---
+toc: true
+...
+```
+
 ### Favicon
 
 To get a favicon, `pbb build` checks the `assets` directory for a file named
@@ -99,9 +110,10 @@ solution. Open an account, add your site and set your code with
 pbb gccode <yourcode>
 ```
 
-Consider paying for a custom domain or making a donation to the author.
+Consider paying for a custom domain or [sponsoring] the author.
 
   [GoatCounter]: https://www.goatcounter.com
+  [sponsoring]: https://github.com/sponsors/arp242
 
 ## Subcommands
 
