@@ -118,7 +118,7 @@ init() {
 setblogtitle() {
 	local blogtitle=$1
 	setconfvalue 'blogtitle' "$blogtitle"
-	printf '[%s](./)\n' "$blogtitle" | pandoc --html-q-tags > "$header"
+	printf '[%s](./)\n' "$blogtitle" | pandoc > "$header"
 }
 
 # Extract the title from a markdown file
@@ -135,7 +135,6 @@ md2html() {
 	local args=(
 		"--css=/pbb.css"
 		"--from=markdown"
-		"--html-q-tags"
 		"--include-before-body=$header"
 		"--include-in-header=$fontlinks"
 		"--metadata=lang:$(getlang)"
