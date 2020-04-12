@@ -15,9 +15,8 @@ setup() {
 		git -C "$repo" config user.email "integration.test@example.com"
 	fi
 
-	if [[ ! -e /usr/local/include/pbb/pbb.css ]]; then
-		sudo mkdir -p /usr/local/include/pbb
-		sudo cp "$BATS_TEST_DIRNAME/../pbb.css" /usr/local/include/pbb
+	if [[ ! -e ${XDG_DATA_HOME:-$HOME/.local/share}/pbb/pbb.css ]]; then
+		make install
 	fi
 }
 

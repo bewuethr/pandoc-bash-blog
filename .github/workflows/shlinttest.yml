@@ -36,9 +36,9 @@ jobs:
       - name: 'Install Bats and adjust PATH'
         run: |
           cd bats-core
-          ./install.sh "$GITHUB_WORKSPACE"
-          echo "::add-path::$GITHUB_WORKSPACE/bin"
-          echo "::add-path::$GITHUB_WORKSPACE"
+          ./install.sh "$HOME"
+          echo "::add-path::$HOME/bin"
+          echo "::add-path::$HOME/.local/bin"
 
       - name: 'Install Pandoc'
         uses: 'r-lib/actions/setup-pandoc@v1'
@@ -46,4 +46,5 @@ jobs:
           pandoc-version: '2.9.1.1'
 
       - name: 'Run tests'
-        run: bats --tap  test
+        run: |
+          bats --tap  test
