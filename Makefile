@@ -1,5 +1,4 @@
 # Constants
-SHELL := bash
 XDG_DATA_HOME ?= $(HOME)/.local/share
 binpath := $(HOME)/.local/bin/pbb
 comppath := $(XDG_DATA_HOME)/bash-completion/completions/pbb
@@ -7,8 +6,8 @@ datapath := $(XDG_DATA_HOME)/pbb/pbb.css
 
 .PHONY: help ## Display usage instruction; default goal
 help:
-	@awk '$$3 == "##" {$$1 = ""; sub(/ ## /, "\t"); print}' Makefile \
-		| column -s $$'\t' -t
+	@awk '$$3 == "##" {$$1 = ""; sub(/ ## /, "~"); print}' Makefile \
+		| column -s '~' -t
 
 .PHONY: test ## Run Bats test suite
 test:
@@ -24,27 +23,23 @@ define checkdep
 	fi
 endef
 
-# Print message for file already being installed
-# $(call installed,fname)
-define installed
-	@echo "$1 seems to be already installed, not linking it again"
+ifeq ($(DEVMODE),)
+    action := Installing
+    cpcmd = install $1 $2
+else
+    action := Symlinking
+    cpcmd = ln --symbolic --force $(PWD)/$1 $2
+endif
+
+# Install or symlink a file
+# $(call doinstall,name,srcpath,destpath)
+define doinstall
+	@echo "$(action) $1..."
+	@install --directory --mode=0700 $(dir $3)
+	@$(call cpcmd,$2,$3)
 endef
 
-# Create directory and symlink file to target
-# $(call dosymlink,destfile,srcfile)
-define dosymlink
-	@install --directory --mode=0700 $(dir $1)
-	@ln -s $(PWD)/$2 $1
-endef
-
-# Symlink a file for installation after checking if it exists already
-# $(call symlink,name,destfile,srcfile)
-define symlink
-	@echo "Symlinking $1..."
-	$(if $(wildcard $2),$(call installed,$1),$(call dosymlink,$2,$3))
-endef
-
-.PHONY: install ## Check dependencies, symlink script, data and tab completion
+.PHONY: install ## Install (DEVMODE=1: symlink) pbb, assets and tab completion
 install:
 	$(call checkdep,Pandoc,pandoc)
 	$(call checkdep,Git,git)
@@ -52,18 +47,18 @@ install:
 	$(call checkdep,ImageMagick,convert)
 	$(call checkdep,Python 3,python3)
 	$(call checkdep,Bats,bats)
-	$(call symlink,pbb,$(binpath),pbb)
-	$(call symlink,stylesheet,$(datapath),pbb.css)
-	$(call symlink,tab completion script,$(comppath),completion/pbb)
+	$(call doinstall,pbb,pbb,$(binpath))
+	$(call doinstall,stylesheet,pbb.css,$(datapath))
+	$(call doinstall,tab completion script,completion/pbb,$(comppath))
 
-# Unlink a file
+# Remove a file or symlink
 # $(call douninstall,filename)
 define douninstall
-	echo "Removing symlink $1..." && \
-	rm -f $1;
+	echo "Removing $1..." && \
+	rm --force $1;
 endef
 
-.PHONY: uninstall ## Remove script, data and tab completion symlinks
+.PHONY: uninstall ## Remove script, data and tab completion files
 uninstall:
 	@$(foreach p,binpath datapath comppath,$(call douninstall,$($(p))))
 ifneq ($(wildcard $(dir $(datapath))),)
