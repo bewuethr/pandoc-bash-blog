@@ -46,5 +46,4 @@ jobs:
           pandoc-version: '2.9.1.1'
 
       - name: 'Run tests'
-        run: |
-          bats --tap  test
+        run: bats --tap test
