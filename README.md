@@ -10,22 +10,37 @@ on Pandoc and Bash. Progress is chronicled at
 
 ## Installation
 
-All manual, currently :confused:
+Use
 
-These have to be in place for everything to work:
+```bash
+make install
+```
 
-- The `pbb` script has to be in your `$PATH` somewhere
-- The `pbb.css` stylesheet has to be in `/usr/local/include/pbb`
-- To enable tab-completion, the file `completion/pbb` has to be sourced on
-  startup; the canonical place for it to live is in
-  `~/.local/share/bash-completion/completions`, which allows for dynamically
-  loading it; the legacy location is in `/etc/bash_completion.d`; or, you could
-  copy its contents into `~/.bash_completion`
+to install the executable, the tab completion and the stylesheet. Installation
+follows the [XDG Base Directory Specification]; this means:
+
+- `~/.local/bin` has to be in in your `$PATH` (as per [systemd file hierarchy])
+- Bash completion has to be configured such that it dynamically looks up
+  completions in `$XDG_DATA_HOME/bash-completion/completions`; `$XDG_DATA_HOME`
+  defaults to `~/.local/share`
+- Assets such as the stylesheet are installed to `$XDG_DATA_HOME/pbb`
+
+There is an option to create symlinks instead of copying files; this is useful
+for development so changes to the original are immediately effective. To do so,
+set the `DEVMODE` variable:
+
+```bash
+make install DEVMODE=1
+```
+
+  [XDG Base directory Specification]: https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+  [systemd file hierarchy]: https://www.freedesktop.org/software/systemd/man/file-hierarchy.html
 
 ## Dependencies
 
 These are the versions I use on my development machine; some things break for
-older versions.
+older versions. `make install` checks if the executables exist, but not their
+versions.
 
 - Bash 5.0.3
 - Pandoc 2.9.1.1
@@ -37,18 +52,25 @@ older versions.
 - Bats 1.1.0 (for test suite)
 - bash-completion 2.9 (for tab completion)
 
+In the Makefile, additionally:
+
+- GNU Make 4.2.1
+- GNU Awk 4.2.1
+- `column`
+- GNU Coreutils 8.30: `install`, `rmdir`
+
 ## Usage
 
 Initialize a new blog with title "My blog" in an empty Git repository:
 
-```sh
+```bash
 git init
 pbb init 'My blog'
 ```
 
 If you later want to change the title, use
 
-```sh
+```bash
 pbb title 'My blog with a new title'
 ```
 
@@ -77,7 +99,7 @@ branch.
 
 You might have to set the Git remote first:
 
-```sh
+```bash
 git remote add origin https://github.com/<yourname>/<repo-name>.git
 ```
 
@@ -106,7 +128,7 @@ about this and continues.
 Pbb integrates with [GoatCounter], a pretty awesome simple web statistics
 solution. Open an account, add your site and set your code with
 
-```sh
+```bash
 pbb gccode <yourcode>
 ```
 
