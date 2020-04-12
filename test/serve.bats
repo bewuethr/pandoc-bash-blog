@@ -6,8 +6,8 @@ load test_helper
 	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	pbb build
-	timeout 0.5 pbb serve &
-	sleep 0.2
+	timeout 0.7 pbb serve &
+	sleep 0.4
 
 	run curl localhost:8000
 
