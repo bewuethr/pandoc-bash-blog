@@ -45,8 +45,8 @@ versions.
 - Bash 5.0.3
 - Pandoc 2.9.1.1
 - Git 2.23.0
-- GNU coreutils 8.30: `cat`, `cp`, `mkdir`, `ln`, `rm`, `tac`
-- GNU sed 4.7
+- GNU Coreutils 8.30: `cat`, `cp`, `mkdir`, `ln`, `rm`, `tac`
+- GNU Sed 4.7
 - ImageMagick 6.9.10-23 (for favicon)
 - Python 3.7.5 (for `pbb serve`)
 - Bats 1.1.0 (for test suite)
@@ -147,7 +147,7 @@ installed, they should tab-autocomplete.
 - Creates new `source` branch and checks it out
 - Adds artifacts directory to `.gitignore`
 - Creates the `includes`, `images` and `assets` directories
-- Symlinks the stylesheet from `/usr/local/include/pbb/pbb.css`
+- Symlinks the stylesheet from `$XDG_DATA_HOME/pbb/pbb.css`
 - Creates header files in `includes` that are used on every page, for blog
   title link, favicon, Google web font links and GoatCounter analytics
 - Creates an example post
