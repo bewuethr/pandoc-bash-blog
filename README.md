@@ -24,6 +24,8 @@ follows the [XDG Base Directory Specification]; this means:
   completions in `$XDG_DATA_HOME/bash-completion/completions`; `$XDG_DATA_HOME`
   defaults to `~/.local/share`
 - Assets such as the stylesheet are installed to `$XDG_DATA_HOME/pbb`
+- The man page gets installed to `$XDG_DATA_HOME/man`; make sure your `man`
+  finds it there
 
 There is an option to create symlinks instead of copying files; this is useful
 for development so changes to the original are immediately effective. To do so,
@@ -60,6 +62,8 @@ In the Makefile, additionally:
 - GNU Coreutils 8.30: `install`, `rmdir`
 
 ## Usage
+
+The authoritative source for usage instructions is `man pbb`.
 
 Initialize a new blog with title "My blog" in an empty Git repository:
 
