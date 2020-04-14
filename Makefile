@@ -3,6 +3,7 @@ XDG_DATA_HOME ?= $(HOME)/.local/share
 binpath := $(HOME)/.local/bin/pbb
 comppath := $(XDG_DATA_HOME)/bash-completion/completions/pbb
 datapath := $(XDG_DATA_HOME)/pbb/pbb.css
+manpath := $(XDG_DATA_HOME)/man/man1/pbb.1
 
 .PHONY: help ## Display usage instruction; default goal
 help:
@@ -39,7 +40,7 @@ define doinstall
 	@$(call cpcmd,$2,$3)
 endef
 
-.PHONY: install ## Install (DEVMODE=1: symlink) pbb, assets and tab completion
+.PHONY: install ## Install (DEVMODE=1: symlink) pbb, assets, man page and tab completion
 install:
 	$(call checkdep,Pandoc,pandoc)
 	$(call checkdep,Git,git)
@@ -49,18 +50,20 @@ install:
 	$(call checkdep,Bats,bats)
 	$(call doinstall,pbb,pbb,$(binpath))
 	$(call doinstall,stylesheet,pbb.css,$(datapath))
+	$(call doinstall,man page,man/pbb.1,$(manpath))
 	$(call doinstall,tab completion script,completion/pbb,$(comppath))
 
 # Remove a file or symlink
 # $(call douninstall,filename)
 define douninstall
-	echo "Removing $1..." && \
-	rm --force $1;
+	@echo "Removing $1..." && \
+	rm --force $1
+
 endef
 
-.PHONY: uninstall ## Remove script, data and tab completion files
+.PHONY: uninstall ## Remove script, data, man page and tab completion files
 uninstall:
-	@$(foreach p,binpath datapath comppath,$(call douninstall,$($(p))))
+	$(foreach p,binpath datapath manpath comppath,$(call douninstall,$($(p))))
 ifneq ($(wildcard $(dir $(datapath))),)
 	@echo "Removing pbb directory..."
 	@rmdir $(dir $(datapath))
