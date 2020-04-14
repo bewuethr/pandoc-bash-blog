@@ -76,7 +76,7 @@ init() {
 	git add "$conf"
 
 	# Symlink style sheet
-	ln -s "${XDG_DATA_HOME:-$HOME/.local/share}/pbb/pbb.css" "$cssfile"
+	ln --symbolic "${XDG_DATA_HOME:-$HOME/.local/share}/pbb/pbb.css" "$cssfile"
 	git add "$cssfile"
 
 	# Header links for Google Font style sheet
