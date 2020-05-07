@@ -1,4 +1,4 @@
-name: 'Linting'
+name: Linting
 
 on:
   push:
@@ -10,38 +10,38 @@ on:
 jobs:
 
   yamllint:
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     steps:
 
-      - name: 'Check out code'
-        uses: 'actions/checkout@v2'
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: 'Get yamllint config file from dotfiles'
+      - name: Get yamllint config file from dotfiles
         env:
           # yamllint disable-line rule:line-length
-          CONFIG_FILE: 'https://raw.githubusercontent.com/bewuethr/dotfiles/master/.config/yamllint/config'
+          CONFIG_FILE: https://raw.githubusercontent.com/bewuethr/dotfiles/master/.config/yamllint/config
         run: curl "$CONFIG_FILE" > .github/workflows/yamllintconfig
 
-      - name: 'Run YAML linter'
-        uses: 'bewuethr/yamllint-action@v1'
+      - name: Run YAML linter
+        uses: bewuethr/yamllint-action@v1
         with:
-          config-file: '.github/workflows/yamllintconfig'
+          config-file: .github/workflows/yamllintconfig
 
 
   markdownlint:
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     steps:
 
-      - name: 'Check out code'
-        uses: 'actions/checkout@v2'
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: 'Get mdl style file from dotfiles'
+      - name: Get mdl style file from dotfiles
         env:
           # yamllint disable-line rule:line-length
-          STYLE_FILE: 'https://raw.githubusercontent.com/bewuethr/dotfiles/master/.config/mdl/style.rb'
+          STYLE_FILE: https://raw.githubusercontent.com/bewuethr/dotfiles/master/.config/mdl/style.rb
         run: curl "$STYLE_FILE" > .github/workflows/style.rb
 
-      - name: 'Run Markdown linter'
-        uses: 'bewuethr/mdl-action@v1'
+      - name: Run Markdown linter
+        uses: bewuethr/mdl-action@v1
         with:
-          style-file: '.github/workflows/style.rb'
+          style-file: .github/workflows/style.rb

@@ -1,4 +1,4 @@
-name: 'Shell linting and testing'
+name: Shell linting and testing
 
 on:
   push:
@@ -10,40 +10,40 @@ on:
 jobs:
 
   shellcheck:
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     steps:
 
-      - name: 'Check out code'
-        uses: 'actions/checkout@v2'
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: 'Run shellcheck'
-        uses: 'bewuethr/shellcheck-action@v2'
+      - name: Run shellcheck
+        uses: bewuethr/shellcheck-action@v2
 
   test:
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     steps:
 
-      - name: 'Check out code'
-        uses: 'actions/checkout@v2'
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: 'Get Bats repository'
-        uses: 'actions/checkout@v2'
+      - name: Get Bats repository
+        uses: actions/checkout@v2
         with:
-          repository: 'bats-core/bats-core'
-          ref: 'v1.1.0'
-          path: 'bats-core'
+          repository: bats-core/bats-core
+          ref: v1.1.0
+          path: bats-core
 
-      - name: 'Install Bats and adjust PATH'
+      - name: Install Bats and adjust PATH
         run: |
           cd bats-core
           ./install.sh "$HOME"
           echo "::add-path::$HOME/bin"
           echo "::add-path::$HOME/.local/bin"
 
-      - name: 'Install Pandoc'
-        uses: 'r-lib/actions/setup-pandoc@v1'
+      - name: Install Pandoc
+        uses: r-lib/actions/setup-pandoc@v1
         with:
-          pandoc-version: '2.9.1.1'
+          pandoc-version: 2.9.1.1
 
-      - name: 'Run tests'
+      - name: Run tests
         run: bats --tap test

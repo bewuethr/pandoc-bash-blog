@@ -101,7 +101,7 @@ init() {
 	git add includes
 
 	# Metadata file
-	printf '%s\n' 'toc: false' "toc-title: 'Table of contents'" > "$metadata"
+	printf '%s\n' 'toc: false' 'toc-title: Table of contents' > "$metadata"
 	git add "$metadata"
 
 	git commit -m "Initialize blog with pbb"

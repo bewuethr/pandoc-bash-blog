@@ -30,7 +30,7 @@ load test_helper
 
 	# Metadata file contains TOC settings
 	grep -Fqx 'toc: false' .metadata.yml
-	grep -Fqx "toc-title: 'Table of contents'" .metadata.yml
+	grep -Fqx 'toc-title: Table of contents' .metadata.yml
 
 	# Header file contains title
 	[[ $(< includes/header.html) == '<p><a href="./">Testblog</a></p>' ]]
