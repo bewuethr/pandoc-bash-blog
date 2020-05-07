@@ -24,8 +24,17 @@ code {
 	font-size: .88em;
 }
 
+div.sourceCode {
+	background-color: #eee;
+	overflow-x: auto;
+}
+
 :not(pre) > code {
-	color: #C7254E;
+	color: #c7254e;
+}
+
+pre > code {
+	white-space: pre;
 }
 
 h1,
@@ -59,7 +68,23 @@ img {
 }
 
 pre  {
-	background-color: #eee;
-	overflow-x: auto;
 	padding: 9px;
+}
+
+pre.numberSource {
+	padding-left: 3px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table td,
+table th {
+	border: 1px solid #dfe2e5;
+	padding: 6px 13px;
+}
+
+table tr:nth-child(even) {
+	background-color: #f6f8fa;
 }
