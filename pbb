@@ -134,6 +134,7 @@ md2html() {
 
 	local args=(
 		"--css=/pbb.css"
+		"--email-obfuscation=references"
 		"--from=markdown"
 		"--include-before-body=$header"
 		"--include-in-header=$fontlinks"
