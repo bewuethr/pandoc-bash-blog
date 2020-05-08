@@ -5,12 +5,18 @@ shopt -s extglob nullglob
 
 declare -r \
 	conf='.pbbconfig' \
-	metadata='.metadata.yml' \
-	header='includes/header.html' \
+	cssfile='assets/pbb.css' \
 	favicon='includes/favicon.html' \
 	fontlinks='includes/fontlinks.html' \
 	goatcounter='includes/goatcounter.html' \
-	cssfile='assets/pbb.css'
+	header='includes/header.html' \
+	metadata='.metadata.yml'
+
+# shellcheck disable=SC2034
+declare -rA features=(
+	['math']=1
+	['bibliography']=1
+)
 
 # Print warning message and continue
 warn() {
@@ -26,15 +32,19 @@ die() {
 # Print usage hint
 usage() {
 	cat <<- EOF >&2
-		usage: pbb help | init TITLE | title TITLE | gccode CODE | build | serve | deploy
+		usage:
+		pbb help | init TITLE | title TITLE | gccode CODE | build | serve | deploy
+		pbb enable FEATURE | disable FEATURE
 
-		   help    Display this message
-		   init    Initialize new blog in empty Git repository
-		   title   Set new blog title
-		   gccode  Set GoatCounter code to enable analytics
-		   build   Generate HTML files and store them in artifacts directory
-		   serve   Serve blog on localhost:8000
-		   deploy  Copy artifacts into master branch and push to remote
+		   help     Display this message
+		   init     Initialize new blog in empty Git repository
+		   title    Set new blog title
+		   gccode   Set GoatCounter code to enable analytics
+		   build    Generate HTML files and store them in artifacts directory
+		   serve    Serve blog on localhost:8000
+		   deploy   Copy artifacts into master branch and push to remote
+		   enable   Turn on feature
+		   disable  Turn off feature
 	EOF
 }
 
@@ -101,7 +111,11 @@ init() {
 	git add includes
 
 	# Metadata file
-	printf '%s\n' 'toc: false' 'toc-title: Table of contents' > "$metadata"
+	printf '%s\n' \
+		'toc: false' \
+		'toc-title: Table of contents' \
+		'reference-section-title: Bibliography' \
+		> "$metadata"
 	git add "$metadata"
 
 	git commit -m "Initialize blog with pbb"
@@ -147,12 +161,20 @@ md2html() {
 		"--to=html"
 	)
 
-	if [[ -f artifacts/favicon.png ]]; then
-		args+=("--include-in-header=$favicon")
+	if [[ $(getconfvalue 'bibliography') == 'on' ]]; then
+		args+=("--filter=pandoc-citeproc")
 	fi
 
 	if [[ -n $(getconfvalue 'goatcountercode') ]]; then
 		args+=("--include-after-body=$goatcounter")
+	fi
+
+	if [[ -f artifacts/favicon.png ]]; then
+		args+=("--include-in-header=$favicon")
+	fi
+
+	if [[ $(getconfvalue 'math') == 'on' ]]; then
+		args+=("--mathjax")
 	fi
 
 	if [[ $file == ????-??-??-* ]]; then
@@ -198,6 +220,16 @@ setgccode() {
 	local code=$1
 	setconfvalue 'goatcountercode' "$code"
 	sed -E -i "s|(https://).*(\.goatcounter)|\1$code\2|" "$goatcounter"
+}
+
+# Toggle feature
+setfeature() {
+	local feature=$1
+	local value=$2
+	if [[ ! -v features["$feature"] ]]; then
+		die "invalid feature: $feature"
+	fi
+	setconfvalue "$feature" "$value"
 }
 
 # Convert favicon image file to 32x32 PNG
@@ -310,23 +342,37 @@ case $subcmd in
 
 	init)
 		if (($# < 2)); then
-			die "usage: pbb init 'My blog title'"
+			die "usage: pbb init TITLE"
 		fi
 		init "${*:2}"
 		;;
 
 	title)
 		if (($# < 2)); then
-			die "usage: pbb title 'My blog title'"
+			die "usage: pbb title TITLE"
 		fi
 		setblogtitle "${*:2}"
 		;;
 
 	gccode)
 		if (($# < 2)); then
-			die "usage: pbb gccode 'mycode'"
+			die "usage: pbb gccode CODE"
 		fi
 		setgccode "$2"
+		;;
+
+	enable)
+		if (($# < 2)); then
+			die "usage: pbb enable FEATURE"
+		fi
+		setfeature "$2" 'on'
+		;;
+
+	disable)
+		if (($# < 2)); then
+			die "usage: pbb disable FEATURE"
+		fi
+		setfeature "$2" 'off'
 		;;
 
 	build) build ;;

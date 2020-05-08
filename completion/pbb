@@ -1,3 +1,3 @@
-complete -W 'help init title gccode build serve deploy' pbb
+complete -W 'help init title gccode build serve deploy enable disable' pbb
 
 # vim: ft=sh
