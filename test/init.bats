@@ -27,9 +27,10 @@ load test_helper
 	# Conf file contains title
 	grep -Fqx 'blogtitle=Testblog' .pbbconfig
 
-	# Metadata file contains TOC settings
+	# Metadata file contains TOC and bibliography settings
 	grep -Fqx 'toc: false' .metadata.yml
 	grep -Fqx 'toc-title: Table of contents' .metadata.yml
+	grep -Fqx 'reference-section-title: Bibliography' .metadata.yml
 
 	# Header file contains title
 	[[ $(< includes/header.html) == '<p><a href="./">Testblog</a></p>' ]]
