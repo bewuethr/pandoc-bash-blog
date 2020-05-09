@@ -5,7 +5,7 @@ load test_helper
 @test "Complain about gccode without code" {
 	run pbb gccode
 	((status == 1))
-	want="usage: pbb gccode 'mycode'"
+	want="usage: pbb gccode CODE"
 	printf '%s\n%s\n' "got: $output" "want: $want"
 	[[ $output == *$want* ]]
 }

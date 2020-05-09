@@ -5,7 +5,7 @@ load test_helper
 @test "Complain about init without title" {
 	run pbb init
 	((status == 1))
-	want="usage: pbb init 'My blog title'"
+	want="usage: pbb init TITLE"
 	printf '%s\n%s\n' "got: $output" "want: $want"
 	[[ $output == *$want* ]]
 }
