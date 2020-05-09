@@ -11,7 +11,6 @@ load test_helper
 }
 
 @test "Change to simple title" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	run pbb title 'New Title'
 
@@ -26,7 +25,6 @@ load test_helper
 }
 
 @test "Change to title with quotes" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	run pbb title "Example Man's \"Blog\""
 
@@ -43,7 +41,6 @@ load test_helper
 }
 
 @test "Change title without quoting parameters" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	run pbb title New Title   without    Quotes
 

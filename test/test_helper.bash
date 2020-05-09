@@ -18,6 +18,7 @@ setup() {
 	if [[ ! -e ${XDG_DATA_HOME:-$HOME/.local/share}/pbb/pbb.css ]]; then
 		make install
 	fi
+	cd /tmp/pbb-testdata || exit
 }
 
 teardown() {

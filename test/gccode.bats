@@ -11,7 +11,6 @@ load test_helper
 }
 
 @test "Set initial GoatCounter code" {
-	cd /tmp/pbb-testdata
 	pbb init "Testblog"
 	run pbb gccode 'mycode'
 	pbb build
@@ -31,7 +30,6 @@ load test_helper
 }
 
 @test "Set GoatCounter code, then change it" {
-	cd /tmp/pbb-testdata
 	pbb init "Testblog"
 	pbb gccode 'mycode'
 	pbb build
@@ -53,7 +51,6 @@ load test_helper
 }
 
 @test "Set GoatCounter code, then set it to empty" {
-	cd /tmp/pbb-testdata
 	pbb init "Testblog"
 	pbb gccode 'mycode'
 	pbb build
@@ -76,7 +73,6 @@ load test_helper
 }
 
 @test "Set GoatCounter to code empty, then non-empty" {
-	cd /tmp/pbb-testdata
 	pbb init "Testblog"
 	pbb gccode ''
 	pbb build

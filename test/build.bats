@@ -3,7 +3,6 @@
 load test_helper
 
 @test "Run build" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 
 	run pbb build
@@ -31,7 +30,6 @@ load test_helper
 }
 
 @test "Build post with TOC" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	sed -i '1i ---\ntoc: true\n...\n' *.md
 	run pbb build
@@ -45,7 +43,6 @@ load test_helper
 }
 
 @test "Build with favicon from PNG" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	cp "$BATS_TEST_DIRNAME/testdata/favicon.png" assets
 	run pbb build
@@ -65,7 +62,6 @@ load test_helper
 }
 
 @test "Build with favicon from JPG" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	cp "$BATS_TEST_DIRNAME/testdata/favicon.jpg" assets
 	run pbb build
@@ -79,7 +75,6 @@ load test_helper
 }
 
 @test "Build with favicon from GIF with multiple frames" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	cp "$BATS_TEST_DIRNAME/testdata/favicon.gif" assets
 	run pbb build
@@ -93,7 +88,6 @@ load test_helper
 }
 
 @test "Warn about missing favicon" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	run pbb build
 
@@ -104,7 +98,6 @@ load test_helper
 }
 
 @test "Warn about multiple favicon images" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	cp "$BATS_TEST_DIRNAME"/testdata/favicon.* assets
 	run pbb build

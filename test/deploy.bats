@@ -3,7 +3,6 @@
 load test_helper
 
 @test "Run deploy" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	pbb build
 	run pbb deploy
@@ -22,7 +21,6 @@ load test_helper
 }
 
 @test "Run deploy with missing artifacts directory" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	run pbb deploy
 
@@ -33,7 +31,6 @@ load test_helper
 }
 
 @test "Run deploy when in master" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	pbb build
 	git checkout -b master

@@ -11,7 +11,6 @@ load test_helper
 }
 
 @test "Run init with simple title" {
-	cd /tmp/pbb-testdata
 	run pbb init 'Testblog'
 
 	echo "$output"
@@ -59,7 +58,6 @@ load test_helper
 }
 
 @test "Run init with title containing quotes and blank" {
-	cd /tmp/pbb-testdata
 	run pbb init "Bashman's \"Blog\""
 
 	echo "$output"
@@ -74,7 +72,6 @@ load test_helper
 }
 
 @test "Run init twice" {
-	cd /tmp/pbb-testdata
 	run pbb init "Testblog"
 	run pbb init "Testblog"
 
@@ -84,7 +81,6 @@ load test_helper
 }
 
 @test "Run init in initalized non-Git directory" {
-	cd /tmp/pbb-testdata
 	pbb init "Testblog"
 	rm -rf .git
 	setup

@@ -3,7 +3,6 @@
 load test_helper
 
 @test "Run serve" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	pbb build
 	timeout 0.7 pbb serve &
@@ -18,7 +17,6 @@ load test_helper
 }
 
 @test "Run serve with missing artifacts directory" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	run pbb serve
 
@@ -29,7 +27,6 @@ load test_helper
 }
 
 @test "Run serve with missing index file" {
-	cd /tmp/pbb-testdata
 	pbb init 'Testblog'
 	pbb build
 	rm artifacts/index.html
