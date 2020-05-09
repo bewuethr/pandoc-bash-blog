@@ -79,7 +79,8 @@ pbb title 'My blog with a new title'
 ```
 
 `pbb init` creates a sample blog post. Blog posts are written in [Pandoc
-Markdown], with filenames formatted like `YYYY-MM-DD-post-title.md`.
+Markdown] (see also [my post about it]), with filenames formatted like
+`YYYY-MM-DD-post-title.md`.
 
 The first heading of a post has to be a level-one heading:
 
@@ -108,6 +109,7 @@ git remote add origin https://github.com/<yourname>/<repo-name>.git
 ```
 
   [Pandoc Markdown]: https://pandoc.org/MANUAL.html#pandocs-markdown
+  [my post about it]: https://www.benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html
 
 ### Table of contents
 
@@ -119,6 +121,25 @@ the `toc` variable to `true`:
 toc: true
 ...
 ```
+
+### Math
+
+To use MathJax to render inline and display math, turn the `math` feature on:
+
+```bash
+pbb enable math
+```
+
+### Bibliography
+
+To use the [`pandoc-citeproc`] filter to get citations and bibliographies,
+enable the `bibliography` feature:
+
+```bash
+pbb enable bibliography
+```
+
+  [`pandoc-citeproc`]: https://pandoc.org/MANUAL.html#citations
 
 ### Favicon
 
@@ -143,10 +164,10 @@ Consider paying for a custom domain or [sponsoring] the author.
 
 ## Subcommands
 
-There are six subcommands (seven, if you count `pbb help`); when properly
+There are eight subcommands (nine, if you count `pbb help`); when properly
 installed, they should tab-autocomplete.
 
-### `pbb init 'Title of the blog'`
+### `pbb init <title>`
 
 - Creates new `source` branch and checks it out
 - Adds artifacts directory to `.gitignore`
@@ -156,14 +177,23 @@ installed, they should tab-autocomplete.
   title link, favicon, Google web font links and GoatCounter analytics
 - Creates an example post
 
-### `pbb title 'New title'`
+### `pbb title <new title>`
 
 - Sets a new blog title for an existing blog
 
-### `pbb gccode 'mycode'`
+### `pbb enable <feature>`
+
+- Turns on a feature
+- Options are `math` and `bibliography`
+
+### `pbb disable <feature>`
+
+- Turns off a feature
+
+### `pbb gccode <code>`
 
 - Includes a snippet with tracking code for [GoatCounter] on each page, where
-  the code for the account is `mycode`
+  the code for the account is `<code>`
 - To turn tracking off, set code to empty with `pbb gccode ''`
 
 ### `pbb build`
