@@ -1,0 +1,24 @@
+---
+references:
+  - id: Ritchie1974
+    type: article-journal
+    author:
+      - family: Ritchie
+        given: Dennis M.
+      - family: Thompson
+        given: Ken
+    issued:
+      - year: 1974
+        month: 7
+    title: The unix time-sharing system
+    container-title: Commun. ACM
+    publisher: Association for Computing Machinery
+    publisher-place: New York, NY, USA
+    page: 365-375
+    volume: '17'
+    issue: '7'
+    keyword: file system, PDP-11, operating system, command language, time-sharing
+    URL: https://doi.org/10.1145/361011.361061
+    DOI: 10.1145/361011.361061
+    ISSN: 0001-0782
+...
