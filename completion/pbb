@@ -1,3 +1,42 @@
-complete -W 'help init title gccode build serve deploy enable disable' pbb
+# Tab completion for pbb
+# shellcheck disable=SC2016,SC2034,SC2207
+_pbb() {
+	local cur=$2
+	local prev=$3
 
-# vim: ft=sh
+	shopt -s extglob
+
+	case $COMP_CWORD in
+		1)
+			# Complete subcommands
+			local subcmds=(
+				'help'
+				'init'
+				'title'
+				'gccode'
+				'build'
+				'serve'
+				'deploy'
+				'enable'
+				'disable'
+			)
+			COMPREPLY=($(compgen -W '"${subcmds[@]}"' -- "$cur"))
+			;;
+
+		2)
+			case $prev in
+				enable|disable)
+					local features=('bibliography' 'math')
+					COMPREPLY=($(compgen -W '"${features[@]}"' -- "$cur"))
+					;;
+				*)
+					return
+					;;
+			esac
+	esac
+	return
+}
+
+complete -F _pbb pbb
+
+# vim: ft=bash
