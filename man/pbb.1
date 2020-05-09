@@ -11,6 +11,12 @@ pbb \- Pandoc Bash Blog
 .B pbb title
 .I TITLE
 .br
+.B pbb enable
+.I FEATURE
+.br
+.B pbb disable
+.I FEATURE
+.br
 .B pbb gccode
 .I CODE
 .br
@@ -46,7 +52,9 @@ It symlinks the style sheet into the
 .I assets
 directory, creates the header files to be used on every page in the
 .I includes
-directory and creates an example post with the current date.
+directory, generates the
+.I .metadata.yml
+file, and creates an example post with the current date.
 .RS
 .PP
 Unquoted whitespace in
@@ -58,6 +66,28 @@ gets squeezed.
 Change the blog title to
 .IR TITLE .
 Unquoted whitespace gets squeezed.
+.TP 
+.BI enable\  FEATURE
+.PD 0
+.TP
+.BI disable\  FEATURE
+.PD
+Turn
+.I FEATURE
+on/off.
+The corresponding feature is stored in
+.I .pbbconfig
+with a value of
+.I on
+or
+.IR off .
+Available features are
+.I math
+and
+.IR bibliography .
+See
+.B OPTIONS
+for details.
 .TP
 .BI gccode\  CODE
 Include a snippet with tracking code for GoatCounter on each page, where
@@ -122,6 +152,37 @@ toc: true
 .PP
 There should be only one level-one heading in the file, and no heading level
 should be skipped.
+The heading for the table of contents defaults to \*(lqTable of contents\*(rq
+and can be ajdusted by modifing the value of
+.I toc-title
+in
+.IR .metadata.yml .
+.SS MathJax
+When the feature
+.I math
+is enabled, inline (between pairs of
+.IR $ )
+and display (between pairs of
+.IR $$ )
+math is rendered using MathJax instead of just Unicode characters.
+.SS Bibliography
+When the
+.I bibliography
+feature is enabled, the
+.I pandoc-citeproc
+filter is run, builds a bibliography and enables citations.
+See the
+.UR https://pandoc.org/MANUAL.html#citations
+Pandoc documentation
+.UE
+for details regarding the format and location of the bibliography as well as how
+citations work.
+.PP
+The heading of the bibliography defaults to \*(lqBibliography\*(rq and can be
+adjusted by modifying the value of
+.I reference-section-title
+in
+.IR .metadata.yml .
 .\" ============================================================================
 .SH FILES
 .TP
@@ -135,10 +196,11 @@ and
 are used to modify its contents.
 .TP
 .I .metadata.yml
-Stores metadata used by Pandoc such as the heading for the table of contents and
-the field that controls generation of the table of contents, which can be
-overridden per post (see
-.BR OPTIONS ).
+Stores metadata used by Pandoc such as the heading for the table of contents,
+the field that controls generation of the table of contents (which can be
+overridden per post, see
+.BR OPTIONS )
+and the heading for the bibliography.
 .TP
 .I assets/favicon.*
 If exactly one image file matching this pattern exists, it is converted to a
@@ -242,6 +304,11 @@ To add a GoatCounter tracking code, say,
 run
 .BR pbb\ gccode\ CODE .
 .PP
+To enable MathJax, run
+.BR pbb\ enable\ math ,
+and if you want a bibliography and citations, run
+.BR pbb\ enable\ bibliography .
+.PP
 Build your blog with
 .B pbb build
 and run
@@ -264,5 +331,5 @@ Managing version control of the files in the \*(lqsource\*(rq branch is
 completely up you.
 .\" ============================================================================
 .SH SEE ALSO
-.BR imagemagick (1),\  pandoc (1)
+.BR imagemagick (1),\  pandoc (1),\  pandoc-citeproc (1)
 .\" ============================================================================
