@@ -18,7 +18,7 @@ test:
 # $(call checkdep,name,executable)
 define checkdep
 	@echo "Checking if $1 is installed..."; \
-	if [ -z "$$(type -p $2)" ]; then \
+	if [ -z "$$(type -p "$2")" ]; then \
 		echo "Missing dependency $1."; \
 		exit 1; \
 	fi
@@ -26,17 +26,17 @@ endef
 
 ifeq ($(DEVMODE),)
     action := Installing
-    cpcmd = install $1 $2
+    cpcmd = install "$1" "$2"
 else
     action := Symlinking
-    cpcmd = ln --symbolic --force $(PWD)/$1 $2
+    cpcmd = ln --symbolic --force "$(PWD)/$1" "$2"
 endif
 
 # Install or symlink a file
 # $(call doinstall,name,srcpath,destpath)
 define doinstall
 	@echo "$(action) $1..."
-	@install --directory --mode=0700 $(dir $3)
+	@install --directory --mode=0700 "$(dir $3)"
 	@$(call cpcmd,$2,$3)
 endef
 
@@ -57,7 +57,7 @@ install:
 # $(call douninstall,filename)
 define douninstall
 	@echo "Removing $1..." && \
-	rm --force $1
+	rm --force "$1"
 
 endef
 
@@ -66,5 +66,5 @@ uninstall:
 	$(foreach p,binpath datapath manpath comppath,$(call douninstall,$($(p))))
 ifneq ($(wildcard $(dir $(datapath))),)
 	@echo "Removing pbb directory..."
-	@rmdir $(dir $(datapath))
+	@rmdir "$(dir $(datapath))"
 endif
