@@ -27,5 +27,5 @@ load test_helper
 	grep -Fq 'data-cites="Ritchie1974">(Ritchie and Thompson 1974)' artifacts/????-??-??-*.html
 
 	# Post contains bibliography
-	grep -Fq 'id="bibliography" class="unnumbered">Bibliography</h1>' artifacts/????-??-??-*.html
+	grep -q 'id="bibliography".*>Bibliography</h1>' artifacts/????-??-??-*.html
 }
