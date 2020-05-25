@@ -132,7 +132,8 @@ init() {
 setblogtitle() {
 	local blogtitle=$1
 	setconfvalue 'blogtitle' "$blogtitle"
-	printf '[%s](./)\n' "$blogtitle" | pandoc > "$header"
+	printf '<div id="blogtitle"><a href="./">%s</a></div>\n' \
+		"$blogtitle" > "$header"
 }
 
 # Extract the title from a markdown file
