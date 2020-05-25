@@ -21,7 +21,7 @@ load test_helper
 	grep -Fqx 'blogtitle=New\ Title' .pbbconfig
 
 	# Header file contains title
-	[[ $(< includes/header.html) == '<p><a href="./">New Title</a></p>' ]]
+	[[ $(< includes/header.html) == '<div id="blogtitle"><a href="./">New Title</a></div>' ]]
 }
 
 @test "Change to title with quotes" {
@@ -51,5 +51,5 @@ load test_helper
 	grep -Fqx 'blogtitle=New\ Title\ without\ Quotes' .pbbconfig
 
 	# Header file contains title
-	[[ $(< includes/header.html) == '<p><a href="./">New Title without Quotes</a></p>' ]]
+	[[ $(< includes/header.html) == '<div id="blogtitle"><a href="./">New Title without Quotes</a></div>' ]]
 }

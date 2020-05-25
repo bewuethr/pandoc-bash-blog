@@ -33,7 +33,7 @@ load test_helper
 	grep -Fqx 'reference-section-title: Bibliography' .metadata.yml
 
 	# Header file contains title
-	[[ $(< includes/header.html) == '<p><a href="./">Testblog</a></p>' ]]
+	[[ $(< includes/header.html) == '<div id="blogtitle"><a href="./">Testblog</a></div>' ]]
 
 	# CSS file is symlinked
 	[[ -L assets/pbb.css ]]
