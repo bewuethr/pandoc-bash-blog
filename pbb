@@ -153,6 +153,7 @@ md2html() {
 		"--from=markdown"
 		"--include-before-body=$header"
 		"--include-in-header=$fontlinks"
+		"--lua-filter=dotgraph.lua"
 		"--metadata=lang:$(getlang)"
 		"--metadata-file=.metadata.yml"
 		"--output=artifacts/${file/%.md/.html}"
@@ -192,7 +193,7 @@ md2html() {
 # Empty artifacts and copy images directory
 clean() {
 	rm --recursive --force artifacts
-	mkdir --parents artifacts
+	mkdir --parents artifacts/{assets,diagrams}
 	cp --recursive images artifacts
 }
 
