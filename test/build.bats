@@ -16,6 +16,7 @@ load test_helper
 	# Check new directories
 	[[ -d artifacts ]]
 	[[ -d artifacts/images ]]
+	[[ -d artifacts/diagrams ]]
 
 	# Index and post file
 	[[ -f artifacts/index.html ]]
@@ -31,7 +32,7 @@ load test_helper
 
 @test "Build post with TOC" {
 	pbb init 'Testblog'
-	sed -i '1i ---\ntoc: true\n...\n' *.md
+	sed -i '1i ---\ntoc: true\n...\n' ./*.md
 	run pbb build
 
 	echo "$output"
