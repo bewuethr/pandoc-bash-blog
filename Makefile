@@ -4,6 +4,7 @@ binpath := $(HOME)/.local/bin/pbb
 comppath := $(XDG_DATA_HOME)/bash-completion/completions/pbb
 datapath := $(XDG_DATA_HOME)/pbb/pbb.css
 manpath := $(XDG_DATA_HOME)/man/man1/pbb.1
+filterpath := $(XDG_DATA_HOME)/pandoc/filters/dotgraph.lua
 
 .PHONY: help ## Display usage instruction; default goal
 help:
@@ -48,12 +49,14 @@ install:
 	$(call checkdep,ImageMagick,convert)
 	$(call checkdep,Python 3,python3)
 	$(call checkdep,Bats,bats)
+	$(call checkdep,dot,dot)
 	$(call doinstall,pbb,pbb,$(binpath))
 	$(call doinstall,stylesheet,pbb.css,$(datapath))
 	$(call doinstall,man page,man/pbb.1,$(manpath))
 	$(call doinstall,tab completion script,completion/pbb,$(comppath))
+	$(call doinstall,dot graph filter,dotgraph.lua,$(filterpath))
 
-# Remove a file or symlink
+# Remove a file or symlink; the blank line is required!
 # $(call douninstall,filename)
 define douninstall
 	@echo "Removing $1..." && \
@@ -61,9 +64,9 @@ define douninstall
 
 endef
 
-.PHONY: uninstall ## Remove script, data, man page and tab completion files
+.PHONY: uninstall ## Remove script, filter, data, man page and tab completion files
 uninstall:
-	$(foreach p,binpath datapath manpath comppath,$(call douninstall,$($(p))))
+	$(foreach p,binpath filterpath datapath manpath comppath,$(call douninstall,$($(p))))
 ifneq ($(wildcard $(dir $(datapath))),)
 	@echo "Removing pbb directory..."
 	@rmdir "$(dir $(datapath))"
