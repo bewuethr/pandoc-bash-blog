@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -o errexit
+set -o errexit -o pipefail
 shopt -s extglob nullglob
 
 declare -r \
@@ -187,7 +187,7 @@ md2html() {
 		args+=("--metadata=pagetitle:$(getconfvalue 'blogtitle')")
 	fi
 
-	pandoc "${args[@]}" "$file"
+	pandoc "${args[@]}" "$file" || die "error while converting $file"
 }
 
 # Empty artifacts and copy images directory
