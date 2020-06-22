@@ -193,7 +193,7 @@ md2html() {
 # Empty artifacts and copy images directory
 clean() {
 	rm --recursive --force artifacts
-	mkdir --parents artifacts/{assets,diagrams}
+	mkdir --parents artifacts/diagrams
 	cp --recursive images artifacts
 }
 
