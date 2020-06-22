@@ -94,3 +94,24 @@ load test_helper
 	# Post contains comment with dot source
 	grep -Pz '<!--\ndigraph G \{\n    a -> b\n\}\n-->' artifacts/????-??-??-*.html
 }
+
+@test "Build post with dot graph with an error" {
+	pbb init "Testblog"
+
+	cat <<- 'EOF' > ????-??-??-*.md
+		# My first post
+
+		```dot
+		digraph G {
+		    a - b
+		}
+		```
+	EOF
+
+	run pbb build
+
+	echo "$output"
+	((status == 1))
+	[[ $output == *'dot graph generation failed'* ]]
+	[[ $output == *'error while converting '????-??-??'-my-first-post.md'* ]]
+}
