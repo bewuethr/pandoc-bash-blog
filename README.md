@@ -16,8 +16,9 @@ Use
 make install
 ```
 
-to install the executable, the tab completion and the stylesheet. Installation
-follows the [XDG Base Directory Specification]; this means:
+to install the executable, the tab completion, the stylesheet, and the Lua
+filter. Installation follows the [XDG Base Directory Specification]; this
+means:
 
 - `~/.local/bin` has to be in in your `$PATH` (as per [systemd file hierarchy])
 - Bash completion has to be configured such that it dynamically looks up
@@ -26,6 +27,8 @@ follows the [XDG Base Directory Specification]; this means:
 - Assets such as the stylesheet are installed to `$XDG_DATA_HOME/pbb`
 - The man page gets installed to `$XDG_DATA_HOME/man`; make sure your `man`
   finds it there
+- The Lua filter for dot graphs is installed to the default location at
+  `$XDG_DATA_HOME/pandoc/filters`
 
 There is an option to create symlinks instead of copying files; this is useful
 for development so changes to the original are immediately effective. To do so,
@@ -53,6 +56,7 @@ their versions.
 - Python 3.7.5 (for `pbb serve`)
 - Bats 1.2.0 (for test suite)
 - bash-completion 2.9 (for tab completion)
+- graphviz 2.40.1 (for dot graphs)
 
 In the Makefile, additionally:
 
@@ -140,6 +144,28 @@ pbb enable bibliography
 ```
 
   [`pandoc-citeproc`]: https://pandoc.org/MANUAL.html#citations
+
+### dot graphs
+
+Code blocks with class `.dot` are replaced by the [dot] graph they describe. To
+additionally get a caption, use a `caption` attribute; to include the graph
+description as an HTML comment in the output, add the `.includeSource` (or
+`.include-source`) class.
+
+~~~markdown
+``` {.dot .includeSource caption="A dot graph"}
+digraph G {
+    a -> b
+}
+```
+~~~
+
+Like for other fenced code blocks, if `.dot` is the only class, the opening
+line can be just ` ```dot `.
+
+<!-- Fix syntax highlighting: `` -->
+
+  [dot]: https://graphviz.org/doc/info/lang.html
 
 ### Favicon
 
