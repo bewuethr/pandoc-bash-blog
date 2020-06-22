@@ -45,5 +45,8 @@ jobs:
         with:
           pandoc-version: 2.9.2.1
 
+      - name: Install graphviz
+        run: sudo apt-get install graphviz
+
       - name: Run tests
         run: bats --tap test
