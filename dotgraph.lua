@@ -21,7 +21,12 @@ end
 -- Generate an SVG image using dot, return a list containing source code
 -- comment (if desired) and a pandoc image object
 function createDotGraph(elem)
-	local img = pandoc.pipe("dot", {"-Tsvg"}, elem.text)
+	local success, img = pcall(pandoc.pipe, "dot", {"-Tsvg"}, elem.text)
+	if not success then
+		io.stderr:write(tostring(img) .. '\n')
+		error("dot graph generation failed")
+	end
+
 	local fname = "diagrams/" .. pandoc.sha1(img):sub(1, 7) .. ".svg"
 
 	storeImg(fname, img)
