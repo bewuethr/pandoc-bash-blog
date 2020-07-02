@@ -7,5 +7,5 @@ updates:
     directory: /
     schedule:
       interval: daily
-      time: 08:00
+      time: '08:00'  # yamllint disable-line rule:quoted-strings
       timezone: America/Toronto
