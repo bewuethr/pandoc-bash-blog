@@ -43,7 +43,7 @@ jobs:
       - name: Install Pandoc
         uses: r-lib/actions/setup-pandoc@v1
         with:
-          pandoc-version: 2.9.2.1
+          pandoc-version: '2.10'
 
       - name: Install graphviz
         run: sudo apt-get install graphviz
