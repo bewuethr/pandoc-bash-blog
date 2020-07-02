@@ -10,11 +10,11 @@ on:
 jobs:
 
   yamllint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.1
 
       - name: Get yamllint config file from dotfiles
         env:
@@ -29,11 +29,11 @@ jobs:
 
 
   markdownlint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.1
 
       - name: Get mdl style file from dotfiles
         env:
