@@ -29,12 +29,38 @@ div.sourceCode {
 	overflow-x: auto;
 }
 
-:not(pre) > code {
-	color: #c7254e;
+:not(pre):not(a) > code {
+	color: #d33682;
 }
 
 pre > code {
 	white-space: pre;
+}
+
+a {
+  outline: none;
+  -wekbit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
+a:link {
+	color: #268bd2;
+}
+
+a:visited {
+	color: #6c71c4;
+}
+
+a:focus {
+	text-shadow: 0 .25em .2em #666;
+}
+
+a:hover {
+	text-shadow: .25em .25em .17em #666;
+}
+
+a:active {
+	text-shadow: -.25em .25em .16em #666;
 }
 
 h1,
@@ -56,16 +82,20 @@ h1.title {
 	font-size: 3.7rem;
 	font-weight: bold;
 	text-align: center;
-	text-shadow: 0px 0px 10px #333;
+	text-shadow: 0 0 10px #333;
 }
 
-#blogtitle :link,
-#blogtitle :visited,
-#blogtitle :hover,
-#blogtitle :focus,
-#blogtitle :active {
-	color: inherit;
-	text-decoration: none;
+#blogtitle a:link,
+#blogtitle a:visited,
+#blogtitle a:focus,
+#blogtitle a:hover,
+#blogtitle a:active {
+	color: white;
+	text-shadow: inherit;
+}
+
+#blogtitle a:focus {
+	outline: black auto 1px;
 }
 
 h2 {
