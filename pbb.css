@@ -63,6 +63,20 @@ a:active {
 	text-shadow: -.25em .25em .16em #666;
 }
 
+figcaption {
+	color: #7e7e7e;
+	font-size: 90%;
+	font-style: italic;
+}
+
+figure {
+	border: 1px solid #eee;
+	margin: 1em auto;
+	padding: 5px;
+	text-align: center;
+	width: fit-content;
+}
+
 h1,
 h2,
 h3 {
@@ -120,6 +134,10 @@ pre  {
 
 pre.numberSource {
 	padding-left: 3px;
+}
+
+summary:focus {
+	outline: none;
 }
 
 table {
