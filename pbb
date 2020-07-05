@@ -5,6 +5,7 @@ shopt -s extglob nullglob
 
 declare -r \
 	conf='.pbbconfig' \
+	calicon='assets/calendar.svg' \
 	cssfile='assets/pbb.css' \
 	favicon='includes/favicon.html' \
 	fontlinks='includes/fontlinks.html' \
@@ -85,9 +86,10 @@ init() {
 	setblogtitle "$blogtitle"
 	git add "$conf"
 
-	# Symlink style sheet
+	# Symlink assets
 	ln --symbolic "${XDG_DATA_HOME:-$HOME/.local/share}/pbb/pbb.css" "$cssfile"
-	git add "$cssfile"
+	ln --symbolic "${XDG_DATA_HOME:-$HOME/.local/share}/pbb/calendar.svg" "$calicon"
+	git add "$cssfile" "$calicon"
 
 	# Header links for Google Font style sheet
 	printf '%s\n%s%s%s\n' \
@@ -274,6 +276,7 @@ build() {
 
 	rm index.md
 	cp "$cssfile" artifacts
+	cp "$calicon" artifacts/images
 }
 
 # Serve blog from localhost
