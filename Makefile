@@ -3,6 +3,7 @@ XDG_DATA_HOME ?= $(HOME)/.local/share
 binpath := $(HOME)/.local/bin/pbb
 comppath := $(XDG_DATA_HOME)/bash-completion/completions/pbb
 datapath := $(XDG_DATA_HOME)/pbb/pbb.css
+iconpath := $(XDG_DATA_HOME)/pbb/calendar.svg
 manpath := $(XDG_DATA_HOME)/man/man1/pbb.1
 filterpath := $(XDG_DATA_HOME)/pandoc/filters/dotgraph.lua
 
@@ -52,6 +53,7 @@ install:
 	$(call checkdep,dot,dot)
 	$(call doinstall,pbb,pbb,$(binpath))
 	$(call doinstall,stylesheet,pbb.css,$(datapath))
+	$(call doinstall,calendar icon,assets/calendar.svg,$(iconpath))
 	$(call doinstall,man page,man/pbb.1,$(manpath))
 	$(call doinstall,tab completion script,completion/pbb,$(comppath))
 	$(call doinstall,dot graph filter,dotgraph.lua,$(filterpath))
@@ -64,9 +66,11 @@ define douninstall
 
 endef
 
+paths := binpath filterpath datapath iconpath manpath comppath
+
 .PHONY: uninstall ## Remove script, filter, data, man page and tab completion files
 uninstall:
-	$(foreach p,binpath filterpath datapath manpath comppath,$(call douninstall,$($(p))))
+	$(foreach p,$(paths),$(call douninstall,$($(p))))
 ifneq ($(wildcard $(dir $(datapath))),)
 	@echo "Removing pbb directory..."
 	@rmdir "$(dir $(datapath))"
