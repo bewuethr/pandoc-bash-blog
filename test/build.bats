@@ -26,6 +26,9 @@ load test_helper
 	# Stylesheet
 	[[ -f artifacts/pbb.css ]]
 
+	# Calendar icon
+	[[ -f artifacts/images/calendar.svg ]]
+
 	# Index Markdown file is cleaned up
 	[[ ! -f index.md ]]
 }

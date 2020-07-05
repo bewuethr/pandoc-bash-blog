@@ -35,8 +35,10 @@ load test_helper
 	# Header file contains title
 	[[ $(< includes/header.html) == '<div id="blogtitle"><a href="./">Testblog</a></div>' ]]
 
-	# CSS file is symlinked
+	# Assets are symlinked
+	ls assets
 	[[ -L assets/pbb.css ]]
+	[[ -L assets/calendar.svg ]]
 
 	# Font links file exists
 	fontlinks='includes/fontlinks.html'
