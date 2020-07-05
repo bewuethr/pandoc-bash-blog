@@ -48,8 +48,8 @@ for older versions. `make install` checks if the executables exist, but not
 their versions.
 
 - Bash 5.0.3
-- Pandoc 2.9.2.1
-- Git 2.26.2
+- Pandoc 2.10
+- Git 2.27.0
 - GNU Coreutils 8.30: `cat`, `cp`, `mkdir`, `ln`, `rm`, `tac`
 - GNU Sed 4.7
 - ImageMagick 6.9.10-23 (for favicon)
