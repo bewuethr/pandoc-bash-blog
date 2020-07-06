@@ -74,6 +74,7 @@ figure {
 	margin: 1em auto;
 	padding: 5px;
 	text-align: center;
+	width: -moz-fit-content;
 	width: fit-content;
 }
 
