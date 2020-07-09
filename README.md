@@ -54,7 +54,7 @@ their versions.
 - GNU Sed 4.7
 - ImageMagick 6.9.10-23 (for favicon)
 - Python 3.7.5 (for `pbb serve`)
-- Bats 1.2.0 (for test suite)
+- Bats 1.2.1 (for test suite)
 - bash-completion 2.9 (for tab completion)
 - graphviz 2.40.1 (for dot graphs)
 
