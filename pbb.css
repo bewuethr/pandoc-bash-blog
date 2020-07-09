@@ -24,17 +24,35 @@ code {
 	font-size: .88em;
 }
 
-div.sourceCode {
-	background-color: #eee;
-	overflow-x: auto;
-}
-
 :not(pre):not(a) > code {
 	color: #d33682;
 }
 
 pre > code {
 	white-space: pre;
+}
+
+div.indexDate {
+    background: url(images/calendar.svg) left center/.9em no-repeat;
+    color: #7e7e7e;
+    font-size: 90%;
+    font-style: italic;
+    margin: 1em 1.2em 0 0;
+    padding: 0 1.2em;
+}
+
+div.indexTitle {
+	font-size: 1.2em;
+}
+
+div.indexDate p,
+div.indexTitle p {
+	margin: initial;
+}
+
+div.sourceCode {
+	background-color: #eee;
+	overflow-x: auto;
 }
 
 a {
