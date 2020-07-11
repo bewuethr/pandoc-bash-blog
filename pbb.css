@@ -33,12 +33,12 @@ pre > code {
 }
 
 div.indexDate {
-    background: url(images/calendar.svg) left center/.9em no-repeat;
-    color: #7e7e7e;
-    font-size: 90%;
-    font-style: italic;
-    margin: 1em 1.2em 0 0;
-    padding: 0 1.2em;
+	background: url(images/calendar.svg) left center/.9em no-repeat;
+	color: #7e7e7e;
+	font-size: 90%;
+	font-style: italic;
+	margin: 1em 1.2em 0 0;
+	padding: 0 1.2em;
 }
 
 div.indexTitle {
@@ -56,9 +56,9 @@ div.sourceCode {
 }
 
 a {
-  outline: none;
-  -wekbit-tap-highlight-color: transparent;
-  text-decoration: none;
+	outline: none;
+	-wekbit-tap-highlight-color: transparent;
+	text-decoration: none;
 }
 
 a:link {
