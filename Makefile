@@ -56,7 +56,7 @@ install:
 	$(call doinstall,calendar icon,assets/calendar.svg,$(iconpath))
 	$(call doinstall,man page,man/pbb.1,$(manpath))
 	$(call doinstall,tab completion script,completion/pbb,$(comppath))
-	$(call doinstall,dot graph filter,dotgraph.lua,$(filterpath))
+	$(call doinstall,dot graph filter,pandoc/dotgraph.lua,$(filterpath))
 
 # Remove a file or symlink; the blank line is required!
 # $(call douninstall,filename)
