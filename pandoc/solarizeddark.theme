@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "author": "Benjamin Wuethrich <8521043+bewuethr@users.noreply.github.com>",
+    "license": "MIT License",
+    "name": "Solarized dark",
+    "revision": 1
+  },
+  "background-color": "#002b36",
+  "line-number-background-color": "#073642",
+  "line-number-color": "#839496",
+  "text-color": "#839496",
+  "text-styles": {
+    "Keyword": {
+      "text-color": "#859900"
+    },
+    "Function": {
+      "text-color": "#268bd2"
+    },
+    "Variable": {
+      "text-color": "#cb4b16"
+    },
+    "ControlFlow": {
+      "text-color": "#859900"
+    },
+    "Operator": {
+      "text-color": "#859900"
+    },
+    "BuiltIn": {
+      "text-color": "#859900"
+    },
+    "Extension": {
+      "text-color": "#839496"
+    },
+    "Preprocessor": {
+      "text-color": "#cb4b16"
+    },
+    "Attribute": {
+      "text-color": "#b58900"
+    },
+    "Char": {
+      "text-color": "#dc322f"
+    },
+    "SpecialChar": {
+      "text-color": "#dc322f"
+    },
+    "String": {
+      "text-color": "#2aa198"
+    },
+    "VerbatimString": {
+      "text-color": "#2aa198"
+    },
+    "SpecialString": {
+      "text-color": "#268bd2"
+    },
+    "Import": {
+      "text-color": "#2aa198"
+    },
+    "DataType": {
+      "text-color": "#cb4b16"
+    },
+    "DecVal": {
+      "text-color": "#2aa198"
+    },
+    "BaseN": {
+      "text-color": "#2aa198"
+    },
+    "Float": {
+      "text-color": "#2aa198"
+    },
+    "Constant": {
+      "text-color": "#2aa198"
+    },
+    "Comment": {
+      "italic": true,
+      "text-color": "#586e75"
+    },
+    "Documentation": {
+      "text-color": "#2aa198"
+    },
+    "Annotation": {
+      "text-color": "#dc322f"
+    },
+    "CommentVar": {
+      "text-color": "#268bd2"
+    },
+    "RegionMarker": {
+      "text-color": "#cb4b16"
+    },
+    "Information": {
+      "text-color": "#2aa198"
+    },
+    "Warning": {
+      "bold": true,
+      "text-color": "#dc322f"
+    },
+    "Alert": {
+      "bold": true,
+      "text-color": "#d33682"
+    },
+    "Error": {
+      "background-color": "#ff0000",
+      "text-color": "#ffffff"
+    },
+    "Other": {
+      "text-color": "#859900"
+    }
+  }
+}
