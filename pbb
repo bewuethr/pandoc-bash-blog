@@ -153,6 +153,7 @@ md2html() {
 		"--css=/pbb.css"
 		"--email-obfuscation=references"
 		"--from=markdown"
+		"--highlight-style=${XDG_DATA_HOME:-$HOME/.local/share}/pandoc/solarizeddark.theme"
 		"--include-before-body=$header"
 		"--include-in-header=$fontlinks"
 		"--lua-filter=dotgraph.lua"

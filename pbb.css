@@ -51,7 +51,6 @@ div.indexTitle p {
 }
 
 div.sourceCode {
-	background-color: #eee;
 	overflow-x: auto;
 }
 
@@ -162,7 +161,21 @@ pre  {
 }
 
 pre.numberSource {
-	padding-left: 3px;
+	border: none;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+	line-height: 1.6em;
+}
+
+pre > code.sourceCode > span:first-child > a:first-child::before {
+	margin-top: -9px;
+	padding-top: 9px;
+}
+
+pre > code.sourceCode > span:last-child > a:first-child::before {
+	margin-bottom: -9px;
+	padding-bottom: 9px;
 }
 
 summary:focus {
