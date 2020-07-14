@@ -81,7 +81,8 @@ a:active {
 	text-shadow: -.25em .25em .16em #666;
 }
 
-figcaption {
+figcaption,
+table > caption {
 	color: #7e7e7e;
 	font-size: 90%;
 	font-style: italic;
