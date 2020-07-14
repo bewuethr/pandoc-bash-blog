@@ -6,6 +6,7 @@ datapath := $(XDG_DATA_HOME)/pbb/pbb.css
 iconpath := $(XDG_DATA_HOME)/pbb/calendar.svg
 manpath := $(XDG_DATA_HOME)/man/man1/pbb.1
 filterpath := $(XDG_DATA_HOME)/pandoc/filters/dotgraph.lua
+themepath := $(XDG_DATA_HOME)/pandoc/solarizeddark.theme
 
 .PHONY: help ## Display usage instruction; default goal
 help:
@@ -57,6 +58,7 @@ install:
 	$(call doinstall,man page,man/pbb.1,$(manpath))
 	$(call doinstall,tab completion script,completion/pbb,$(comppath))
 	$(call doinstall,dot graph filter,pandoc/dotgraph.lua,$(filterpath))
+	$(call doinstall,syntax highlighting theme,pandoc/solarizeddark.theme,$(themepath))
 
 # Remove a file or symlink; the blank line is required!
 # $(call douninstall,filename)
@@ -66,9 +68,9 @@ define douninstall
 
 endef
 
-paths := binpath filterpath datapath iconpath manpath comppath
+paths := binpath filterpath datapath iconpath manpath comppath themepath
 
-.PHONY: uninstall ## Remove script, filter, data, man page and tab completion files
+.PHONY: uninstall ## Remove script and all installed files
 uninstall:
 	$(foreach p,$(paths),$(call douninstall,$($(p))))
 ifneq ($(wildcard $(dir $(datapath))),)
