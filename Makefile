@@ -14,7 +14,7 @@ help:
 
 .PHONY: test ## Run Bats test suite
 test:
-	bats test
+	@bats test
 
 # Check if dependency is installed
 # $(call checkdep,name,executable)
