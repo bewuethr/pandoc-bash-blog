@@ -16,9 +16,9 @@ Use
 make install
 ```
 
-to install the executable, the tab completion, the stylesheet, and the Lua
-filter. Installation follows the [XDG Base Directory Specification]; this
-means:
+to install the executable, the tab completion, the stylesheet, the Lua filter,
+and the syntax highlighting theme. Installation follows the [XDG Base Directory
+Specification]; this means:
 
 - `~/.local/bin` has to be in in your `$PATH` (as per [systemd file hierarchy])
 - Bash completion has to be configured such that it dynamically looks up
@@ -29,6 +29,7 @@ means:
   finds it there
 - The Lua filter for dot graphs is installed to the default location at
   `$XDG_DATA_HOME/pandoc/filters`
+- The syntax highlighting theme is installed to `$XDG_DATA_HOME/pandoc`
 
 There is an option to create symlinks instead of copying files; this is useful
 for development so changes to the original are immediately effective. To do so,
