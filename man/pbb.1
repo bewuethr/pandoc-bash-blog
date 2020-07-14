@@ -1,5 +1,5 @@
 .\" ============================================================================
-.TH PBB 1 2020-06-22
+.TH PBB 1 2020-07-13
 .\" ============================================================================
 .SH NAME
 pbb \- Pandoc Bash Blog
@@ -48,7 +48,7 @@ file, and the
 and
 .I assets
 directories.
-It symlinks the style sheet into the
+It symlinks the style sheet and the calendar icon into the
 .I assets
 directory, creates the header files to be used on every page in the
 .I includes
@@ -179,7 +179,7 @@ feature is enabled, the
 filter is run, builds a bibliography and enables citations.
 See the
 .UR https://pandoc.org/MANUAL.html#citations
-Pandoc documentation
+pandoc documentation
 .UE
 for details regarding the format and location of the bibliography as well as how
 citations work.
@@ -224,13 +224,17 @@ and
 are used to modify its contents.
 .TP
 .I .metadata.yml
-Stores metadata used by Pandoc such as the heading for the table of contents,
+Stores metadata used by pandoc such as the heading for the table of contents,
 the field that controls generation of the table of contents (which can be
 overridden per post, see
 .BR OPTIONS )
 and the heading for the bibliography.
 .TP
-.I assets/favicon.*
+.I assets
+Contains various assets used when the blog is built:
+.RS
+.TP
+.I favicon.*
 If exactly one image file matching this pattern exists, it is converted to a
 32x32 PNG image and used as the favicon by
 .BR pbb\ build .
@@ -238,12 +242,17 @@ If the image is not square, a square is placed in its centre and everything
 outside the square is cropped.
 If the file is an animated GIF, the first frame is used.
 .TP
-.I assets/pbb.css
+.I pbb.css
 The style sheet used by Pandoc Bash Blog; it is symlinked from
 .I $XDG_DATA_HOME/pbb/pbb.css
 and updated there when
 .B pbb
 is updated.
+.TP
+.I calendar.svg
+This is an icon used to decorate datestamps on posts; it is symlinked from
+.IR $XDG_DATA_HOME/pbb/calendar.svg .
+.RE
 .TP
 .I includes
 Contains files containing HTML snippets to be included when converting the
@@ -263,6 +272,20 @@ The favicon link that gets included if a favicon has been generated.
 A script snippet that goes at the end of the
 .I <body>
 tag if a GoatCounter code has been set.
+.RE
+.TP
+.I $XDG_DATA_HOME/bash-completion/completions/pbb
+The tab completion for
+.BR pbb .
+.TP
+.I $XDG_DATA_HOME/man/man1/pbb.1
+The source for this man page.
+.TP
+.I $XDG_DATA_HOME/pandoc/filters/dotgraph.lua
+The Lua filter used to generate Dot graphs from special code blocks.
+.TP
+.I $XDG_DATA_HOME/pandoc/solarizeddark.theme
+The syntax highlighting theme used for code blocks.
 .\" ============================================================================
 .SH NOTES
 The source code for
@@ -311,7 +334,7 @@ Hello world!
 .EE
 .in
 .PP
-Edit that post to your liking using Pandoc Markdown; images go into the
+Edit that post to your liking using pandoc Markdown; images go into the
 .I images
 directory.
 To include a dot graph, create a code block with class
