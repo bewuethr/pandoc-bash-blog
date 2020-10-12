@@ -153,6 +153,8 @@ additionally get a caption, use a `caption` attribute; to include the graph
 description as an HTML comment in the output, add the `.includeSource` (or
 `.include-source`) class.
 
+<!-- markdownlint-disable code-fence-style -->
+
 ~~~markdown
 ``` {.dot .includeSource caption="A dot graph"}
 digraph G {
@@ -160,6 +162,8 @@ digraph G {
 }
 ```
 ~~~
+
+<!-- markdownlint-restore -->
 
 Like for other fenced code blocks, if `.dot` is the only class, the opening
 line can be just ` ```dot `.
