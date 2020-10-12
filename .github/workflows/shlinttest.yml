@@ -37,8 +37,7 @@ jobs:
         run: |
           cd bats-core
           ./install.sh "$HOME"
-          echo "::add-path::$HOME/bin"
-          echo "::add-path::$HOME/.local/bin"
+          printf '%s\n' "$HOME/bin" "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Install Pandoc
         uses: r-lib/actions/setup-pandoc@v1
