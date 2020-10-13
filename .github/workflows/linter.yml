@@ -22,3 +22,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_MARKDOWN: true
           VALIDATE_YAML: true
+          ACTIONS_RUNNER_DEBUG: true
+          OUTPUT_FORMAT: tap
+          OUTPUT_DETAILS: detailed
