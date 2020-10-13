@@ -27,3 +27,4 @@ jobs:
           ACTIONS_RUNNER_DEBUG: true
           OUTPUT_FORMAT: tap
           OUTPUT_DETAILS: detailed
+          MULTI_STATUS: true
