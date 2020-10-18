@@ -24,12 +24,12 @@ code {
 	font-size: .88em;
 }
 
-:not(pre):not(a) > code {
-	color: #d33682;
-}
-
 pre > code {
 	white-space: pre;
+}
+
+:not(pre):not(a) > code {
+	color: #d33682;
 }
 
 div.indexDate {
@@ -156,7 +156,7 @@ p.date {
 	padding: 0 1.2em;
 }
 
-pre  {
+pre {
 	padding: 9px;
 }
 
