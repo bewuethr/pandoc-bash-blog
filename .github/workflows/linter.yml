@@ -20,3 +20,4 @@ jobs:
           VALIDATE_MARKDOWN: true
           VALIDATE_YAML: true
           VALIDATE_CSS: true
+          VALIDATE_JSON: true
