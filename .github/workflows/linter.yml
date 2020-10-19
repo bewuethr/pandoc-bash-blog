@@ -2,6 +2,10 @@ name: Lint code base
 
 on:
   push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 
 jobs:
   build:
