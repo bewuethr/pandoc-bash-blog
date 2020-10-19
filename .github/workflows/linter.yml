@@ -22,3 +22,4 @@ jobs:
           VALIDATE_CSS: true
           VALIDATE_JSON: true
           VALIDATE_LUA: true
+          VALIDATE_BASH_EXEC: true
