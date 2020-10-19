@@ -1,0 +1,14 @@
+# See https://yamllint.readthedocs.io/en/stable/rules.html
+extends: default
+
+rules:
+  # Don't require document start markers (---)
+  document-start: disable
+
+  # Require single quotes, but only when needed
+  quoted-strings:
+    quote-type: single
+    required: only-when-needed
+
+  # Disable rule about non-explicitly typed truthy values
+  truthy: disable

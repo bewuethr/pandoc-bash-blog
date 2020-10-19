@@ -1,4 +1,4 @@
-name: Shell linting and testing
+name: Testing
 
 on:
   push:
@@ -9,18 +9,9 @@ on:
 
 jobs:
 
-  shellcheck:
-    runs-on: ubuntu-18.04
-    steps:
-
-      - name: Check out code
-        uses: actions/checkout@v2.3.3
-
-      - name: Run shellcheck
-        uses: bewuethr/shellcheck-action@v2
-
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
+    name: Run BATS tests
     steps:
 
       - name: Check out code

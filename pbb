@@ -267,7 +267,7 @@ build() {
 		local f
 		for f in ????-??-??-*.md; do
 			printf -- ':::\n[%s](%s)\n:::indexTitle\n\n:::\n%s\n:::indexDate\n\n' \
-				"$(extracttitle "$f")" "${f/%.md/.html}" "${f:0:10}" 
+				"$(extracttitle "$f")" "${f/%.md/.html}" "${f:0:10}"
 			md2html "$f"
 		done | tac
 	} > index.md
