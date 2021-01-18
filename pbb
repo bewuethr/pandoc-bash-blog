@@ -280,6 +280,16 @@ build() {
 	cp "$calicon" artifacts/images
 }
 
+# Monitor directory for file modifications and print names of modified files
+monitor() {
+	# Use unbuffered uniq to suppress multiple modifications within the same
+	# second, then throw away timestamp column
+	inotifywait --monitor --quiet --event modify \
+		--exclude '\.sw.$' --timefmt '%s' --format $'%T\t%f' . \
+		| stdbuf --output=L uniq \
+		| stdbuf --output=L cut --field 2
+}
+
 # Serve blog from localhost
 serve() {
 	if [[ ! -d artifacts ]]; then
@@ -290,7 +300,13 @@ serve() {
 		die "can't find index file; try \"pbb build\""
 	fi
 
-	(cd artifacts && python3 -m http.server)
+	(cd artifacts && python3 -m http.server &)
+
+	local fname
+	while IFS= read -r fname; do
+		echo "Rebuilding $fname..."
+		md2html "$fname"
+	done < <(monitor)
 }
 
 # Return non-zero exit status if branch has no remote set
