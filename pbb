@@ -300,8 +300,11 @@ serve() {
 		die "can't find index file; try \"pbb build\""
 	fi
 
-	(cd artifacts && python3 -m http.server &)
+	python -m http.server --directory artifacts &
+	local pid=$!
+	trap 'kill $pid' EXIT
 
+	# Rebuild only changed files
 	local fname
 	while IFS= read -r fname; do
 		case $fname in
