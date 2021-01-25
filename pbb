@@ -284,8 +284,8 @@ build() {
 monitor() {
 	# Use unbuffered uniq to suppress multiple modifications within the same
 	# second, then throw away timestamp column
-	inotifywait --monitor --quiet --event modify \
-		--exclude '\.sw.$' --timefmt '%s' --format $'%T\t%f' . \
+	inotifywait --monitor --quiet --recursive --event modify,moved_to \
+		--exclude '\.sw.$' --timefmt '%s' --format $'%T\t%w%f' . \
 		| stdbuf --output=L uniq \
 		| stdbuf --output=L cut --field 2
 }
@@ -304,8 +304,16 @@ serve() {
 
 	local fname
 	while IFS= read -r fname; do
-		echo "Rebuilding $fname..."
-		md2html "$fname"
+		case $fname in
+			./*.md)
+				echo "Rebuilding $fname..."
+				md2html "$fname"
+				;;
+			./images/*)
+				echo "Copying $fname to images..."
+				cp "$fname" artifacts/images
+				;;
+		esac
 	done < <(monitor)
 }
 
