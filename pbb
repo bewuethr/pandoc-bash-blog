@@ -282,8 +282,8 @@ build() {
 
 # Monitor directory for file modifications and print names of modified files
 monitor() {
-	# Use unbuffered uniq to suppress multiple modifications within the same
-	# second, then throw away timestamp column
+	# Use unbuffered uniq to suppress multiple events within the same second,
+	# then throw away timestamp column
 	inotifywait --monitor --quiet --recursive --event modify,moved_to \
 		--exclude '\.sw.$' --timefmt '%s' --format $'%T\t%w%f' . \
 		| stdbuf --output=L uniq \
