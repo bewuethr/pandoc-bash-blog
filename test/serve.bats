@@ -92,7 +92,7 @@ load test_helper
 	printf '%s\n' "After" \
 		"$(stat -c '%y - %n' "$srcimg")" \
 		"$(stat -c '%y - %n' "$destimg")"
-	[[ $destimg -nt $srcimg ]]
+	! [[ $destimg -ot $srcimg ]]
 
 	kill %1
 }
