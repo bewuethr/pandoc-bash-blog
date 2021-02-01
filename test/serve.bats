@@ -38,3 +38,32 @@ load test_helper
 	((status == 1))
 	[[ $output == *"can't find index file"* ]]
 }
+
+@test "Rebuild post when modified" {
+	pbb init 'Testblog'
+	pbb build
+	pbb serve 3>&- &
+	sleep 0.4
+
+	mdnames=(*.md)
+	mdname=${mdnames[0]}
+	htmlname="artifacts/${mdname/%md/html}"
+
+	# Built HTML is newer than Markdown source
+	printf '%s\n' "Before" \
+		"$(stat -c '%y - %n' "$mdname")" \
+		"$(stat -c '%y - %n' "$htmlname")"
+	[[ $htmlname -nt $mdname ]]
+
+	# Update post to trigger rebuild
+	printf '\n%s\n' "Extra text." >> "$mdname"
+	sleep 0.4
+
+	# HTML is still newer than Markdown
+	printf '%s\n' "After" \
+		"$(stat -c '%y - %n' "$mdname")" \
+		"$(stat -c '%y - %n' "$htmlname")"
+	[[ $htmlname -nt $mdname ]]
+
+	kill %1
+}
