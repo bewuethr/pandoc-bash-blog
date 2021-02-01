@@ -67,3 +67,32 @@ load test_helper
 
 	kill %1
 }
+
+@test "Re-copy image when modified" {
+	pbb init 'Testblog'
+	cp "$BATS_TEST_DIRNAME/testdata/favicon.png" images/image.png
+	pbb build
+	pbb serve 3>&- &
+	sleep 0.4
+
+	srcimg=images/image.png
+	destimg="artifacts/$srcimg"
+
+	# Image in artifacts is newer than in images
+	printf '%s\n' "Before" \
+		"$(stat -c '%y - %n' "$srcimg")" \
+		"$(stat -c '%y - %n' "$destimg")"
+	[[ $destimg -nt "$srcimg" ]]
+
+	# Update image to trigger fresh copy
+	cp "$BATS_TEST_DIRNAME/testdata/favicon.png" images/image.png
+	sleep 0.4
+
+	# Image in artifacts is still newer than in images
+	printf '%s\n' "After" \
+		"$(stat -c '%y - %n' "$srcimg")" \
+		"$(stat -c '%y - %n' "$destimg")"
+	[[ $destimg -nt "$srcimg" ]]
+
+	kill %1
+}
