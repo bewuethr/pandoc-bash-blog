@@ -10,8 +10,8 @@ on:
 jobs:
 
   test:
-    runs-on: ubuntu-20.04
     name: Run BATS tests
+    runs-on: ubuntu-20.04
     steps:
 
       - name: Check out code
