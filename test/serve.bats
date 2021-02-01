@@ -82,7 +82,7 @@ load test_helper
 	printf '%s\n' "Before" \
 		"$(stat -c '%y - %n' "$srcimg")" \
 		"$(stat -c '%y - %n' "$destimg")"
-	[[ $destimg -nt "$srcimg" ]]
+	[[ $destimg -nt $srcimg ]]
 
 	# Update image to trigger fresh copy
 	cp "$BATS_TEST_DIRNAME/testdata/favicon.png" images/image.png
@@ -92,7 +92,7 @@ load test_helper
 	printf '%s\n' "After" \
 		"$(stat -c '%y - %n' "$srcimg")" \
 		"$(stat -c '%y - %n' "$destimg")"
-	[[ $destimg -nt "$srcimg" ]]
+	[[ $destimg -nt $srcimg ]]
 
 	kill %1
 }
