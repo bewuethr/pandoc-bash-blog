@@ -4,7 +4,7 @@ setup() {
 	git init --quiet --bare "$remote"
 
 	local repo='/tmp/pbb-testdata'
-	mkdir -p "$repo"
+	mkdir --parents "$repo"
 	git -C "$repo" init --quiet
 	git -C "$repo" remote add origin "$remote"
 
