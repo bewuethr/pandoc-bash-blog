@@ -48,23 +48,24 @@ These are the versions I use on my development machine; some things might break
 for older versions. `make install` checks if the executables exist, but not
 their versions.
 
-- Bash 5.0.3
+- Bash 5.0.17
 - Pandoc 2.10
-- Git 2.27.0
-- GNU Coreutils 8.30: `cat`, `cp`, `mkdir`, `ln`, `rm`, `tac`
+- Git 2.30.0
+- GNU Coreutils 8.32: `cat`, `cp`, `mkdir`, `ln`, `rm`, `tac`
 - GNU Sed 4.7
 - ImageMagick 6.9.10-23 (for favicon)
-- Python 3.7.5 (for `pbb serve`)
+- Python 3.8.6 (for `pbb serve`)
+- inotify-tools 3.14 (for hot-reloading during `pbb serve`)
 - Bats 1.2.1 (for test suite)
-- bash-completion 2.9 (for tab completion)
-- graphviz 2.40.1 (for dot graphs)
+- bash-completion 2.11 (for tab completion)
+- graphviz 2.43.0 (for dot graphs)
 
 In the Makefile, additionally:
 
-- GNU Make 4.2.1
-- GNU Awk 4.2.1
+- GNU Make 4.3
+- GNU Awk 5.0.1
 - `column`
-- GNU Coreutils 8.30: `install`, `rmdir`
+- GNU Coreutils 8.32: `install`, `rmdir`
 
 ## Usage
 
@@ -100,7 +101,10 @@ file; the index file links to all files following the naming convention above
 and lists them in reverse alphabetical order, with the newest post at the top.
 
 To have a look at your freshly built blog, use `pbb serve` and point your
-browser to <http://localhost:8000>.
+browser to <http://localhost:8000>. While `pbb serve` is running, any changes
+to `.md` files or files in the `images` directory trigger a rebuild or copy of
+that file, allowing to preview a post by just reloading it in the browser
+instead of building the whole site over and over again.
 
 Once you think your opus magnum is ready to be published, run `pbb deploy`. This
 pulls the generated HTML files into the `master` branch, commits  and then
@@ -239,6 +243,8 @@ installed, they should tab-autocomplete.
 ### `pbb serve`
 
 - Serves the blog on <http://localhost:8000> to preview
+- Listens to file changes in `.md` files and the `images` directory and
+  rebuilds/copies the corresponding files as long as `pbb serve` is running
 
 ### `pbb deploy`
 
