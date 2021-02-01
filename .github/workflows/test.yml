@@ -38,5 +38,8 @@ jobs:
       - name: Install graphviz
         run: sudo apt-get install graphviz
 
+      - name: Install inotify-tools
+        run: sudo apt-get install inotify-tools
+
       - name: Run tests
         run: bats --tap test
