@@ -5,10 +5,11 @@ load test_helper
 @test "Run serve" {
 	pbb init 'Testblog'
 	pbb build
-	timeout 0.7 pbb serve &
+	pbb serve 3>&- &
 	sleep 0.4
 
 	run curl localhost:8000
+	kill %1
 
 	echo "$output"
 
