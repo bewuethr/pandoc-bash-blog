@@ -39,8 +39,8 @@ set the `DEVMODE` variable:
 make install DEVMODE=1
 ```
 
-  [XDG Base directory Specification]: https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
-  [systemd file hierarchy]: https://www.freedesktop.org/software/systemd/man/file-hierarchy.html
+  [XDG Base directory Specification]: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html>
+  [systemd file hierarchy]: <https://www.freedesktop.org/software/systemd/man/file-hierarchy.html>
 
 ## Dependencies
 
@@ -113,8 +113,8 @@ You might have to set the Git remote first:
 git remote add origin https://github.com/<yourname>/<repo-name>.git
 ```
 
-  [Pandoc Markdown]: https://pandoc.org/MANUAL.html#pandocs-markdown
-  [my post about it]: https://www.benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html
+  [Pandoc Markdown]: <https://pandoc.org/MANUAL.html#pandocs-markdown>
+  [my post about it]: <https://www.benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html>
 
 ### Table of contents
 
@@ -144,7 +144,7 @@ enable the `bibliography` feature:
 pbb enable bibliography
 ```
 
-  [`pandoc-citeproc`]: https://pandoc.org/MANUAL.html#citations
+  [`pandoc-citeproc`]: <https://pandoc.org/MANUAL.html#citations>
 
 ### dot graphs
 
@@ -170,7 +170,7 @@ line can be just ` ```dot `.
 
 <!-- Fix syntax highlighting: `` -->
 
-  [dot]: https://graphviz.org/doc/info/lang.html
+  [dot]: <https://graphviz.org/doc/info/lang.html>
 
 ### Favicon
 
@@ -190,8 +190,8 @@ pbb gccode <yourcode>
 
 Consider paying for a custom domain or [sponsoring] the author.
 
-  [GoatCounter]: https://www.goatcounter.com
-  [sponsoring]: https://github.com/sponsors/arp242
+  [GoatCounter]: <https://www.goatcounter.com>
+  [sponsoring]: <https://github.com/sponsors/arp242>
 
 ## Subcommands
 
