@@ -1,5 +1,5 @@
 .\" ============================================================================
-.TH PBB 1 2020-07-13
+.TH PBB 1 2021-01-31
 .\" ============================================================================
 .SH NAME
 pbb \- Pandoc Bash Blog
@@ -131,6 +131,14 @@ Serve the blog locally at
 .UR http://localhost:8000
 .UE
 to preview.
+As long as this is running, changes to Markdown files immediately trigger a
+rebuild of the corresponding HTML file, and changes to files in the
+.I images
+directory trigger a fresh copy of that file into the
+.I artifacts/images
+directory, allowing to quickly rebuild a post while working on it and previewing
+it in a browser. This is implemented using
+.BR inotifywait (1).
 .TP
 .B deploy
 Publish the blog, presumably via GitHub pages.
@@ -385,5 +393,6 @@ Managing version control of the files in the \*(lqsource\*(rq branch is
 completely up you.
 .\" ============================================================================
 .SH SEE ALSO
-.BR dot (1),\ imagemagick (1),\  pandoc (1),\  pandoc-citeproc (1)
+.BR dot (1),\  imagemagick (1),\  inotifywait (1),\  pandoc (1),
+.BR pandoc-citeproc (1)
 .\" ============================================================================
