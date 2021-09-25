@@ -4,3 +4,6 @@
 binary_next_line   = true
 switch_case_indent = true
 space_redirects    = true
+
+[*.bats]
+shell_variant = bats
