@@ -8,7 +8,7 @@ on:
       - '**'
 
 jobs:
-  build:
+  lint:
     name: Lint code base
     runs-on: ubuntu-20.04
     steps:
@@ -17,15 +17,19 @@ jobs:
         with:
           fetch-depth: 0
       - name: Lint code base
-        uses: docker://ghcr.io/github/super-linter:slim-v4
+        uses: github/super-linter/slim@v4.7.3
         env:
-          VALIDATE_ALL_CODEBASE: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_MARKDOWN: true
-          VALIDATE_YAML: true
-          VALIDATE_CSS: true
-          VALIDATE_JSON: true
-          VALIDATE_LUA: true
+          DEFAULT_BRANCH: main
+          VALIDATE_ALL_CODEBASE: true
+
           VALIDATE_BASH: true
           VALIDATE_BASH_EXEC: true
+          VALIDATE_CSS: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_JSCPD: true
+          VALIDATE_JSON: true
+          VALIDATE_LUA: true
+          VALIDATE_MARKDOWN: true
           VALIDATE_SHELL_SHFMT: true
+          VALIDATE_YAML: true
