@@ -5,6 +5,7 @@ load test_helper
 @test "Blog built with MathJax includes it" {
 	pbb init "Testblog"
 	pbb enable math
+	# shellcheck disable=SC2016
 	printf '%s\n' '$1 + 1$' >> ????-??-??-*.md
 	run pbb build
 
@@ -19,6 +20,7 @@ load test_helper
 @test "Blog built after disabling MathJax does not include it" {
 	pbb init "Testblog"
 	pbb enable math
+	# shellcheck disable=SC2016
 	printf '%s\n' '$1 + 1$' >> ????-??-??-*.md
 	pbb build
 	pbb disable math

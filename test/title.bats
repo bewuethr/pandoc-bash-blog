@@ -42,7 +42,7 @@ load test_helper
 
 @test "Change title without quoting parameters" {
 	pbb init 'Testblog'
-	run pbb title New Title   without    Quotes
+	run pbb title New Title without Quotes
 
 	echo "$output"
 	((status == 0))

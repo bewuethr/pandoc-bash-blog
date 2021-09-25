@@ -8,8 +8,8 @@
 		'pbb help'
 		'pbb enable'
 	)
-	printf '%s\n%s\n' "got: $output" "want: $want"
 	for ((i = 0; i < ${#want[@]}; ++i)); do
+		printf '%s\n%s\n' "got: ${lines[i]}" "want: ${want[i]}*"
 		[[ ${lines[i]} == "${want[i]}"* ]]
 	done
 }
@@ -22,8 +22,8 @@
 		'pbb help'
 		'pbb enable'
 	)
-	printf '%s\n%s\n' "got: $output" "want: $want"
 	for ((i = 0; i < ${#want[@]}; ++i)); do
+		printf '%s\n%s\n' "got: ${lines[i]}" "want: ${want[i]}*"
 		[[ ${lines[i]} == "${want[i]}"* ]]
 	done
 }
@@ -36,8 +36,8 @@
 		'pbb help'
 		'pbb enable'
 	)
-	printf '%s\n%s\n' "got: $output" "want: $want"
 	for ((i = 0; i < ${#want[@]}; ++i)); do
+		printf '%s\n%s\n' "got: ${lines[i]}" "want: ${want[i]}*"
 		[[ ${lines[i]} == "${want[i]}"* ]]
 	done
 }
