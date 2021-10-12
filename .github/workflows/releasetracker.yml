@@ -17,6 +17,6 @@ jobs:
           fetch-depth: 0
 
       - name: Update release tags for latest major and minor releases
-        uses: bewuethr/release-tracker-action@v1.3.0
+        uses: bewuethr/release-tracker-action@v1.4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
