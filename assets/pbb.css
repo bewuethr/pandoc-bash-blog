@@ -4,7 +4,7 @@ html {
 
 body {
 	color: #333;
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 1rem;
 	line-height: 1.6;
 	margin: 40px auto;
@@ -20,7 +20,7 @@ blockquote {
 }
 
 code {
-	font-family: 'Source Code Pro', monospace;
+	font-family: "Source Code Pro", monospace;
 	font-size: .88em;
 }
 
@@ -32,8 +32,8 @@ pre > code {
 	color: #d33682;
 }
 
-div.indexDate {
-	background: url(images/calendar.svg) left center/.9em no-repeat;
+div.index-date {
+	background: url("images/calendar.svg") left center/.9em no-repeat;
 	color: #7e7e7e;
 	font-size: 90%;
 	font-style: italic;
@@ -41,16 +41,16 @@ div.indexDate {
 	padding: 0 1.2em;
 }
 
-div.indexTitle {
+div.index-title {
 	font-size: 1.2em;
 }
 
-div.indexDate p,
-div.indexTitle p {
+div.index-date p,
+div.index-title p {
 	margin: initial;
 }
 
-div.sourceCode {
+div.sourceCode { /* stylelint-disable-line */
 	overflow-x: auto;
 }
 
@@ -92,7 +92,7 @@ figure {
 	margin: 1em auto;
 	padding: 5px;
 	text-align: center;
-	width: -moz-fit-content;
+	width: -moz-fit-content; /* stylelint-disable-line */
 	width: fit-content;
 }
 
@@ -148,7 +148,7 @@ img {
 }
 
 p.date {
-	background: url(images/calendar.svg) left center/1em no-repeat;
+	background: url("images/calendar.svg") left center/1em no-repeat;
 	color: #7e7e7e;
 	font-size: 90%;
 	font-style: italic;
@@ -160,20 +160,20 @@ pre {
 	padding: 9px;
 }
 
-pre.numberSource {
+pre.numberSource { /* stylelint-disable-line */
 	border: none;
 }
 
-pre > code.sourceCode > span > a:first-child::before {
+pre > code.sourceCode > span > a:first-child::before { /* stylelint-disable-line */
 	line-height: 1.6em;
 }
 
-pre > code.sourceCode > span:first-child > a:first-child::before {
+pre > code.sourceCode > span:first-child > a:first-child::before { /* stylelint-disable-line */
 	margin-top: -9px;
 	padding-top: 9px;
 }
 
-pre > code.sourceCode > span:last-child > a:first-child::before {
+pre > code.sourceCode > span:last-child > a:first-child::before { /* stylelint-disable-line */
 	margin-bottom: -9px;
 	padding-bottom: 9px;
 }

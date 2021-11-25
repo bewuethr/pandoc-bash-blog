@@ -266,7 +266,7 @@ build() {
 		printf '%s\n' "# All posts"
 		local f
 		for f in ????-??-??-*.md; do
-			printf -- ':::\n[%s](%s)\n:::indexTitle\n\n:::\n%s\n:::indexDate\n\n' \
+			printf -- ':::\n[%s](%s)\n:::index-title\n\n:::\n%s\n:::index-date\n\n' \
 				"$(extracttitle "$f")" "${f/%.md/.html}" "${f:0:10}"
 			md2html "$f"
 		done | tac
