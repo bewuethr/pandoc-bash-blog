@@ -15,10 +15,10 @@ jobs:
     steps:
 
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.0.0
 
       - name: Get Bats repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.0.0
         with:
           repository: bats-core/bats-core
           ref: v1.2.1
