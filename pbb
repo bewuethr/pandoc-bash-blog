@@ -310,7 +310,7 @@ serve() {
 		case $fname in
 			./*.md)
 				echo "Rebuilding $fname..."
-				md2html "$fname"
+				md2html "${fname#./}"
 				;;
 			./images/*)
 				echo "Copying $fname to images..."
