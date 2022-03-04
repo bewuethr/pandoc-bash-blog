@@ -5,12 +5,16 @@ on:
     tags:
       - v[0-9]+.[0-9]+.[0-9]+
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   update-release-tags:
     name: Update release tags
     runs-on: ubuntu-20.04
-    steps:
 
+    steps:
       - name: Check out code
         uses: actions/checkout@v3.0.0
         with:
