@@ -1,12 +1,19 @@
 # Pandoc Bash Blog
 
-![Lint code base](https://github.com/bewuethr/pandoc-bash-blog/workflows/Lint%20code%20base/badge.svg)
-![Testing](https://github.com/bewuethr/pandoc-bash-blog/workflows/Testing/badge.svg)
-![Move release tags](https://github.com/bewuethr/pandoc-bash-blog/workflows/Move%20release%20tags/badge.svg)
+[![Lint code base]][lintbadge][lintwf]
+[![Testing][testbadge]][testwf]
+[![Move release tags][movebadge]][movewf]
 
 Pandoc Bash Blog provides `pbb`, a simple generator for static blog sites based
 on Pandoc and Bash. Progress is chronicled at
 <https://www.benjaminwuethrich.dev>.
+
+[lintbadge]: <https://github.com/bewuethr/pandoc-bash-blog/actions/workflows/linter.yml/badge.svg>
+[lintwf]: <https://github.com/bewuethr/pandoc-bash-blog/actions/workflows/linter.yml>
+[testbadge]: <https://github.com/bewuethr/pandoc-bash-blog/actions/workflows/test.yml/badge.svg>
+[testwf]: <https://github.com/bewuethr/pandoc-bash-blog/actions/workflows/test.yml>
+[movebadge]: <https://github.com/bewuethr/pandoc-bash-blog/actions/workflows/releasetracker.yml/badge.svg>
+[movewf]: <https://github.com/bewuethr/pandoc-bash-blog/actions/workflows/releasetracker.yml>
 
 ## Installation
 
