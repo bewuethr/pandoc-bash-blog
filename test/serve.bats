@@ -65,6 +65,9 @@ load test_helper
 		"$(stat -c '%y - %n' "$htmlname")"
 	[[ $htmlname -nt $mdname ]]
 
+	# Rebuilt post still contains datestamp
+	grep -q '<p class="date">....-..-..</p>' "$htmlname"
+
 	kill %1
 }
 
