@@ -24,3 +24,5 @@ jobs:
         uses: bewuethr/release-tracker-action@v1.4.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          update-minor: false
