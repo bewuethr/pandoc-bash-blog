@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.1
 
       - name: Lint code base
         uses: github/super-linter/slim@v4.9.2
