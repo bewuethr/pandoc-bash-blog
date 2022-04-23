@@ -1,6 +1,6 @@
 # Pandoc Bash Blog
 
-[![Lint code base]][lintbadge][lintwf]
+[![Lint code base][lintbadge]][lintwf]
 [![Testing][testbadge]][testwf]
 [![Move release tags][movebadge]][movewf]
 
