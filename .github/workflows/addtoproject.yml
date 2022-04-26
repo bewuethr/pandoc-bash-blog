@@ -12,6 +12,7 @@ on:
 jobs:
   add-to-project:
     name: Add issues and PRs
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-20.04
     steps:
       - name: Add issue or PR to pbb project
