@@ -16,13 +16,13 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Add issue or PR to pbb project
-        uses: actions/add-to-project@v0.0.5
+        uses: actions/add-to-project@v0.1.0
         with:
           project-url: https://github.com/users/bewuethr/projects/2
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
       - name: Add issues to hobbyist project
         if: github.event_name == 'issues'
-        uses: actions/add-to-project@v0.0.5
+        uses: actions/add-to-project@v0.1.0
         with:
           project-url: https://github.com/users/bewuethr/projects/1
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
