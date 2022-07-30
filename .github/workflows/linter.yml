@@ -7,34 +7,11 @@ on:
       - main
   pull_request:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref }}
-  cancel-in-progress: true
-
 jobs:
   lint:
     name: Lint code base
-    runs-on: ubuntu-20.04
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3.0.2
-
-      - name: Lint code base
-        uses: github/super-linter/slim@v4.9.5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: main
-          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' }}
-
-          VALIDATE_BASH: true
-          VALIDATE_BASH_EXEC: true
-          VALIDATE_CSS: true
-          VALIDATE_GITHUB_ACTIONS: true
-          VALIDATE_GITLEAKS: true
-          VALIDATE_JSCPD: true
-          VALIDATE_JSON: true
-          VALIDATE_LUA: true
-          VALIDATE_MARKDOWN: true
-          VALIDATE_SHELL_SHFMT: true
-          VALIDATE_YAML: true
+    uses: bewuethr/workflows/.github/workflows/linter.yml@main
+    with:
+      validate-css: true
+      validate-json: true
+      validate-lua: true
