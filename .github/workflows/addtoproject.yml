@@ -10,19 +10,19 @@ on:
       - opened
 
 jobs:
-  add-to-project:
-    name: Add issues and PRs
-    if: github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Add issue or PR to pbb project
-        uses: actions/add-to-project@v0.3.0
-        with:
-          project-url: https://github.com/users/bewuethr/projects/2
-          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
-      - name: Add issues to hobbyist project
-        if: github.event_name == 'issues'
-        uses: actions/add-to-project@v0.3.0
-        with:
-          project-url: https://github.com/users/bewuethr/projects/1
-          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+  add-to-pbb-project:
+    name: Add issues and PRs to pbb project
+    uses: bewuethr/workflows/.github/workflows/addtoproject.yml@main
+    with:
+      project-url: https://github.com/users/bewuethr/projects/2
+    secrets:
+      github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+
+  add-to-hobbyist-project:
+    name: Add issues to hobbyist project
+    if: github.event_name == 'issues'
+    uses: bewuethr/workflows/.github/workflows/addtoproject.yml@main
+    with:
+      project-url: https://github.com/users/bewuethr/projects/1
+    secrets:
+      github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
