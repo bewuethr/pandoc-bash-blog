@@ -1,9 +1,0 @@
-# This is used for shfmt, but shfmt doesn't recognize shebangs, so we set the
-# matching to "all files"
-[*]
-binary_next_line   = true
-switch_case_indent = true
-space_redirects    = true
-
-[*.bats]
-shell_variant = bats
