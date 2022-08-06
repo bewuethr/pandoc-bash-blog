@@ -28,7 +28,7 @@ pre > code {
 	white-space: pre;
 }
 
-:not(pre):not(a) > code {
+:not(pre, a) > code {
 	color: #d33682;
 }
 
