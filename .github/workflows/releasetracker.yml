@@ -8,4 +8,4 @@ on:
 jobs:
   update-release-tags:
     name: Update release tags
-    uses: bewuethr/workflows/.github/releasetracker.yml@main
+    uses: bewuethr/workflows/.github/workflows/releasetracker.yml@main
