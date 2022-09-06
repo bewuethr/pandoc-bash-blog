@@ -167,7 +167,7 @@ md2html() {
 	)
 
 	if [[ $(getconfvalue 'bibliography') == 'on' ]]; then
-		args+=("--filter=pandoc-citeproc")
+		args+=("--citeproc")
 	fi
 
 	if [[ -n $(getconfvalue 'goatcountercode') ]]; then
