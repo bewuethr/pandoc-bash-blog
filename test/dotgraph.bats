@@ -28,7 +28,7 @@ load test_helper
 
 	# Post contains image tag
 	cat artifacts/????-??-??-*.html
-	grep -Eq '<img src="diagrams/.{7}\.svg" alt="" />' artifacts/????-??-??-*.html
+	grep -Eq '<img src="diagrams/.{7}\.svg" />' artifacts/????-??-??-*.html
 }
 
 @test "Build post with dot graph code block and caption" {
@@ -58,7 +58,7 @@ load test_helper
 	# Post contains figure and caption
 	cat artifacts/????-??-??-*.html
 	grep -Fq '<figure>' artifacts/????-??-??-*.html
-	grep -Eq '<img src="diagrams/.{7}\.svg" alt="" /><figcaption>A caption</figcaption>' \
+	grep -Pzq '<img src="diagrams/.{7}\.svg" alt="A caption" />\s*<figcaption[^>]*>A caption</figcaption>' \
 		artifacts/????-??-??-*.html
 	grep -Fq '</figure>' artifacts/????-??-??-*.html
 }
@@ -89,7 +89,7 @@ load test_helper
 
 	# Post contains image
 	cat artifacts/????-??-??-*.html
-	grep -Eq '<img src="diagrams/.{7}\.svg" alt="" />' artifacts/????-??-??-*.html
+	grep -Eq '<img src="diagrams/.{7}\.svg" />' artifacts/????-??-??-*.html
 
 	# Post contains comment with dot source
 	grep -Pz '<!--\ndigraph G \{\n    a -> b\n\}\n-->' artifacts/????-??-??-*.html
