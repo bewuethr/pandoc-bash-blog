@@ -23,13 +23,13 @@ jobs:
       - name: Install Pandoc
         uses: r-lib/actions/setup-pandoc@v2.2.8
         with:
-          pandoc-version: '2.10'
+          pandoc-version: 2.19.2
 
       - name: Get Bats repository
         uses: actions/checkout@v3.0.2
         with:
           repository: bats-core/bats-core
-          ref: v1.2.1
+          ref: v1.7.0
           path: bats-core
 
       - name: Install dependencies
