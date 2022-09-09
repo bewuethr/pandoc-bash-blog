@@ -46,8 +46,8 @@ set the `DEVMODE` variable:
 make install DEVMODE=1
 ```
 
-  [XDG Base directory Specification]: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html>
-  [systemd file hierarchy]: <https://www.freedesktop.org/software/systemd/man/file-hierarchy.html>
+[XDG Base directory Specification]: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html>
+[systemd file hierarchy]: <https://www.freedesktop.org/software/systemd/man/file-hierarchy.html>
 
 ## Dependencies
 
@@ -55,23 +55,24 @@ These are the versions I use on my development machine; some things might break
 for older versions. `make install` checks if the executables exist, but not
 their versions.
 
-- Bash 5.0.17
-- Pandoc 2.10
-- Git 2.30.0
+- Bash 5.1.16
+- Pandoc 2.19.2
+- Git 2.37.3
 - GNU Coreutils 8.32: `cat`, `cp`, `mkdir`, `ln`, `rm`, `tac`
-- GNU Sed 4.7
-- ImageMagick 6.9.10-23 (for favicon)
-- Python 3.8.6 (for `pbb serve`)
-- inotify-tools 3.14 (for hot-reloading during `pbb serve`)
-- Bats 1.2.1 (for test suite)
+- GNU Sed 4.8
+- ImageMagick 6.9.11-60 (for favicon)
+- Python 3.10.4 (for `pbb serve`)
+- `inotifywait` from inotify-tools 3.22.1.0 (for hot-reloading during `pbb
+  serve`)
+- Bats 1.7.0 (for test suite)
 - bash-completion 2.11 (for tab completion)
 - graphviz 2.43.0 (for dot graphs)
 
 In the Makefile, additionally:
 
 - GNU Make 4.3
-- GNU Awk 5.0.1
-- `column`
+- GNU Awk 5.1.0
+- `column` from util-linux 2.38.2
 - GNU Coreutils 8.32: `install`, `rmdir`
 
 ## Usage
@@ -124,8 +125,8 @@ You might have to set the Git remote first:
 git remote add origin https://github.com/<yourname>/<repo-name>.git
 ```
 
-  [Pandoc Markdown]: <https://pandoc.org/MANUAL.html#pandocs-markdown>
-  [my post about it]: <https://www.benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html>
+[Pandoc Markdown]: <https://pandoc.org/MANUAL.html#pandocs-markdown>
+[my post about it]: <https://www.benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html>
 
 ### Table of contents
 
@@ -148,14 +149,14 @@ pbb enable math
 
 ### Bibliography
 
-To use the [`pandoc-citeproc`] filter to get citations and bibliographies,
-enable the `bibliography` feature:
+To use the [`--citeproc`] option to get citations and bibliographies, enable
+the `bibliography` feature:
 
 ```bash
 pbb enable bibliography
 ```
 
-  [`pandoc-citeproc`]: <https://pandoc.org/MANUAL.html#citations>
+[`--citeproc`]: <https://pandoc.org/MANUAL.html#citations>
 
 ### dot graphs
 
@@ -181,7 +182,7 @@ line can be just ` ```dot `.
 
 <!-- Fix syntax highlighting: `` -->
 
-  [dot]: <https://graphviz.org/doc/info/lang.html>
+[dot]: <https://graphviz.org/doc/info/lang.html>
 
 ### Favicon
 
@@ -201,8 +202,8 @@ pbb gccode <yourcode>
 
 Consider paying for a custom domain or [sponsoring] the author.
 
-  [GoatCounter]: <https://www.goatcounter.com>
-  [sponsoring]: <https://github.com/sponsors/arp242>
+[GoatCounter]: <https://www.goatcounter.com>
+[sponsoring]: <https://github.com/sponsors/arp242>
 
 ## Subcommands
 
