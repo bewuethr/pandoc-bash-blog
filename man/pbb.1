@@ -1,5 +1,5 @@
 .\" ============================================================================
-.TH PBB 1 2021-01-31
+.TH PBB 1 2022-09-09
 .\" ============================================================================
 .SH NAME
 pbb \- Pandoc Bash Blog
@@ -183,8 +183,8 @@ math is rendered using MathJax instead of just Unicode characters.
 When the
 .I bibliography
 feature is enabled, the
-.I pandoc-citeproc
-filter is run, builds a bibliography and enables citations.
+.I --citeproc
+opion is enabled, builds a bibliography and enables citations.
 See the
 .UR https://pandoc.org/MANUAL.html#citations
 pandoc documentation
@@ -235,7 +235,7 @@ are used to modify its contents.
 Stores metadata used by pandoc such as the heading for the table of contents,
 the field that controls generation of the table of contents (which can be
 overridden per post, see
-.BR OPTIONS )
+.BR OPTIONS ),
 and the heading for the bibliography.
 .TP
 .I assets
@@ -393,6 +393,5 @@ Managing version control of the files in the \*(lqsource\*(rq branch is
 completely up you.
 .\" ============================================================================
 .SH SEE ALSO
-.BR dot (1),\  imagemagick (1),\  inotifywait (1),\  pandoc (1),
-.BR pandoc-citeproc (1)
+.BR dot (1),\  imagemagick (1),\  inotifywait (1),\  pandoc (1)
 .\" ============================================================================
