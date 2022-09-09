@@ -157,6 +157,7 @@ md2html() {
 		"--include-before-body=$header"
 		"--include-in-header=$fontlinks"
 		"--lua-filter=dotgraph.lua"
+		"--metadata=document-css:true"
 		"--metadata=lang:$(getlang)"
 		"--metadata-file=.metadata.yml"
 		"--output=artifacts/${file/%.md/.html}"
