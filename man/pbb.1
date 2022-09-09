@@ -146,7 +146,9 @@ This checks out the \*(lqmaster\*(rq branch, deletes everything except the
 .I artifacts
 directory (and the
 .I CNAME
-file, if you have one), copies the contents of
+and
+.I .nojekyll
+files, if they exist), copies the contents of
 .I artifacts
 into the root directory and pushes to the configured remote.
 Afterwards, the previous branch is checked out again.

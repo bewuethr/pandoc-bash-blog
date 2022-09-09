@@ -257,8 +257,8 @@ installed, they should tab-autocomplete.
 ### `pbb deploy`
 
 - Checks out the `master` branch
-- Deletes everything but the `artifacts` directory (and the `CNAME` file, if
-  you have one)
+- Deletes everything but the `artifacts` directory (and the `CNAME` and
+  `.nojekyll` files, if they exist)
 - Copies the contents of `artifacts` into the repository root directory
 - Adds, commits and pushes everything to the remote
 - Checks out the previous branch
