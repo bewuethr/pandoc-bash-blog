@@ -66,7 +66,7 @@ figure {
 	margin: 1em auto;
 	padding: 5px;
 	text-align: center;
-	width: -moz-fit-content;
+	width: -moz-fit-content; /* stylelint-disable-line */
 	width: fit-content;
 }
 
@@ -121,7 +121,7 @@ p.date {
 	text-align: left;
 }
 
-div.sourceCode {
+div.sourceCode { /* stylelint-disable-line */
 	padding: 9px;
 }
 
