@@ -350,7 +350,7 @@ deploy() {
 	fi
 
 	git checkout master
-	rm --recursive --force !(@(artifacts|CNAME))
+	rm --recursive --force !(@(artifacts|CNAME|.nojekyll))
 	cp --recursive artifacts/* .
 	rm --recursive --force artifacts
 	git add --all
