@@ -13,8 +13,8 @@ load test_helper
 	((status == 0))
 
 	# Post contains MathJax include
-	cat artifacts/????-??-??-*.html
-	grep -Pzq '<script\s+src=".*mathjax.*js"\s+type="text/javascript"></script>' artifacts/????-??-??-*.html
+	cat docs/????-??-??-*.html
+	grep -Pzq '<script\s+src=".*mathjax.*js"\s+type="text/javascript"></script>' docs/????-??-??-*.html
 }
 
 @test "Blog built after disabling MathJax does not include it" {
@@ -30,7 +30,7 @@ load test_helper
 	((status == 0))
 
 	# Post does not contain MathJax include
-	cat artifacts/????-??-??-*.html
+	cat docs/????-??-??-*.html
 	bats_require_minimum_version 1.5.0
-	run ! grep -q '<script src=".*mathjax.*js" type="text/javascript"></script>' artifacts/????-??-??-*.html
+	run ! grep -q '<script src=".*mathjax.*js" type="text/javascript"></script>' docs/????-??-??-*.html
 }
