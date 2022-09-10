@@ -64,12 +64,35 @@ getlang() {
 	printf '%s' "$lang"
 }
 
+# Check if the current directory is the root directory of a git repository
+checkgit() {
+	local topdir
+	if ! topdir=$(git rev-parse --show-toplevel 2> /dev/null); then
+		warn "not in a git repo"
+		echo 'run "git init" first'
+		return 1
+	fi
+
+	if [[ $PWD != "$topdir" ]]; then
+		warn "in git repo, but not in root directory"
+		echo 'run "pbb init" from the repository root'
+		return 1
+	fi
+
+	return 0
+}
+
 # Initialize new blog
 init() {
 	local blogtitle=$1
+	local msg
+
+	if ! msg=$(checkgit); then
+		die "$msg"
+	fi
 
 	if [[ -e $conf ]]; then
-		die "Conf file exists already, aborting"
+		die "conf file exists already, aborting"
 	fi
 
 	mkdir --parents assets images includes
