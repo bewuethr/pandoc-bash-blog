@@ -16,9 +16,6 @@ load test_helper
 	echo "$output"
 	((status == 0))
 
-	# Git branch is "source"
-	[[ $(git symbolic-ref -q --short HEAD) == 'source' ]]
-
 	# Directories assets, images and includes exist
 	[[ -d assets ]]
 	[[ -d images ]]
@@ -80,7 +77,7 @@ load test_helper
 
 	echo "$output"
 	((status == 1))
-	[[ $output == *'Could not create new branch'* ]]
+	[[ $output == 'conf file exists already'* ]]
 }
 
 @test "Run init in initalized non-Git directory" {
@@ -91,5 +88,24 @@ load test_helper
 
 	echo "$output"
 	((status == 1))
-	[[ $output == *'Conf file exists already'* ]]
+	[[ $output == 'conf file exists already'* ]]
+}
+
+@test "Run init in non-Git directory" {
+	rm -rf .git
+	run pbb init "Testblog"
+
+	echo "$output"
+	((status == 1))
+	[[ $output == 'not in a git repo'* ]]
+}
+
+@test "Run init not in root of repo" {
+	mkdir subdir
+	cd subdir
+	run pbb init "Testblog"
+
+	echo "$output"
+	((status == 1))
+	[[ $output == 'in git repo, but not in root directory'* ]]
 }
