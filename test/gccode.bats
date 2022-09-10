@@ -26,7 +26,7 @@ load test_helper
 	grep -Fq 'https://mycode.goatcounter.com' includes/goatcounter.html
 
 	# Index file includes snippet with code
-	grep -Fq 'data-goatcounter="https://mycode.goatcounter.com/count' artifacts/index.html
+	grep -Fq 'data-goatcounter="https://mycode.goatcounter.com/count' docs/index.html
 }
 
 @test "Set GoatCounter code, then change it" {
@@ -47,7 +47,7 @@ load test_helper
 	grep -Fq 'https://anothercode.goatcounter.com' includes/goatcounter.html
 
 	# Index file includes snippet with second code
-	grep -Fq 'data-goatcounter="https://anothercode.goatcounter.com/count' artifacts/index.html
+	grep -Fq 'data-goatcounter="https://anothercode.goatcounter.com/count' docs/index.html
 }
 
 @test "Set GoatCounter code, then set it to empty" {
@@ -69,7 +69,7 @@ load test_helper
 	grep -Fq 'https://.goatcounter.com' includes/goatcounter.html
 
 	# Index file does not include snippet
-	! grep -q 'data-goatcounter="https://.*\.goatcounter\.com/count' artifacts/index.html
+	! grep -q 'data-goatcounter="https://.*\.goatcounter\.com/count' docs/index.html
 }
 
 @test "Set GoatCounter to code empty, then non-empty" {
@@ -90,5 +90,5 @@ load test_helper
 	grep -Fq 'https://mycode.goatcounter.com' includes/goatcounter.html
 
 	# Index file includes snippet with code
-	grep -Fq 'data-goatcounter="https://mycode.goatcounter.com/count' artifacts/index.html
+	grep -Fq 'data-goatcounter="https://mycode.goatcounter.com/count' docs/index.html
 }
