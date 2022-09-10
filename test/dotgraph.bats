@@ -21,14 +21,14 @@ load test_helper
 	((status == 0))
 
 	# Graph output file exists
-	ls artifacts/diagrams
+	ls docs/diagrams
 	shopt -s nullglob
-	f=(artifacts/diagrams/*.svg)
+	f=(docs/diagrams/*.svg)
 	((${#f[@]} == 1))
 
 	# Post contains image tag
-	cat artifacts/????-??-??-*.html
-	grep -Eq '<img src="diagrams/.{7}\.svg" />' artifacts/????-??-??-*.html
+	cat docs/????-??-??-*.html
+	grep -Eq '<img src="diagrams/.{7}\.svg" />' docs/????-??-??-*.html
 }
 
 @test "Build post with dot graph code block and caption" {
@@ -50,17 +50,17 @@ load test_helper
 	((status == 0))
 
 	# Graph output file exists
-	ls artifacts/diagrams
+	ls docs/diagrams
 	shopt -s nullglob
-	f=(artifacts/diagrams/*.svg)
+	f=(docs/diagrams/*.svg)
 	((${#f[@]} == 1))
 
 	# Post contains figure and caption
-	cat artifacts/????-??-??-*.html
-	grep -Fq '<figure>' artifacts/????-??-??-*.html
+	cat docs/????-??-??-*.html
+	grep -Fq '<figure>' docs/????-??-??-*.html
 	grep -Pzq '<img src="diagrams/.{7}\.svg" alt="A caption" />\s*<figcaption[^>]*>A caption</figcaption>' \
-		artifacts/????-??-??-*.html
-	grep -Fq '</figure>' artifacts/????-??-??-*.html
+		docs/????-??-??-*.html
+	grep -Fq '</figure>' docs/????-??-??-*.html
 }
 
 @test "Build post with dot graph code block and source included" {
@@ -82,17 +82,17 @@ load test_helper
 	((status == 0))
 
 	# Graph output file exists
-	ls artifacts/diagrams
+	ls docs/diagrams
 	shopt -s nullglob
-	f=(artifacts/diagrams/*.svg)
+	f=(docs/diagrams/*.svg)
 	((${#f[@]} == 1))
 
 	# Post contains image
-	cat artifacts/????-??-??-*.html
-	grep -Eq '<img src="diagrams/.{7}\.svg" />' artifacts/????-??-??-*.html
+	cat docs/????-??-??-*.html
+	grep -Eq '<img src="diagrams/.{7}\.svg" />' docs/????-??-??-*.html
 
 	# Post contains comment with dot source
-	grep -Pz '<!--\ndigraph G \{\n    a -> b\n\}\n-->' artifacts/????-??-??-*.html
+	grep -Pz '<!--\ndigraph G \{\n    a -> b\n\}\n-->' docs/????-??-??-*.html
 }
 
 @test "Build post with dot graph with an error" {
