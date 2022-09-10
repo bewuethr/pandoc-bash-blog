@@ -17,20 +17,21 @@ load test_helper
 	[[ $output == *'<title>Testblog</title>'* ]]
 }
 
-@test "Run serve with missing artifacts directory" {
+@test "Run serve with missing docs directory" {
 	pbb init 'Testblog'
+	rm -rf docs
 	run pbb serve
 
 	echo "$output"
 
 	((status == 1))
-	[[ $output == *"can't find artifacts directory"* ]]
+	[[ $output == *"can't find index file"* ]]
 }
 
 @test "Run serve with missing index file" {
 	pbb init 'Testblog'
 	pbb build
-	rm artifacts/index.html
+	rm docs/index.html
 	run pbb serve
 
 	echo "$output"
@@ -47,7 +48,7 @@ load test_helper
 
 	mdnames=(*.md)
 	mdname=${mdnames[0]}
-	htmlname="artifacts/${mdname/%md/html}"
+	htmlname="docs/${mdname/%md/html}"
 
 	# Built HTML is newer than Markdown source
 	printf '%s\n' "Before" \
@@ -79,9 +80,9 @@ load test_helper
 	sleep 0.4
 
 	srcimg=images/image.png
-	destimg="artifacts/$srcimg"
+	destimg="docs/$srcimg"
 
-	# Image in artifacts is newer than in images
+	# Image in docs is newer than in images
 	printf '%s\n' "Before" \
 		"$(stat -c '%y - %n' "$srcimg")" \
 		"$(stat -c '%y - %n' "$destimg")"
@@ -91,7 +92,7 @@ load test_helper
 	cp "$BATS_TEST_DIRNAME/testdata/favicon.png" images/image.png
 	sleep 0.4
 
-	# Image in artifacts is still newer than in images
+	# Image in docs is still newer than in images
 	printf '%s\n' "After" \
 		"$(stat -c '%y - %n' "$srcimg")" \
 		"$(stat -c '%y - %n' "$destimg")"
