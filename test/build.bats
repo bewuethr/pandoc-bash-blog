@@ -10,24 +10,24 @@ load test_helper
 	echo "$output"
 	((status == 0))
 
-	echo "artifacts:"
-	ls artifacts
+	echo "docs:"
+	ls docs
 
 	# Check new directories
-	[[ -d artifacts ]]
-	[[ -d artifacts/images ]]
-	[[ -d artifacts/diagrams ]]
+	[[ -d docs ]]
+	[[ -d docs/images ]]
+	[[ -d docs/diagrams ]]
 
 	# Index and post file
-	[[ -f artifacts/index.html ]]
-	posts=(artifacts/????-??-??-my-first-post.html)
+	[[ -f docs/index.html ]]
+	posts=(docs/????-??-??-my-first-post.html)
 	((${#posts[@]} == 1))
 
 	# Stylesheet
-	[[ -f artifacts/pbb.css ]]
+	[[ -f docs/pbb.css ]]
 
 	# Calendar icon
-	[[ -f artifacts/images/calendar.svg ]]
+	[[ -f docs/images/calendar.svg ]]
 
 	# Index Markdown file is cleaned up
 	[[ ! -f index.md ]]
@@ -42,8 +42,8 @@ load test_helper
 	((status == 0))
 
 	# Generated post has table of contents header
-	grep -Fq 'nav id="TOC" role="doc-toc">' artifacts/*-my-first-post.html
-	grep -q '<h2.*>Table of contents</h2>' artifacts/*-my-first-post.html
+	grep -Fq 'nav id="TOC" role="doc-toc">' docs/*-my-first-post.html
+	grep -q '<h2.*>Table of contents</h2>' docs/*-my-first-post.html
 }
 
 @test "Build with favicon from PNG" {
@@ -55,11 +55,11 @@ load test_helper
 	((status == 0))
 
 	# Check favicon file and image format
-	[[ -f artifacts/favicon.png ]]
-	[[ $(identify -format '%m %h %w' artifacts/favicon.png) == 'PNG 32 32' ]]
+	[[ -f docs/favicon.png ]]
+	[[ $(identify -format '%m %h %w' docs/favicon.png) == 'PNG 32 32' ]]
 
 	# Check all HTML files contain favicon link in header
-	for f in artifacts/*.html; do
+	for f in docs/*.html; do
 		echo "Checking $f"
 		grep -Fq '<link rel="icon" href="/favicon.png"' "$f"
 	done
@@ -74,8 +74,8 @@ load test_helper
 	((status == 0))
 
 	# Check favicon file and image format
-	[[ -f artifacts/favicon.png ]]
-	[[ $(identify -format '%m %h %w' artifacts/favicon.png) == 'PNG 32 32' ]]
+	[[ -f docs/favicon.png ]]
+	[[ $(identify -format '%m %h %w' docs/favicon.png) == 'PNG 32 32' ]]
 }
 
 @test "Build with favicon from GIF with multiple frames" {
@@ -87,8 +87,8 @@ load test_helper
 	((status == 0))
 
 	# Check favicon file and image format
-	[[ -f artifacts/favicon.png ]]
-	[[ $(identify -format '%m %h %w' artifacts/favicon.png) == 'PNG 32 32' ]]
+	[[ -f docs/favicon.png ]]
+	[[ $(identify -format '%m %h %w' docs/favicon.png) == 'PNG 32 32' ]]
 }
 
 @test "Warn about missing favicon" {
