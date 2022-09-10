@@ -41,9 +41,9 @@ usage() {
 		   init     Initialize new blog in empty Git repository
 		   title    Set new blog title
 		   gccode   Set GoatCounter code to enable analytics
-		   build    Generate HTML files and store them in artifacts directory
+		   build    Generate HTML files and store them in docs directory
 		   serve    Serve blog on localhost:8000
-		   deploy   Copy artifacts into master branch and push to remote
+		   deploy   Commit changes in docs directory and push to remote
 		   enable   Turn on feature
 		   disable  Turn off feature
 	EOF
@@ -68,17 +68,9 @@ getlang() {
 init() {
 	local blogtitle=$1
 
-	# Source branch
-	git checkout --quiet -b source \
-		|| die "Could not create new branch, aborting"
-
 	if [[ -e $conf ]]; then
 		die "Conf file exists already, aborting"
 	fi
-
-	# Ignore artifacts directory
-	echo 'artifacts/' > .gitignore
-	git add .gitignore
 
 	mkdir --parents assets images includes
 
@@ -120,6 +112,11 @@ init() {
 		> "$metadata"
 	git add "$metadata"
 
+	# Publishing source
+	mkdir docs
+	touch docs/.nojekyll
+	git add docs
+
 	git commit -m "Initialize blog with pbb"
 
 	# Example post
@@ -144,7 +141,7 @@ extracttitle() {
 	sed -n '/^# /{s///p;q}' "$file"
 }
 
-# Convert a markdown file to HTML and store it in the artifacts directory
+# Convert a markdown file to HTML and store it in the docs directory
 md2html() {
 	local file=$1
 	[[ $file == *.md ]] || die "not a markdown file: $file"
@@ -160,7 +157,7 @@ md2html() {
 		"--metadata=document-css:true"
 		"--metadata=lang:$(getlang)"
 		"--metadata-file=.metadata.yml"
-		"--output=artifacts/${file/%.md/.html}"
+		"--output=docs/${file/%.md/.html}"
 		"--shift-heading-level-by=-1"
 		"--standalone"
 		"--table-of-contents"
@@ -175,7 +172,7 @@ md2html() {
 		args+=("--include-after-body=$goatcounter")
 	fi
 
-	if [[ -f artifacts/favicon.png ]]; then
+	if [[ -f docs/favicon.png ]]; then
 		args+=("--include-in-header=$favicon")
 	fi
 
@@ -194,11 +191,11 @@ md2html() {
 	pandoc "${args[@]}" "$file" || die "error while converting $file"
 }
 
-# Empty artifacts and copy images directory
+# Empty docs and copy images directory
 clean() {
-	rm --recursive --force artifacts
-	mkdir --parents artifacts/diagrams
-	cp --recursive images artifacts
+	rm --recursive --force docs/!(CNAME|.nojekyll)
+	mkdir docs/diagrams
+	cp --recursive images docs
 }
 
 # Get value from config file
@@ -251,7 +248,7 @@ favicon() {
 
 	# Make sure to only use first frame if animated GIF
 	convert "${infile[0]}[0]" -resize 32x32^ -gravity center -background none \
-		-extent 32x32 artifacts/favicon.png
+		-extent 32x32 docs/favicon.png
 }
 
 # Build all pages
@@ -277,8 +274,8 @@ build() {
 	md2html index.md
 
 	rm index.md
-	cp "$cssfile" artifacts
-	cp "$calicon" artifacts/images
+	cp "$cssfile" docs
+	cp "$calicon" docs/images
 }
 
 # Monitor directory for file modifications and print names of modified files
@@ -293,15 +290,11 @@ monitor() {
 
 # Serve blog from localhost
 serve() {
-	if [[ ! -d artifacts ]]; then
-		die "can't find artifacts directory; try \"pbb build\""
-	fi
-
-	if [[ ! -e artifacts/index.html ]]; then
+	if [[ ! -e docs/index.html ]]; then
 		die "can't find index file; try \"pbb build\""
 	fi
 
-	python -m http.server --directory artifacts &
+	python -m http.server --directory docs &
 	local pid=$!
 	trap 'kill $pid' EXIT
 
@@ -315,53 +308,21 @@ serve() {
 				;;
 			./images/*)
 				echo "Copying $fname to images..."
-				cp "$fname" artifacts/images
+				cp "$fname" docs/images
 				;;
 		esac
 	done < <(monitor)
 }
 
-# Return non-zero exit status if branch has no remote set
-checkremote() {
-	local branch=$1
-	local remote
-	remote=$(git for-each-ref --format='%(upstream:remotename)' \
-		"refs/heads/$branch")
-
-	if [[ -z $remote ]]; then
-		return 1
-	fi
-	return 0
-}
-
-# Pull artifacts into master branch to deploy
+# Commit changes in publishing source and push them
 deploy() {
-	if [[ ! -d artifacts ]]; then
-		die 'nothing to deploy; try "pbb build"'
+	if [[ ! -e docs/index.html ]]; then
+		die "can't find index file; try \"pbb build\""
 	fi
 
-	if [[ $(git symbolic-ref --quiet --short HEAD) == 'master' ]]; then
-		die "already on master, check your setup"
-	fi
-
-	# Make sure master exists
-	if ! git show-ref --quiet --heads master; then
-		git branch master
-	fi
-
-	git checkout master
-	rm --recursive --force !(@(artifacts|CNAME|.nojekyll))
-	cp --recursive artifacts/* .
-	rm --recursive --force artifacts
-	git add --all
+	git add docs
 	git commit --message='Publish blog'
-
-	local args
-	if ! checkremote master; then
-		args=('--set-upstream' 'origin' 'master')
-	fi
 	git push "${args[@]}"
-	git checkout -
 }
 
 if (($# < 1)); then
