@@ -23,9 +23,9 @@ load test_helper
 	((status == 0))
 
 	# Post contains reference
-	cat artifacts/????-??-??-*.html
-	grep -Pqz 'data-cites="Ritchie1974">\(Ritchie\sand\sThompson\s1974\)' artifacts/????-??-??-*.html
+	cat docs/????-??-??-*.html
+	grep -Pqz 'data-cites="Ritchie1974">\(Ritchie\sand\sThompson\s1974\)' docs/????-??-??-*.html
 
 	# Post contains bibliography
-	grep -q 'id="bibliography".*>Bibliography</h1>' artifacts/????-??-??-*.html
+	grep -q 'id="bibliography".*>Bibliography</h1>' docs/????-??-??-*.html
 }
