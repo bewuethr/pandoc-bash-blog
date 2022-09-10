@@ -108,16 +108,18 @@ To build your blog, run `pbb build`. This extracts all the titles into an index
 file; the index file links to all files following the naming convention above
 and lists them in reverse alphabetical order, with the newest post at the top.
 
+The index file and all the generated HTML files are placed in the `docs`
+directory, which is to be used as the publishing source on GitHub Pages.
+
 To have a look at your freshly built blog, use `pbb serve` and point your
 browser to <http://localhost:8000>. While `pbb serve` is running, any changes
 to `.md` files or files in the `images` directory trigger a rebuild or copy of
 that file, allowing to preview a post by just reloading it in the browser
 instead of building the whole site over and over again.
 
-Once you think your opus magnum is ready to be published, run `pbb deploy`. This
-pulls the generated HTML files into the `master` branch, commits  and then
-pushes them to a remote. This works for GitHub pages deploying the `master`
-branch.
+Once you think your opus magnum is ready to be published, run `pbb deploy`.
+This commits all changes in the `docs` directory and pushes to the remote,
+triggering a redeploy on GitHub Pages.
 
 You might have to set the Git remote first:
 
@@ -212,9 +214,8 @@ installed, they should tab-autocomplete.
 
 ### `pbb init <title>`
 
-- Creates new `source` branch and checks it out
-- Adds artifacts directory to `.gitignore`
-- Creates the `includes`, `images` and `assets` directories
+- Creates the `docs`,  `includes`, `images`, and `assets` directories
+- Places a `.nojekyll` file in `docs`
 - Symlinks the stylesheet from `$XDG_DATA_HOME/pbb/pbb.css`
 - Creates header files in `includes` that are used on every page, for blog
   title link, favicon, Google web font links and GoatCounter analytics
@@ -241,12 +242,12 @@ installed, they should tab-autocomplete.
 
 ### `pbb build`
 
-- Cleans the `artifacts` directory, then copies the `images` directory in there
+- Cleans the `docs` directory, then copies the `images` directory in there
 - Checks for a favicon image and, if there is one, generates the favicon from
   it (see [Favicon](#favicon))
 - Generates the index file, `index.md`
 - Converts the markdown files with datestamps in their names and `index.md` to
-  HTML, copies the results into `artifacts`
+  HTML, copies the results into `docs`
 
 ### `pbb serve`
 
@@ -256,9 +257,5 @@ installed, they should tab-autocomplete.
 
 ### `pbb deploy`
 
-- Checks out the `master` branch
-- Deletes everything but the `artifacts` directory (and the `CNAME` and
-  `.nojekyll` files, if they exist)
-- Copies the contents of `artifacts` into the repository root directory
-- Adds, commits and pushes everything to the remote
-- Checks out the previous branch
+- Commits all changes in the `docs` directory
+- Pushes everything to the remote
