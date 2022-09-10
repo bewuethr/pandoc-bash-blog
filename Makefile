@@ -49,7 +49,7 @@ install:
 	$(call checkdep,Git,git)
 	$(call checkdep,Sed,sed)
 	$(call checkdep,ImageMagick,convert)
-	$(call checkdep,Python 3,python3)
+	$(call checkdep,Python 3,python)
 	$(call checkdep,Bats,bats)
 	$(call checkdep,dot,dot)
 	$(call doinstall,pbb,pbb,$(binpath))
