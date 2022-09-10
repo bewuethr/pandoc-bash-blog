@@ -43,9 +43,9 @@ function createDotGraph(elem)
 	return retList
 end
 
--- Store the image to a file in the artifacts subdirectory
+-- Store the image to a file in the docs subdirectory
 function storeImg(fname, img)
-	local f = assert(io.open("artifacts/" .. fname, "w"))
+	local f = assert(io.open("docs/" .. fname, "w"))
 	f:write(img)
 	f:flush()
 	f:close()
