@@ -5,7 +5,7 @@ load test_helper
 @test "Run deploy" {
 	pbb init 'Testblog'
 	pbb build
-	git push --set-upstream origin main
+	git push --set-upstream origin "$(git branch --show-current)"
 	run pbb deploy
 
 	echo "$output"
