@@ -169,6 +169,8 @@ md2html() {
 	local file=$1
 	[[ $file == *.md ]] || die "not a markdown file: $file"
 
+	echo "Building $file..." >&2
+
 	local args=(
 		"--css=/pbb.css"
 		"--email-obfuscation=references"
