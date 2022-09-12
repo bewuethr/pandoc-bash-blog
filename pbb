@@ -167,6 +167,7 @@ extracttitle() {
 # Convert a markdown file to HTML and store it in the docs directory
 md2html() {
 	local file=$1
+	local title=$2
 	[[ $file == *.md ]] || die "not a markdown file: $file"
 
 	echo "Building $file..." >&2
@@ -181,7 +182,7 @@ md2html() {
 		"--lua-filter=dotgraph.lua"
 		"--metadata=document-css:true"
 		"--metadata=lang:$(getlang)"
-		"--metadata=title:$(extracttitle "$file" | pandoc --to plain)"
+		"--metadata=title:$(pandoc --to plain <<< "$title")"
 		"--metadata-file=.metadata.yml"
 		"--output=docs/${file/%.md/.html}"
 		"--standalone"
@@ -287,17 +288,17 @@ build() {
 
 	# Build index file and convert posts
 	{
-		printf '%s\n' "# All posts"
-		local f
+		local f title
 		for f in ????-??-??-*.md; do
+			title=$(extracttitle "$f")
 			printf -- ':::\n[%s](%s)\n:::index-title\n\n:::\n%s\n:::index-date\n\n' \
-				"$(extracttitle "$f")" "${f/%.md/.html}" "${f:0:10}"
-			md2html "$f"
+				"$title" "${f/%.md/.html}" "${f:0:10}"
+			md2html "$f" "$title"
 		done | tac
 	} > index.md
 
 	# Convert index file
-	md2html index.md
+	md2html index.md 'All posts'
 
 	rm index.md
 	cp "$cssfile" docs
@@ -330,7 +331,7 @@ serve() {
 		case $fname in
 			./*.md)
 				echo "Rebuilding $fname..."
-				md2html "${fname#./}"
+				md2html "${fname#./}" "$(extracttitle "$fname")"
 				;;
 			./images/*)
 				echo "Copying $fname to images..."
