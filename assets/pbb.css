@@ -70,14 +70,6 @@ figure {
 	width: fit-content;
 }
 
-h1 {
-	font-size: 1.5rem;
-}
-
-h1.title {
-	font-size: 2rem;
-}
-
 #blogtitle {
 	color: #fff;
 	font-size: 3.4rem;
@@ -97,18 +89,6 @@ h1.title {
 
 #blogtitle a:focus {
 	outline: black auto 1px;
-}
-
-h2 {
-	font-size: 1.17rem;
-}
-
-h2#toc-title {
-	font-size: 1.5rem;
-}
-
-h3 {
-	font-size: 1rem;
 }
 
 p.date {

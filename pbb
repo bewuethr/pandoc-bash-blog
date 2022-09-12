@@ -181,9 +181,9 @@ md2html() {
 		"--lua-filter=dotgraph.lua"
 		"--metadata=document-css:true"
 		"--metadata=lang:$(getlang)"
+		"--metadata=title:$(extracttitle "$file" | pandoc --to plain)"
 		"--metadata-file=.metadata.yml"
 		"--output=docs/${file/%.md/.html}"
-		"--shift-heading-level-by=-1"
 		"--standalone"
 		"--table-of-contents"
 		"--to=html"
@@ -213,7 +213,8 @@ md2html() {
 		args+=("--metadata=pagetitle:$(getconfvalue 'blogtitle')")
 	fi
 
-	pandoc "${args[@]}" "$file" || die "error while converting $file"
+	# Delete level 1 heading because it's already printed as the title
+	pandoc "${args[@]}" <(sed '0,/^# /{/^# /d}' "$file") || die "error while converting $file"
 }
 
 # Empty docs and copy images directory
