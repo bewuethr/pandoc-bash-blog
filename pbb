@@ -188,6 +188,7 @@ md2html() {
 		"--standalone"
 		"--table-of-contents"
 		"--to=html"
+		"--toc-depth=4"
 	)
 
 	if [[ $(getconfvalue 'bibliography') == 'on' ]]; then
