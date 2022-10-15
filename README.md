@@ -5,8 +5,7 @@
 [![Move release tags][movebadge]][movewf]
 
 Pandoc Bash Blog provides `pbb`, a simple generator for static blog sites based
-on Pandoc and Bash. Progress is chronicled at
-<https://www.benjaminwuethrich.dev>.
+on Pandoc and Bash. Progress is chronicled at <https://benjaminwuethrich.dev>.
 
 [lintbadge]: <https://github.com/bewuethr/pandoc-bash-blog/actions/workflows/linter.yml/badge.svg>
 [lintwf]: <https://github.com/bewuethr/pandoc-bash-blog/actions/workflows/linter.yml>
@@ -128,7 +127,7 @@ git remote add origin https://github.com/<yourname>/<repo-name>.git
 ```
 
 [Pandoc Markdown]: <https://pandoc.org/MANUAL.html#pandocs-markdown>
-[my post about it]: <https://www.benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html>
+[my post about it]: <https://benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html>
 
 ### Table of contents
 
