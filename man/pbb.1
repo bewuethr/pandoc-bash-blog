@@ -107,6 +107,7 @@ To disable GoatCounter, set the code to the empty string using
 .TP
 .B build
 Build HTML pages from the provided Markdown input.
+Emoji in colon notation are supported using the same names as GitHub.
 The output is stored in the
 .I docs
 directory, which gets cleaned first.
@@ -340,11 +341,13 @@ has generated an example post,
 .EX
 # My first post
 
-Hello world!
+Hello world! :slightly_smiling_face:
 .EE
 .in
 .PP
-Edit that post to your liking using pandoc Markdown; images go into the
+Edit that post to your liking using pandoc Markdown; emoji are supported using
+GitHub-style colon notation.
+Images go into the
 .I images
 directory.
 To include a dot graph, create a code block with class
