@@ -69,7 +69,8 @@ load test_helper
 	grep -Fq 'https://.goatcounter.com' includes/goatcounter.html
 
 	# Index file does not include snippet
-	! grep -q 'data-goatcounter="https://.*\.goatcounter\.com/count' docs/index.html
+	bats_require_minimum_version 1.5.0
+	run ! grep -q 'data-goatcounter="https://.*\.goatcounter\.com/count' docs/index.html
 }
 
 @test "Set GoatCounter to code empty, then non-empty" {
