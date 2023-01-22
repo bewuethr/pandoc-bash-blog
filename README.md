@@ -206,6 +206,21 @@ Consider paying for a custom domain or [sponsoring] the author.
 [GoatCounter]: <https://www.goatcounter.com>
 [sponsoring]: <https://github.com/sponsors/arp242>
 
+### Emoji
+
+Emoji in colon notation are supported, using the same names as
+[GitHub][ghemoji]:
+
+```markdown
+Nice shoes! :lying_face:
+```
+
+produces
+
+> Nice shoes! :lying_face:
+
+[ghemoji]: <https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md>
+
 ## Subcommands
 
 There are eight subcommands (nine, if you count `pbb help`); when properly
