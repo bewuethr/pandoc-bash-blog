@@ -106,7 +106,8 @@ To disable GoatCounter, set the code to the empty string using
 .RE
 .TP
 .B build
-Build HTML pages from the provided Markdown input. The output is stored in the
+Build HTML pages from the provided Markdown input.
+The output is stored in the
 .I docs
 directory, which gets cleaned first.
 The
@@ -141,7 +142,8 @@ rebuild of the corresponding HTML file, and changes to files in the
 directory trigger a fresh copy of that file into the
 .I docs/images
 directory, allowing to quickly rebuild a post while working on it and previewing
-it in a browser. This is implemented using
+it in a browser.
+This is implemented using
 .BR inotifywait (1).
 .TP
 .B deploy
