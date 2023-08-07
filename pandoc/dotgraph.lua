@@ -38,7 +38,7 @@ function createDotGraph(elem)
 	end
 
 	local imgObj = getImgObj(elem, fname)
-	retList:extend({pandoc.Para{imgObj}})
+	retList:extend({imgObj})
 
 	return retList
 end
@@ -53,11 +53,12 @@ end
 
 -- Return a pandoc image object
 function getImgObj(elem, fname)
+	local img = pandoc.Image(elem.attributes.caption or "", fname)
+
 	if not elem.attributes.caption then
-		return pandoc.Image("", fname)
+		return pandoc.Plain{img}
 	end
 
-	-- Trigger a full-blown figure
-	local enableCaption = "fig:"
-	return pandoc.Image(elem.attributes.caption, fname, enableCaption)
+	-- Return a full-blown figure
+	return pandoc.Figure(pandoc.Plain{img}, {elem.attributes.caption})
 end
