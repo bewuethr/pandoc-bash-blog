@@ -23,7 +23,7 @@ jobs:
       - name: Install Pandoc
         uses: r-lib/actions/setup-pandoc@v2.6.4
         with:
-          pandoc-version: 2.19.2
+          pandoc-version: 3.1.6.1
 
       - name: Get Bats repository
         uses: actions/checkout@v3.5.3
