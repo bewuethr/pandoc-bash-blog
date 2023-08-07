@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -o errexit -o pipefail
 shopt -s extglob nullglob
 
+# Globals
 declare -r \
 	conf='.pbbconfig' \
 	calicon='assets/calendar.svg' \
@@ -13,7 +13,6 @@ declare -r \
 	header='includes/header.html' \
 	metadata='.metadata.yml'
 
-# shellcheck disable=SC2034
 declare -rA features=(
 	['math']=1
 	['bibliography']=1
@@ -75,7 +74,7 @@ checkgit() {
 
 	if [[ $PWD != "$topdir" ]]; then
 		warn "in git repo, but not in root directory"
-		echo 'run "pbb init" from the repository root'
+		echo "run \"pbb init\" from the repository root, $topdir"
 		return 1
 	fi
 
@@ -353,59 +352,67 @@ deploy() {
 	git push "${args[@]}"
 }
 
-if (($# < 1)); then
-	usage
-	exit 1
-fi
+main() {
+	set -o errexit -o pipefail
 
-subcmd=$1
-
-case $subcmd in
-	help) usage ;;
-
-	init)
-		if (($# < 2)); then
-			die "usage: pbb init TITLE"
-		fi
-		init "${*:2}"
-		;;
-
-	title)
-		if (($# < 2)); then
-			die "usage: pbb title TITLE"
-		fi
-		setblogtitle "${*:2}"
-		;;
-
-	gccode)
-		if (($# < 2)); then
-			die "usage: pbb gccode CODE"
-		fi
-		setgccode "$2"
-		;;
-
-	enable)
-		if (($# < 2)); then
-			die "usage: pbb enable FEATURE"
-		fi
-		setfeature "$2" 'on'
-		;;
-
-	disable)
-		if (($# < 2)); then
-			die "usage: pbb disable FEATURE"
-		fi
-		setfeature "$2" 'off'
-		;;
-
-	build) build ;;
-
-	serve) serve ;;
-
-	deploy) deploy ;;
-
-	*)
+	if (($# < 1)); then
 		usage
 		exit 1
-		;;
-esac
+	fi
+
+	local subcmd=$1
+
+	case $subcmd in
+		help) usage ;;
+
+		init)
+			if (($# < 2)); then
+				die "usage: pbb init TITLE"
+			fi
+			init "${*:2}"
+			;;
+
+		title)
+			if (($# < 2)); then
+				die "usage: pbb title TITLE"
+			fi
+			setblogtitle "${*:2}"
+			;;
+
+		gccode)
+			if (($# < 2)); then
+				die "usage: pbb gccode CODE"
+			fi
+			setgccode "$2"
+			;;
+
+		enable)
+			if (($# < 2)); then
+				die "usage: pbb enable FEATURE"
+			fi
+			setfeature "$2" 'on'
+			;;
+
+		disable)
+			if (($# < 2)); then
+				die "usage: pbb disable FEATURE"
+			fi
+			setfeature "$2" 'off'
+			;;
+
+		build) build ;;
+
+		serve) serve ;;
+
+		deploy) deploy ;;
+
+		*)
+			usage
+			exit 1
+			;;
+	esac
+}
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+	main "$@"
+fi
