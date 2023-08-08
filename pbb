@@ -166,7 +166,6 @@ extracttitle() {
 # Convert a markdown file to HTML and store it in the docs directory
 md2html() {
 	local file=$1
-	local title=$2
 	[[ $file == *.md ]] || die "not a markdown file: $file"
 
 	echo "Building $file..." >&2
@@ -181,9 +180,9 @@ md2html() {
 		"--lua-filter=dotgraph.lua"
 		"--metadata=document-css:true"
 		"--metadata=lang:$(getlang)"
-		"--metadata=title:$(pandoc --to plain <<< "$title")"
 		"--metadata-file=.metadata.yml"
 		"--output=docs/${file/%.md/.html}"
+		"--shift-heading-level-by=-1"
 		"--standalone"
 		"--table-of-contents"
 		"--to=html"
@@ -214,8 +213,7 @@ md2html() {
 		args+=("--metadata=pagetitle:$(getconfvalue 'blogtitle')")
 	fi
 
-	# Delete level 1 heading because it's already printed as the title
-	pandoc "${args[@]}" <(sed '0,/^# /{/^# /d}' "$file") || die "error while converting $file"
+	pandoc "${args[@]}" "$file" || die "error while converting $file"
 }
 
 # Empty docs and copy images directory
@@ -288,17 +286,17 @@ build() {
 
 	# Build index file and convert posts
 	{
-		local f title
+		printf '%s\n' '# All posts'
+		local f
 		for f in ????-??-??-*.md; do
-			title=$(extracttitle "$f")
 			printf -- ':::\n[%s](%s)\n:::index-title\n\n:::\n%s\n:::index-date\n\n' \
-				"$title" "${f/%.md/.html}" "${f:0:10}"
-			md2html "$f" "$title"
+				"$(extracttitle "$f")" "${f/%.md/.html}" "${f:0:10}"
+			md2html "$f"
 		done | tac
 	} > index.md
 
 	# Convert index file
-	md2html index.md 'All posts'
+	md2html index.md
 
 	rm index.md
 	cp "$cssfile" docs
@@ -331,7 +329,7 @@ serve() {
 		case $fname in
 			./*.md)
 				echo "Rebuilding $fname..."
-				md2html "${fname#./}" "$(extracttitle "$fname")"
+				md2html "${fname#./}"
 				;;
 			./images/*)
 				echo "Copying $fname to images..."

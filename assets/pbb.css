@@ -28,6 +28,10 @@ div.index-title p {
 	margin: initial;
 }
 
+h1.title {
+	font-size: 2.2em;
+}
+
 a {
 	outline: none;
 	-wekbit-tap-highlight-color: transparent;
