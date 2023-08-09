@@ -184,7 +184,7 @@ md2html() {
 		"--output=docs/${file/%.md/.html}"
 		"--shift-heading-level-by=-1"
 		"--standalone"
-		"--table-of-contents"
+		"--table-of-contents=true"
 		"--to=html"
 		"--toc-depth=4"
 	)
