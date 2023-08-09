@@ -9,6 +9,7 @@ declare -r \
 	cssfile='assets/pbb.css' \
 	favicon='includes/favicon.html' \
 	fontlinks='includes/fontlinks.html' \
+	feedpath='docs/feed.xml' \
 	goatcounter='includes/goatcounter.html' \
 	header='includes/header.html' \
 	metadata='.metadata.yml'
@@ -299,7 +300,7 @@ build() {
 	md2html index.md
 
 	# Add Atom feed
-	buildfeed > docs/feed.xml
+	buildfeed > "$feedpath"
 
 	rm index.md
 	cp "$cssfile" docs
