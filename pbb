@@ -306,7 +306,7 @@ build() {
 	cp "$calicon" docs/images
 }
 
-# Build Atom feed entry for the provided file
+# Build Atom feed entry for the provided file, in YAML
 buildentry() {
 	local file=$1
 
@@ -315,7 +315,7 @@ buildentry() {
 	fname=${file/%md/html} \
 	updated=$(git log --max-count=1 --format=format:%aI -- "$file") \
 	summary=$(yq --front-matter=extract '.summary' "$file") \
-		yq --null-input --output-format=yaml '
+		yq --null-input '
 			[{
 				"title": {
 					"+@type": "html",
@@ -348,7 +348,7 @@ buildentries() {
 	done
 }
 
-# Build Atom feed
+# Build Atom feed, in XML
 buildfeed() {
 	echo "Buiding Atom feed..." >&2
 
