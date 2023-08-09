@@ -34,13 +34,17 @@ die() {
 usage() {
 	cat <<- EOF >&2
 		usage:
-		pbb help | init TITLE | title TITLE | gccode CODE | build | serve | deploy
+		pbb help | init TITLE | set PROPERTY VALUE | build | serve | deploy
 		pbb enable FEATURE | disable FEATURE
 
 		   help     Display this message
 		   init     Initialize new blog in empty Git repository
-		   title    Set new blog title
-		   gccode   Set GoatCounter code to enable analytics
+		   set      Set configuration property to value; valid properties are
+		            title        Set now blog title
+		            gccode       Set GoatCounter code to enable analytics 
+		            baseurl      Set base URL for use in Atom feed
+		            authorname   Author name for Atom feed
+		            authoremail  Author email for Atom feed
 		   build    Generate HTML files and store them in docs directory
 		   serve    Serve blog on localhost:8000
 		   deploy   Commit changes in docs directory and push to remote
@@ -463,18 +467,18 @@ main() {
 			init "${*:2}"
 			;;
 
-		title)
-			if (($# < 2)); then
-				die "usage: pbb title TITLE"
+		set)
+			if (($# < 3)); then
+				die "usage: pbb set PROPERTY VALUE"
 			fi
-			setblogtitle "${*:2}"
-			;;
 
-		gccode)
-			if (($# < 2)); then
-				die "usage: pbb gccode CODE"
-			fi
-			setgccode "$2"
+			local property=$2
+			case $property in
+				title) setblogtitle "${*:3}" ;;
+				gccode) setgccode "$3" ;;
+				baseurl | authorname | authoremail) setconfvalue "$property" "$3" ;;
+				*) die "invalid property \"$3\"" ;;
+			esac
 			;;
 
 		enable)
