@@ -40,9 +40,9 @@ usage() {
 		   help     Display this message
 		   init     Initialize new blog in empty Git repository
 		   set      Set configuration property to value; valid properties are
-		            title        Set now blog title
-		            gccode       Set GoatCounter code to enable analytics 
-		            baseurl      Set base URL for use in Atom feed
+		            title        New blog title
+		            gccode       GoatCounter code to enable analytics 
+		            baseurl      Base URL for use in Atom feed
 		            authorname   Author name for Atom feed
 		            authoremail  Author email for Atom feed
 		   build    Generate HTML files and store them in docs directory
