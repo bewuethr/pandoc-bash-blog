@@ -12,8 +12,7 @@ _pbb() {
 			local subcmds=(
 				'help'
 				'init'
-				'title'
-				'gccode'
+				'set'
 				'build'
 				'serve'
 				'deploy'
@@ -28,6 +27,10 @@ _pbb() {
 				enable|disable)
 					local features=('bibliography' 'math')
 					COMPREPLY=($(compgen -W '"${features[@]}"' -- "$cur"))
+					;;
+				set)
+					local properties=('title' 'gccode' 'baseurl' 'authorname' 'authoremail')
+					COMPREPLY=($(compgen -W '"${properties[@]}"' -- "$cur"))
 					;;
 				*)
 					return
