@@ -117,8 +117,7 @@ init() {
 	# Atom feed link
 	printf '%s %s\n' \
 		'<link href="/feed.xml" type="application/atom+xml" rel="alternate"' \
-	   	"title=\"$blogtitle Feed\">" >> "$headerlinks"
-
+		"title=\"$blogtitle Feed\">" >> "$headerlinks"
 
 	# Favicon for header
 	printf '%s\n' \
