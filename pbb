@@ -298,6 +298,9 @@ build() {
 	# Convert index file
 	md2html index.md
 
+	# Add Atom feed
+	buildfeed > docs/feed.xml
+
 	rm index.md
 	cp "$cssfile" docs
 	cp "$calicon" docs/images
@@ -344,6 +347,8 @@ buildentries() {
 
 # Build Atom feed
 buildfeed() {
+	echo "Buiding Atom feed..." >&2
+
 	title=$(getconfvalue 'blogtitle') \
 	url=$(getconfvalue 'baseurl') \
 	name=$(getconfvalue 'authorname') \
