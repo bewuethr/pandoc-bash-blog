@@ -37,11 +37,11 @@ load test_helper
 	[[ -L assets/pbb.css ]]
 	[[ -L assets/calendar.svg ]]
 
-	# Font links file exists
-	fontlinks='includes/fontlinks.html'
-	[[ -s $fontlinks ]]
-	grep -Fq 'https://fonts.gstatic.com' "$fontlinks"
-	grep -Fq 'https://fonts.googleapis.com' "$fontlinks"
+	# Header links file exists
+	headerlinks='includes/headerlinks.html'
+	[[ -s $headerlinks ]]
+	grep -Fq 'https://fonts.gstatic.com' "$headerlinks"
+	grep -Fq 'https://fonts.googleapis.com' "$headerlinks"
 
 	# Favicon header include exists
 	favicon='includes/favicon.html'
