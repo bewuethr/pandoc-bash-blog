@@ -3,16 +3,16 @@
 load test_helper
 
 @test "Complain about gccode without code" {
-	run pbb gccode
+	run pbb set gccode
 	((status == 1))
-	want="usage: pbb gccode CODE"
+	want="usage: pbb set PROPERTY VALUE"
 	printf '%s\n%s\n' "got: $output" "want: $want"
 	[[ $output == *$want* ]]
 }
 
 @test "Set initial GoatCounter code" {
 	pbb init "Testblog"
-	run pbb gccode 'mycode'
+	run pbb set gccode 'mycode'
 	pbb build
 
 	echo "$output"
@@ -31,9 +31,9 @@ load test_helper
 
 @test "Set GoatCounter code, then change it" {
 	pbb init "Testblog"
-	pbb gccode 'mycode'
+	pbb set gccode 'mycode'
 	pbb build
-	run pbb gccode 'anothercode'
+	run pbb set gccode 'anothercode'
 	pbb build
 
 	echo "$output"
@@ -52,9 +52,9 @@ load test_helper
 
 @test "Set GoatCounter code, then set it to empty" {
 	pbb init "Testblog"
-	pbb gccode 'mycode'
+	pbb set gccode 'mycode'
 	pbb build
-	run pbb gccode ''
+	run pbb set gccode ''
 	pbb build
 
 	echo "$output"
@@ -75,9 +75,9 @@ load test_helper
 
 @test "Set GoatCounter to code empty, then non-empty" {
 	pbb init "Testblog"
-	pbb gccode ''
+	pbb set gccode ''
 	pbb build
-	run pbb gccode 'mycode'
+	run pbb set gccode 'mycode'
 	pbb build
 
 	echo "$output"

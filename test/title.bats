@@ -3,16 +3,16 @@
 load test_helper
 
 @test "Complain about title without title" {
-	run pbb title
+	run pbb set title
 	((status == 1))
-	want="usage: pbb title TITLE"
+	want="usage: pbb set PROPERTY VALUE"
 	printf '%s\n%s\n' "got: $output" "want: $want"
 	[[ $output == *$want* ]]
 }
 
 @test "Change to simple title" {
 	pbb init 'Testblog'
-	run pbb title 'New Title'
+	run pbb set title 'New Title'
 
 	echo "$output"
 	((status == 0))
@@ -26,7 +26,7 @@ load test_helper
 
 @test "Change to title with quotes" {
 	pbb init 'Testblog'
-	run pbb title "Example Man's \"Blog\""
+	run pbb set title "Example Man's \"Blog\""
 
 	echo "$output"
 	((status == 0))
@@ -42,7 +42,7 @@ load test_helper
 
 @test "Change title without quoting parameters" {
 	pbb init 'Testblog'
-	run pbb title New Title without Quotes
+	run pbb set title New Title without Quotes
 
 	echo "$output"
 	((status == 0))
