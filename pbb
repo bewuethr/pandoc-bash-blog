@@ -314,7 +314,7 @@ buildentry() {
 	url=$(getconfvalue 'baseurl') \
 	fname=${file/%md/html} \
 	updated=$(git log --max-count=1 --format=format:%aI -- "$file") \
-	abstract=$(yq --front-matter=extract '.abstract' "$file") \
+	summary=$(yq --front-matter=extract '.summary' "$file") \
 		yq --null-input --output-format=yaml '
 			[{
 				"title": {
@@ -329,7 +329,7 @@ buildentry() {
 				},
 				"summary": {
 					"+@type": "html",
-					"+content": strenv(abstract)
+					"+content": strenv(summary)
 				}
 			}]
 		'
@@ -344,7 +344,7 @@ buildentries() {
 
 	local i
 	for ((i = 0; i < ${#files[@]}; ++i)); do
-		buildentry "${files[-(1 + i)]}"
+		buildentry "${files[-(1+i)]}"
 	done
 }
 
