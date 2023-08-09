@@ -8,7 +8,7 @@ declare -r \
 	calicon='assets/calendar.svg' \
 	cssfile='assets/pbb.css' \
 	favicon='includes/favicon.html' \
-	fontlinks='includes/fontlinks.html' \
+	headerlinks='includes/headerlinks.html' \
 	feedpath='docs/feed.xml' \
 	goatcounter='includes/goatcounter.html' \
 	header='includes/header.html' \
@@ -112,7 +112,13 @@ init() {
 		'<link href="https://fonts.googleapis.com/css?family=' \
 		'Source+Code+Pro:400,400i,700,700i|Source+Sans+Pro:400,400i,700,700i' \
 		'&display=swap" rel="stylesheet">' \
-		> "$fontlinks"
+		> "$headerlinks"
+
+	# Atom feed link
+	printf '%s %s\n' \
+		'<link href="/feed.xml" type="application/atom+xml" rel="alternate"' \
+	   	"title=\"$blogtitle Feed\">" >> "$headerlinks"
+
 
 	# Favicon for header
 	printf '%s\n' \
@@ -177,7 +183,7 @@ md2html() {
 		"--from=markdown+emoji"
 		"--highlight-style=${XDG_DATA_HOME:-$HOME/.local/share}/pandoc/solarizeddark.theme"
 		"--include-before-body=$header"
-		"--include-in-header=$fontlinks"
+		"--include-in-header=$headerlinks"
 		"--lua-filter=dotgraph.lua"
 		"--metadata=document-css:true"
 		"--metadata=lang:$(getlang)"
