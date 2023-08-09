@@ -335,10 +335,13 @@ buildentry() {
 		'
 }
 
-# Build feed entries for the 10 most recent posts
+# Build feed entries, truncate to 10 most recent posts, reverse chronologically
 buildentries() {
 	local files=(????-??-??-*.md)
-	files=("${files[@]: -10}")
+	if ((${#files[@]} > 10)); then
+		files=("${files[@]: -10}")
+	fi
+
 	local i
 	for ((i = 0; i < ${#files[@]}; ++i)); do
 		buildentry "${files[-(1+i)]}"
