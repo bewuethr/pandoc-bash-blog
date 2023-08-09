@@ -344,7 +344,7 @@ buildentries() {
 
 	local i
 	for ((i = 0; i < ${#files[@]}; ++i)); do
-		buildentry "${files[-(1+i)]}"
+		buildentry "${files[-(1 + i)]}"
 	done
 }
 
