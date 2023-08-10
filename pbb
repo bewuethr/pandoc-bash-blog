@@ -330,6 +330,7 @@ buildentry() {
 	fname=${file/%md/html} \
 	updated=$(git log --max-count=1 --format=format:%aI -- "$file") \
 	summary=$(yq --front-matter=extract '.summary' "$file") \
+	published=$(git log --format=format:%aI -- "$file" | tail --lines=1) \
 		yq --null-input '
 			[{
 				"title": {
@@ -345,7 +346,8 @@ buildentry() {
 				"summary": {
 					"+@type": "html",
 					"+content": strenv(summary)
-				}
+				},
+				"published": strenv(published)
 			}]
 		'
 }
