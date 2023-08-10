@@ -153,6 +153,11 @@ init() {
 
 	# Example post
 	cat <<- EOF > "$(printf '%(%F)T' -1)-my-first-post.md"
+		---
+		summary: >-
+		  A wild post appeared
+		---
+
 		# My first post
 
 		Hello world!
