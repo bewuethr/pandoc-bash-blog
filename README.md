@@ -55,23 +55,24 @@ for older versions. `make install` checks if the executables exist, but not
 their versions.
 
 - Bash 5.1.16
-- Pandoc 2.19.2
-- Git 2.37.3
+- Pandoc 3.1.6.1
+- Git 2.41.0
 - GNU Coreutils 8.32: `cat`, `cp`, `mkdir`, `ln`, `rm`, `tac`
 - GNU Sed 4.8
 - ImageMagick 6.9.11-60 (for favicon)
-- Python 3.10.4 (for `pbb serve`)
+- Python 3.10.12 (for `pbb serve`)
 - `inotifywait` from inotify-tools 3.22.1.0 (for hot-reloading during `pbb
   serve`)
-- Bats 1.7.0 (for test suite)
+- Bats 1.10.0 (for test suite)
 - bash-completion 2.11 (for tab completion)
 - graphviz 2.43.0 (for dot graphs)
+- yq 4.34.2
 
 In the Makefile, additionally:
 
 - GNU Make 4.3
 - GNU Awk 5.1.0
-- `column` from util-linux 2.38.2
+- `column` from util-linux 2.37.2
 - GNU Coreutils 8.32: `install`, `rmdir`
 
 ## Usage
@@ -88,17 +89,31 @@ pbb init 'My blog'
 If you later want to change the title, use
 
 ```bash
-pbb title 'My blog with a new title'
+pbb set title 'My blog with a new title'
 ```
 
 `pbb init` creates a sample blog post. Blog posts are written in [Pandoc
 Markdown] (see also [my post about it]), with filenames formatted like
 `YYYY-MM-DD-post-title.md`.
 
-The first heading of a post has to be a level-one heading:
+The first heading of a post has to be a level-one heading, and the summary is
+what'll appear in the Atom feed:
 
 ```markdown
+---
+summary: >-
+  The summary for the Atom feed
+---
+
 # A blog post
+```
+
+To configure some global values for the Atom feed, set them with `pbb set`:
+
+```bash
+pbb set authorname 'Billy Bishop'
+pbb set authoremail 'billy@example.com'
+pbb set baseurl 'https://someblogurl.ca'
 ```
 
 Images must be stored in the `images` directory.
@@ -126,18 +141,18 @@ You might have to set the Git remote first:
 git remote add origin https://github.com/<yourname>/<repo-name>.git
 ```
 
-[Pandoc Markdown]: <https://pandoc.org/MANUAL.html#pandocs-markdown>
+[pandoc markdown]: <https://pandoc.org/MANUAL.html#pandocs-markdown>
 [my post about it]: <https://benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html>
 
 ### Table of contents
 
-To get a table of contents for a post, start it with a YAML document that sets
-the `toc` variable to `true`:
+To get a table of contents for a post, set `toc` to `true` in the YAML front
+matter:
 
 ```yaml
 ---
 toc: true
-...
+---
 ```
 
 ### Math
@@ -219,11 +234,11 @@ produces
 
 > Nice shoes! :lying_face:
 
-[ghemoji]: <https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md>
+[ghemoji]: <https://github.com/ikatyang/emoji-cheat-sheet>
 
 ## Subcommands
 
-There are eight subcommands (nine, if you count `pbb help`); when properly
+There are seven subcommands (eight, if you count `pbb help`); when properly
 installed, they should tab-autocomplete.
 
 ### `pbb init <title>`
@@ -235,9 +250,29 @@ installed, they should tab-autocomplete.
   title link, favicon, Google web font links and GoatCounter analytics
 - Creates an example post
 
-### `pbb title <new title>`
+### `pbb set <property> <value>`
+
+```sh
+pbb set title <new title>
+```
 
 - Sets a new blog title for an existing blog
+
+```sh
+pbb set gccode <code>
+```
+
+- Includes a snippet with tracking code for [GoatCounter] on each page, where
+  the code for the account is `<code>`
+- To turn tracking off, set code to empty with `pbb gccode ''`
+
+```sh
+pbb set authorname <author name>
+pbb set authoremali <author email>
+pbb set baseurl <blog base URL>
+```
+
+- Sets global values used in Atom feed
 
 ### `pbb enable <feature>`
 
@@ -248,12 +283,6 @@ installed, they should tab-autocomplete.
 
 - Turns off a feature
 
-### `pbb gccode <code>`
-
-- Includes a snippet with tracking code for [GoatCounter] on each page, where
-  the code for the account is `<code>`
-- To turn tracking off, set code to empty with `pbb gccode ''`
-
 ### `pbb build`
 
 - Cleans the `docs` directory, then copies the `images` directory in there
@@ -262,6 +291,7 @@ installed, they should tab-autocomplete.
 - Generates the index file, `index.md`
 - Converts the markdown files with datestamps in their names and `index.md` to
   HTML, copies the results into `docs`
+- Generates an Atom feed for the up to ten most recent posts at `docs/feed.xml`
 
 ### `pbb serve`
 
