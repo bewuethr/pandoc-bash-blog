@@ -8,4 +8,4 @@ changelog:
           - dependencies
     - title: 'GitHub Actions dependencies :shipit:'
       labels:
-        - github_actions
+        - dependencies
