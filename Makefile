@@ -52,6 +52,7 @@ install:
 	$(call checkdep,Python 3,python)
 	$(call checkdep,Bats,bats)
 	$(call checkdep,dot,dot)
+	$(call checkdep,yq,yq)
 	$(call doinstall,pbb,pbb,$(binpath))
 	$(call doinstall,stylesheet,assets/pbb.css,$(csspath))
 	$(call doinstall,calendar icon,assets/calendar.svg,$(iconpath))
