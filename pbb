@@ -371,11 +371,13 @@ buildfeed() {
 	url=$(getconfvalue 'baseurl') \
 	name=$(getconfvalue 'authorname') \
 	email=$(getconfvalue 'authoremail') \
+	icon=$([[ -f docs/favicon.png ]] && echo "/favicon.png") \
 	entries=$(buildentries) \
 		yq --null-input --output-format=xml '
 			.+p_xml = "version=\"1.0\" encoding=\"utf-8\""
 			| .feed = {
 				"+@xmlns": "http://www.w3.org/2005/Atom",
+				"+@xmlns:webfeeds": "http://webfeeds.org/rss/1.0",
 				"title": strenv(title),
 				"id": strenv(url) + "/",
 				"updated": now,
@@ -399,6 +401,11 @@ buildfeed() {
 				"generator": {
 					"+@uri": "https://bewuethr/pandoc-bash-blog",
 					"+content": "pandoc-bash-blog"
+				},
+				"icon": strenv(icon),
+				"webfeeds:icon": strenv(icon),
+				"webfeeds:cover": {
+					"+@image": strenv(icon)
 				},
 				"entry": env(entries)
 			}
