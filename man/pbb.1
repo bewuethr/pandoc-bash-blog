@@ -1,5 +1,5 @@
 .\" ============================================================================
-.TH PBB 1 2022-09-09
+.TH PBB 1 2023-08-10
 .\" ============================================================================
 .SH NAME
 pbb \- Pandoc Bash Blog
@@ -8,17 +8,14 @@ pbb \- Pandoc Bash Blog
 .B pbb init
 .I TITLE
 .br
-.B pbb title
-.I TITLE
+.B pbb set 
+.I PROPERTY VALUE
 .br
 .B pbb enable
 .I FEATURE
 .br
 .B pbb disable
 .I FEATURE
-.br
-.B pbb gccode
-.I CODE
 .br
 .B pbb build
 .br
@@ -58,7 +55,9 @@ directory, creates the header files to be used on every page in the
 .I includes
 directory, generates the
 .I .metadata.yml
-file, and creates an example post with the current date.
+and
+.I .pbbconfig
+files, and creates an example post with the current date.
 .RS
 .PP
 Unquoted whitespace in
@@ -66,10 +65,41 @@ Unquoted whitespace in
 gets squeezed.
 .RE
 .TP
+.BI set\  PROPERTY\ VALUE
+Set
+.I PROPERTY
+to
+.IR VALUE.
+Valid properties are
+.RS
+.TP
 .BI title\  TITLE
 Change the blog title to
 .IR TITLE .
 Unquoted whitespace gets squeezed.
+.TP
+.BI gccode\  CODE
+Include a snippet with tracking code for GoatCounter on each page, where
+.I CODE
+is the code that identifies where you access your GoatCounter account, as in
+.UR https://CODE.goatcounter.com
+.UE .
+.RS
+.PP
+To disable GoatCounter, set the code to the empty string using
+.BR pbb\ gccode\ '' .
+.RE
+.TP
+.BI authorname\  NAME
+.PD 0
+.TP
+.BI authoremail\  EMAIL
+.TP
+.BI baseurl\  URL
+.PD
+Set configuration values used in the Atom feed; the values are stored in
+.IR .pbbconfig .
+.RE
 .TP
 .BI enable\  FEATURE
 .PD 0
@@ -92,18 +122,6 @@ and
 See
 .B OPTIONS
 for details.
-.TP
-.BI gccode\  CODE
-Include a snippet with tracking code for GoatCounter on each page, where
-.I CODE
-is the code that identifies where you access your GoatCounter account, as in
-.UR https://CODE.goatcounter.com
-.UE .
-.RS
-.PP
-To disable GoatCounter, set the code to the empty string using
-.BR pbb\ gccode\ '' .
-.RE
 .TP
 .B build
 Build HTML pages from the provided Markdown input.
@@ -130,6 +148,13 @@ To be processed, a Markdown file has to have a name like
 all these files become separate posts, and a file
 .I index.md
 containing links to all posts is generated to serve as the front page.
+.PP
+For the up to ten most recent posts, an Atom feed is generated using the global
+settings for
+.BR authorname ,\  authoremail ,\ and\  baseurl .
+The summary of each post is taken from the value of the
+.B summary
+YAML front matter for each post.
 .RE
 .TP
 .B serve
@@ -146,23 +171,29 @@ directory, allowing to quickly rebuild a post while working on it and previewing
 it in a browser.
 This is implemented using
 .BR inotifywait (1).
+.RS
+.PP
+Notice that the Atom feed is not updated, so when a change affects the feed,
+.B pbb build
+has to run again for it to be reflected in the feed.
+.RE
 .TP
 .B deploy
 Publish the blog via GitHub Pages.
 This commits all changes in the
-.I artifacts
+.I docs
 directory and pushes to the configured remote.
 .\" ============================================================================
 .SH OPTIONS
 .SS Table of contents
-To generate a table of contents for a post, start the Markdown file with this
-YAML header:
+To generate a table of contents for a post, add this to the YAML front matter of
+the post:
 .PP
 .in +4n
 .EX
 \-\-\-
 toc: true
-\&...
+\-\-\-
 .EE
 .in
 .PP
@@ -228,11 +259,9 @@ digraph G {
 .I .pbbconfig
 Stores configuration settings for the blog such as the blog title and the
 GoatCounter code.
-It should never have to be edited manually; instead, commands such as
-.B pbb title
-and
-.B pbb gccode
-are used to modify its contents.
+It should never have to be edited manually; use
+.B pbb set
+to modify its contents.
 .TP
 .I .metadata.yml
 Stores metadata used by pandoc such as the heading for the table of contents,
@@ -273,8 +302,9 @@ Markdown files:
 .I header.html
 The page header for each post with a link back to the index page.
 .TP
-.I fontlinks.html
-The header links to get the Google Fonts CSS snippets for the fonts used.
+.I headerlinks.html
+The header links to get the Google Fonts CSS snippets for the fonts used, and
+the link to the Atom feed.
 .TP
 .I favicon.html
 The favicon link that gets included if a favicon has been generated.
@@ -328,7 +358,7 @@ To change the title later on, use
 .PP
 .in +4n
 .EX
-pbb title 'My blog with a new title'
+pbb set title 'My blog with a new title'
 .EE
 .in
 .PP
@@ -339,6 +369,11 @@ has generated an example post,
 .PP
 .in +4n
 .EX
+---
+summary: >-
+  A wild post appeared
+---
+
 # My first post
 
 Hello world! :slightly_smiling_face:
@@ -353,12 +388,11 @@ directory.
 To include a dot graph, create a code block with class
 .I dot
 and it wil be replaced with the graph in the output.
-If you want a table of contents for a post, insert a YAML document at the top
-which sets the
+If you want a table of contents for a post, set
 .I toc
-variable to
+to
 .I true
-(see
+in the YAML front matter (see
 .BR OPTIONS ).
 .PP
 To get a favicon, place a picture at
@@ -369,7 +403,17 @@ it.
 To add a GoatCounter tracking code, say,
 .IR CODE ,
 run
-.BR pbb\ gccode\ CODE .
+.BR pbb\ set\ gccode\ CODE .
+.PP
+To set global values for the Atom feed, use
+.PP
+.in +4n
+.EX
+pbb set authorname "Your Name"
+pbb set authoremail you@example.com
+pbb set baseurl https://yourwebsite.com
+.EE
+.in
 .PP
 To enable MathJax, run
 .BR pbb\ enable\ math ,
@@ -394,8 +438,11 @@ git remote add origin https://github.com/<yourname>/<repo-name>.git
 .EE
 .in
 .PP
-Managing version control of the files in the default branch is completely up
-you.
+Managing version control of the blog source files is completely up you, though
+you can mostly let
+.B pbb
+take care of what is in
+.IR docs .
 .\" ============================================================================
 .SH SEE ALSO
 .BR dot (1),\  imagemagick (1),\  inotifywait (1),\  pandoc (1)
