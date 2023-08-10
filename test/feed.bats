@@ -13,9 +13,10 @@ load test_helper
 	yq docs/feed.xml > /dev/null
 
 	# Feed has one entry
-	yq -o=yaml docs/feed.xml
+	yq docs/feed.xml
 	run yq '.feed | has("entry")' docs/feed.xml
 	echo "$output"
+	((status == 0))
 	[[ $output == 'true' ]]
 }
 
@@ -39,4 +40,16 @@ load test_helper
 	cat docs/????-??-??-*.html
 	grep -Fq '<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Testblog Feed">' \
 		docs/????-??-??-*.html
+}
+
+@test "The post summary appears on the feed" {
+	pbb init 'Testblog'
+	pbb build
+
+	yq docs/feed.xml
+	run yq '.feed.entry.summary.+content' docs/feed.xml
+
+	echo "$output"
+	((status == 0))
+	[[ $output = 'A wild post appeared' ]]
 }
