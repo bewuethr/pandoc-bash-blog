@@ -1,0 +1,11 @@
+changelog:
+  categories:
+    - title: 'New features :rocket: and bug fixes :bug:'
+      labels:
+        - '*'
+      exclude:
+        labels:
+          - dependencies
+    - title: 'GitHub Actions dependencies :shipit:'
+      labels:
+        - github_actions
