@@ -343,6 +343,12 @@ buildentry() {
 					"+@src": strenv(url) + "/" + strenv(fname),
 					"+@type": "text/html"
 				},
+				"link": {
+					"+@href": strenv(url) + "/" + strenv(fname),
+					"+@rel": "alternate",
+					"+@type": "text/html",
+					"+@title": strenv(title)
+				},
 				"summary": {
 					"+@type": "html",
 					"+content": strenv(summary)
