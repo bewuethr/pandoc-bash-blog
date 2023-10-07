@@ -30,6 +30,7 @@ div.index-title p {
 
 h1.title {
 	font-size: 2.2em;
+	text-wrap: balance;
 }
 
 a {
