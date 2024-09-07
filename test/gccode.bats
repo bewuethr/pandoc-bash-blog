@@ -1,5 +1,3 @@
-#!/usr/bin/env bats
-
 load test_helper
 
 @test "Complain about gccode without code" {
