@@ -1,5 +1,3 @@
-#!/usr/bin/env bats
-
 load test_helper
 
 @test "Build post with dot graph code block" {

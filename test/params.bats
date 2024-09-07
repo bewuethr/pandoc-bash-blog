@@ -1,5 +1,3 @@
-#!/usr/bin/env bats
-
 @test "Complain about no subcommand" {
 	run pbb
 	((status == 1))
