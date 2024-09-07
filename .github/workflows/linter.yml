@@ -7,6 +7,11 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+  packages: read
+  statuses: write
+
 jobs:
   lint:
     name: Lint code base
