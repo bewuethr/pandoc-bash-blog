@@ -24,6 +24,7 @@ load test_helper
 	cat docs/????-??-??-*.html
 	grep -Pqz 'data-cites="Ritchie1974">\(Ritchie\sand\sThompson\s1974\)' docs/????-??-??-*.html
 
-	# Post contains bibliography
-	grep -q 'id="bibliography".*>Bibliography</h1>' docs/????-??-??-*.html
+	# Post contains bibliography; not a heading until jgm/pandoc#10367 is fixed
+	# grep -q 'id="bibliography".*>Bibliography</h1>' docs/????-??-??-*.html
+	grep -q '<p>Bibliography</p>' docs/????-??-??-*.html
 }
