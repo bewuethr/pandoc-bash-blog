@@ -26,7 +26,14 @@ jobs:
           version: 3.5
 
       - name: Install Bats
+        id: setup-bats
         uses: bats-core/bats-action@3.0.0
+        with:
+          bats-version: v1.11.0
+          support-path: ${{ github.workspace }}/tests/bats-support
+          assert-path: ${{ github.workspace }}/tests/bats-assert
+          detik-path: ${{ github.workspace }}/tests/bats-detik
+          file-path: ${{ github.workspace }}/tests/bats-file
 
       - name: Install other dependencies
         run: |
@@ -39,4 +46,6 @@ jobs:
           echo "::endgroup::"
 
       - name: Run tests
+        env:
+          BATS_LIB_PATH: ${{ steps.setup-bats.outputs.lib-path }}
         run: bats --tap test
