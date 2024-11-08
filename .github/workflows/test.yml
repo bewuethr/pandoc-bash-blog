@@ -25,21 +25,11 @@ jobs:
         with:
           version: 3.5
 
-      - name: Get Bats repository
-        uses: actions/checkout@v4.2.2
-        with:
-          repository: bats-core/bats-core
-          ref: v1.11.0
-          path: bats-core
+      - name: Install Bats
+        uses: bats-core/bats-action@3.0.0
 
-      - name: Install dependencies
+      - name: Install other dependencies
         run: |
-          echo "::group::Install BATS"
-          cd bats-core
-          ./install.sh "$HOME"
-          printf '%s\n' "$HOME/bin" "$HOME/.local/bin" >> "$GITHUB_PATH"
-          echo "::endgroup::"
-
           echo "::group::Install graphviz"
           sudo apt-get install graphviz
           echo "::endgroup::"
