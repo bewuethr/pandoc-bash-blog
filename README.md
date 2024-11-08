@@ -55,18 +55,18 @@ for older versions. `make install` checks if the executables exist, but not
 their versions.
 
 - Bash 5.1.16
-- Pandoc 3.1.6.1
-- Git 2.41.0
+- Pandoc 3.5
+- Git 2.47.0
 - GNU Coreutils 8.32: `cat`, `cp`, `mkdir`, `ln`, `rm`, `tac`
 - GNU Sed 4.8
 - ImageMagick 6.9.11-60 (for favicon)
 - Python 3.10.12 (for `pbb serve`)
 - `inotifywait` from inotify-tools 3.22.1.0 (for hot-reloading during `pbb
   serve`)
-- Bats 1.10.0 (for test suite)
+- Bats 1.11.0 (for test suite)
 - bash-completion 2.11 (for tab completion)
 - graphviz 2.43.0 (for dot graphs)
-- yq 4.34.2
+- yq 4.44.3
 
 In the Makefile, additionally:
 
