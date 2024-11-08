@@ -172,6 +172,9 @@ the `bibliography` feature:
 pbb enable bibliography
 ```
 
+The bibliography is appended to the end of a post. If you want a heading for
+it, just add one to the end of the post.
+
 [`--citeproc`]: <https://pandoc.org/MANUAL.html#citations>
 
 ### dot graphs
