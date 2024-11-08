@@ -140,7 +140,6 @@ init() {
 	printf '%s\n' \
 		'toc: false' \
 		'toc-title: Table of contents' \
-		'reference-section-title: Bibliography' \
 		> "$metadata"
 	git add "$metadata"
 

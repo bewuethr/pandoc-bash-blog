@@ -226,11 +226,8 @@ pandoc documentation
 for details regarding the format and location of the bibliography as well as how
 citations work.
 .PP
-The heading of the bibliography defaults to \*(lqBibliography\*(rq and can be
-adjusted by modifying the value of
-.I reference-section-title
-in
-.IR .metadata.yml .
+If you want a heading for the reference section, add one to the end of the
+Markdown.
 .SS dot graphs
 When a code block has the class
 .IR dot ,
@@ -265,10 +262,9 @@ to modify its contents.
 .TP
 .I .metadata.yml
 Stores metadata used by pandoc such as the heading for the table of contents,
-the field that controls generation of the table of contents (which can be
+and the field that controls generation of the table of contents (which can be
 overridden per post, see
-.BR OPTIONS ),
-and the heading for the bibliography.
+.BR OPTIONS ).
 .TP
 .I assets
 Contains various assets used when the blog is built:
