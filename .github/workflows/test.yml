@@ -29,7 +29,7 @@ jobs:
         id: setup-bats
         uses: bats-core/bats-action@3.0.0
         with:
-          bats-version: v1.11.0
+          bats-version: v1.11.1
           support-path: ${{ github.workspace }}/tests/bats-support
           assert-path: ${{ github.workspace }}/tests/bats-assert
           detik-path: ${{ github.workspace }}/tests/bats-detik
