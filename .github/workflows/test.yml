@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4.2.2
 
       - name: Install Pandoc
-        uses: pandoc/actions/setup@v1.1.0
+        uses: pandoc/actions/setup@v1.1.1
         with:
           version: 3.5
 
