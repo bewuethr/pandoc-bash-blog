@@ -41,7 +41,7 @@ usage() {
 		   init     Initialize new blog in empty Git repository
 		   set      Set configuration property to value; valid properties are
 		            title        New blog title
-		            gccode       GoatCounter code to enable analytics 
+		            gccode       GoatCounter code to enable analytics
 		            baseurl      Base URL for use in Atom feed
 		            authorname   Author name for Atom feed
 		            authoremail  Author email for Atom feed
@@ -198,7 +198,7 @@ md2html() {
 		"--output=docs/${file/%.md/.html}"
 		"--shift-heading-level-by=-1"
 		"--standalone"
-		"--table-of-contents=true"
+		"--table-of-contents"
 		"--to=html"
 		"--toc-depth=4"
 	)
