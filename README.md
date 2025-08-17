@@ -144,6 +144,23 @@ git remote add origin https://github.com/<yourname>/<repo-name>.git
 [pandoc markdown]: <https://pandoc.org/MANUAL.html#pandocs-markdown>
 [my post about it]: <https://benjaminwuethrich.dev/2020-05-04-everything-pandoc-markdown.html>
 
+### GitHub Pages configuration
+
+To deploy via GitHub Pages, configure your repository accordingly:
+
+1. Go to *Settings* > *Pages* (URL looks like
+   `https://github.com/USER/REPO/settings/pages`)
+2. In *Build and deployment* > *Source*, pick "Deploy from branch"
+3. In *Build and deployment* > *Branch*, pick your default branch (often
+   `main`) and `/docs` as the folder
+
+This uses the default build and deploy method for GitHub Pages under the hood.
+`pbb` creates a [`.nojekyll`] file in the `docs` directory, which prevents
+[Jekyll] from being run and instead just deploys the contents as they are.
+
+[`.nojekyll`]: <https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll#troubleshooting-publishing-from-a-branch>
+[jekyll]: <https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll>
+
 ### Table of contents
 
 To get a table of contents for a post, set `toc` to `true` in the YAML front
