@@ -37,6 +37,12 @@ jobs:
 
       - name: Install other dependencies
         run: |
+          sudo apt-get update
+
+          echo "::group::Install imagemagick"
+          sudo apt-get install imagemagick
+          echo "::endgroup::"
+
           echo "::group::Install graphviz"
           sudo apt-get install graphviz
           echo "::endgroup::"
