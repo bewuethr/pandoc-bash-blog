@@ -24,7 +24,7 @@ jobs:
         uses: pandoc/actions/setup@v1.1.1
         with:
           # version: 3.7.0.2
-          version: 3.1.5
+          version: 3.1.4
 
       - name: Install Bats
         id: setup-bats
