@@ -14,7 +14,7 @@ concurrency:
 jobs:
   test:
     name: Run Bats tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Check out code
@@ -23,13 +23,13 @@ jobs:
       - name: Install Pandoc
         uses: pandoc/actions/setup@v1.1.1
         with:
-          version: 3.5
+          version: 3.7.0.2
 
       - name: Install Bats
         id: setup-bats
         uses: bats-core/bats-action@3.0.1
         with:
-          bats-version: v1.11.1
+          bats-version: v1.12.0
           support-path: ${{ github.workspace }}/tests/bats-support
           assert-path: ${{ github.workspace }}/tests/bats-assert
           detik-path: ${{ github.workspace }}/tests/bats-detik
@@ -37,6 +37,12 @@ jobs:
 
       - name: Install other dependencies
         run: |
+          sudo apt-get update
+
+          echo "::group::Install imagemagick"
+          sudo apt-get install imagemagick
+          echo "::endgroup::"
+
           echo "::group::Install graphviz"
           sudo apt-get install graphviz
           echo "::endgroup::"
