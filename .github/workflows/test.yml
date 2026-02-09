@@ -27,7 +27,7 @@ jobs:
 
       - name: Install Bats
         id: setup-bats
-        uses: bats-core/bats-action@3.0.1
+        uses: bats-core/bats-action@4.0.0
         with:
           bats-version: v1.12.0
           support-path: ${{ github.workspace }}/tests/bats-support
